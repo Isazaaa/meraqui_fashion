@@ -1,24 +1,19 @@
-/* Importar fuentes desde Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600&display=swap');
+@import "tailwindcss";
+/* Importar solo Montserrat desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-/* Reset y configuración base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  /* Habilita el desplazamiento suave al hacer clic en enlaces de anclaje */
-  scroll-behavior: smooth;
-}
+/* Importa los estilos CSS de Swiper */
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  color: #333333;
+  font-family: 'Montserrat'; /* Ahora aplica Montserrat globalmente */
+  color: #333333; 
   background-color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-main {
-  /* Evita que el footer se suba si el contenido es corto */
-  min-height: calc(100vh - 150px); /* Ajusta este valor según la altura de tu header y footer */
-}
+

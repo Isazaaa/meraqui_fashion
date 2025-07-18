@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
+import './index.css'; // Aquí importaremos el CSS de Tailwind y tus bases
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes/RouterApp';
 

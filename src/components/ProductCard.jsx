@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const formatPrice = (price) => {
@@ -11,22 +10,30 @@ const ProductCard = ({ product }) => {
     }).format(price);
   };
 
+  // Define una altura fija para el contenedor de la imagen
+  const fixedImageHeight = 'h-56'; // Puedes ajustar este valor (ej: h-48, h-64)
+
   return (
-    <Link to={`/producto/${product.id}`} className="product-card-link">
-      <article className="product-card">
-        <div className="product-image-container">
+    <Link to={`/producto/${product.id}`} className="no-underline text-inherit block h-full">
+      <article className="flex flex-col h-full overflow-hidden group p-2">
+        {/* Contenedor de imagen con altura fija y object-fit: contain */}
+        <div className={`w-full relative overflow-hidden bg-gray-100 flex justify-center items-center rounded-md ${fixedImageHeight}`}>
           {product.image ? (
-            <img src={product.image} alt={product.name} />
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" // Usamos object-contain
+            />
           ) : (
-            <div className="image-placeholder">No Image Available</div>
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-600 text-sm text-center">No Image Available</div>
           )}
         </div>
-        <div className="product-info">
-          <h3>{product.name}</h3>
+        {/* Información centrada debajo de la imagen */}
+        <div className="py-3 px-1.5 text-center flex flex-col flex-grow">
+          <h3 className="text-lg font-semibold text-gray-800 leading-tight mb-1">{product.name}</h3>
           {product.retailPrice && (
-            <span className="product-price">{formatPrice(product.retailPrice)}</span>
+            <span className="text-base font-semibold text-blue-serene">{formatPrice(product.retailPrice)}</span>
           )}
-          <button className="view-product-button">Ver Producto</button>
         </div>
       </article>
     </Link>

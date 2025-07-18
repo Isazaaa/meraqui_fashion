@@ -1,10 +1,8 @@
-import React, { useState } from 'react'; // 1. Importa useState
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
-import './CategoryPage.css';
 
-// 2. Componente simple para la paginación (puedes moverlo a su propio archivo si quieres)
 const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
@@ -12,9 +10,15 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
   }
 
   return (
-    <nav className="pagination-nav">
+    <nav className="flex justify-center items-center mt-12 gap-3">
       {pageNumbers.map(number => (
-        <button key={number} onClick={() => paginate(number)} className={currentPage === number ? 'active' : ''}>
+        <button 
+          key={number} 
+          onClick={() => paginate(number)} 
+          className={`bg-white-custom border border-gray-300 text-blue-serene font-semibold cursor-pointer rounded-lg min-w-[44px] h-[44px] transition-all duration-200
+            hover:bg-gray-100 hover:border-gray-400
+            ${currentPage === number ? 'bg-blue-serene text-white-custom border-blue-serene' : ''}`}
+        >
           {number}
         </button>
       ))}
@@ -22,47 +26,42 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
   );
 };
 
-
 const CategoryPage = () => {
   const { categoryName } = useParams();
   
-  // 3. Lógica de estado y paginación
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 14; // El límite que mencionaste
+  // Considera reducir este número para que la paginación aparezca antes
+  // si hay pocas columnas y las tarjetas son muy grandes.
+  const productsPerPage = 12; // Un número razonable para más grandes (ej. 3 columnas x 4 filas)
 
   const filteredProducts = products.filter(
     (product) => product.category === categoryName
   );
 
-  // Calcular los productos a mostrar en la página actual
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  // Función para cambiar de página
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   const title = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
 
   return (
-    <div className="category-page-container">
-      <header className="category-header">
-        <h1>{title}</h1>
-        <p>Descubre nuestra selección de prendas.</p>
+    <div className="py-8 px-5 md:px-10 lg:px-20 max-w-[1400px] mx-auto">
+      <header className="text-center py-8 md:py-12 border-b border-gray-200 mb-12">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-2">{title}</h1>
+        <p className="text-lg md:text-xl text-gray-600">Descubre nuestra selección de prendas.</p>
       </header>
       
-      <div className="product-grid">
+      {/* Cuadrícula de productos - AJUSTADA PARA TARJETAS MÁS GRANDES */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12 px-0.5"> 
         {currentProducts.length > 0 ? (
-          // 4. Mostramos solo los productos de la página actual
           currentProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))
         ) : (
-          <p>No hay productos en esta categoría por el momento.</p>
+          <p className="col-span-full text-center text-gray-600 text-lg py-20">No hay productos en esta categoría por el momento.</p>
         )}
       </div>
 
-      {/* 5. Mostramos la paginación SOLO si hay más productos que el límite por página */}
       {filteredProducts.length > productsPerPage && (
         <Pagination
           productsPerPage={productsPerPage}
