@@ -7,9 +7,9 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752719642/short-bulberry_ppkqz4.jpg',
 
     // --- CAMPOS NUEVOS Y NECESARIOS ---
-    retailPrice: 50000,
-    wholesalePrice: 40000,
-    specialFabricPrice: 48000,
+    retailPrice: 50000, //Precio Detal
+    wholesalePrice: 40000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
     materials: 'Jogger en burda, camiseta en licra de algodón.',
     sizes: ['S', 'M', 'L', 'XL'] // ¡Este arreglo es el que causa el error si falta!
   },
@@ -20,10 +20,10 @@ export const products = [
     category: 'mujer',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752719573/short-micki_lkrqpn.jpg',
 
-    retailPrice: 50000,
-    wholesalePrice: 40000,
-    specialFabricPrice: 48000,
-    materials: 'Joger en burda y camiseta en licra de algodón',
+    retailPrice: 50000, //Precio Detal
+    wholesalePrice: 40000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
+    materials: 'Short en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },
   
@@ -34,10 +34,10 @@ export const products = [
     category: 'mujer',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752719574/nike-short_q31qp9.jpg',
 
-    retailPrice: 50000,
-    wholesalePrice: 40000,
-    specialFabricPrice: 48000,
-    materials: 'Joger en burda y camiseta en licra de algodón',
+    retailPrice: 50000, //Precio Detal
+    wholesalePrice: 40000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
+    materials: 'Short en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },
 
@@ -48,10 +48,10 @@ export const products = [
     category: 'mujer',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769628/short-oso-ok_tbpxbs.jpg',
 
-    retailPrice: 50000,
-    wholesalePrice: 40000,
-    specialFabricPrice: 48000,
-    materials: 'Joger en burda y camiseta en licra de algodón',
+    retailPrice: 50000, //Precio Detal
+    wholesalePrice: 40000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
+    materials: 'Short en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },
 
@@ -63,10 +63,10 @@ export const products = [
     category: 'mujer',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769573/short-gucci_iob2fd.jpg',
 
-    retailPrice: 50000,
-    wholesalePrice: 40000,
-    specialFabricPrice: 48000,
-    materials: 'Joger en burda y camiseta en licra de algodón',
+    retailPrice: 50000, //Precio Detal
+    wholesalePrice: 40000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
+    materials: 'Short en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },
 
@@ -78,10 +78,10 @@ export const products = [
     category: 'mujer',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769572/short-corazones_efhhda.jpg',
 
-    retailPrice: 50000,
-    wholesalePrice: 40000,
-    specialFabricPrice: 48000,
-    materials: 'Joger en burda y camiseta en licra de algodón',
+    retailPrice: 50000, //Precio Detal
+    wholesalePrice: 40000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
+    materials: 'Short en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },
 
@@ -92,9 +92,9 @@ export const products = [
     category: 'mujer',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769627/short-buzo_ni2lwk.jpg',
 
-    retailPrice: 58000,
-    wholesalePrice: 48000,
-    materials: 'Buso cuello redondo en tela burda licrada',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Tela burda licrada',
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },
 
@@ -105,22 +105,22 @@ export const products = [
     category: 'mujer',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769587/short-buzo-marcas_vnnahh.jpg',
 
-    retailPrice: 58000,
-    wholesalePrice: 48000,
-    materials: 'Buso cuello redondo en tela burda licrada',
+    retailPrice: 58000, // Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Tela burda licrada',
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },
 
       {
     // --- OTRO PRODUCTO COMPLETO ---
     id: 30,
-    name: "Conjunto short + camiseta Nike",
+    name: "Conjunto joger + camiseta NY",
     category: 'hombre',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752764412/conjunto-nike_gxjgxx.jpg',
 
-    retailPrice: 57000,
-    wholesalePrice: 40000,
-    specialFabricPrice: 47000,
+    retailPrice: 57000, //Precio Detal
+    wholesalePrice: 47000, //Precio por mayor
+    specialFabricPrice: 58000, //Precio tela fría
     materials: 'Joger en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },

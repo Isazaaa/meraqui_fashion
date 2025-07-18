@@ -25,7 +25,7 @@ const ProductDetailPage = () => {
 
   const productNameForWhatsApp = encodeURIComponent(product.name);
   const sizeForWhatsApp = selectedSize ? encodeURIComponent(` en talla: ${selectedSize}`) : '';
-  const whatsappLink = `https://wa.me/573001234567?text=¡Hola!%20Estoy%20interesado%20en%20el%20${productNameForWhatsApp}${sizeForWhatsApp}.`;
+  const whatsappLink = `https://wa.me/573205646710?text=¡Hola!%20Estoy%20interesado%20en%20el%20${productNameForWhatsApp}${sizeForWhatsApp}.`;
 
   return (
     <div className="product-detail-container">
@@ -67,8 +67,8 @@ const ProductDetailPage = () => {
           <div className="details-content">
             {product.materials && <p><strong>Materiales:</strong> {product.materials}</p>}
             <ul className="special-prices">
-              {product.specialFabricPrice && <li><strong>Opción Tela Fría:</strong> {formatPrice(product.specialFabricPrice)}</li>}
               {product.wholesalePrice && <li><strong>Al por Mayor (desde 6 unidades):</strong> {formatPrice(product.wholesalePrice)}</li>}
+              {product.specialFabricPrice && <li><strong>Opción Tela Fría:</strong> {formatPrice(product.specialFabricPrice)}</li>}
             </ul>
             <p className="contact-note">Contáctanos por WhatsApp para realizar tus compras.</p>
           </div>

@@ -48,7 +48,7 @@ const CategoryPage = () => {
     <div className="category-page-container">
       <header className="category-header">
         <h1>{title}</h1>
-        <p>Descubre nuestra selección exclusiva de prendas.</p>
+        <p>Descubre nuestra selección de prendas.</p>
       </header>
       
       <div className="product-grid">
