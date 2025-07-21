@@ -3,15 +3,12 @@ import { useParams } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
-// --- MEJOR PRÁCTICA: Pagination se define fuera de CategoryPage ---
-// Así no se vuelve a crear en cada renderizado y el código es más limpio.
 const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
     pageNumbers.push(i);
   }
 
-  // Si solo hay una página o menos, no mostramos los botones.
   if (pageNumbers.length <= 1) {
     return null;
   }
@@ -22,10 +19,15 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
         <button 
           key={number} 
           onClick={() => paginate(number)} 
-          // Clases de Tailwind para los botones de paginación
-          className={`bg-white border border-gray-300 text-blue-serene font-semibold cursor-pointer rounded-lg min-w-[44px] h-[44px] transition-all duration-200
-            hover:bg-gray-100 hover:border-gray-400
-            ${currentPage === number ? 'bg-blue-serene text-white border-blue-serene' : ''}`}
+          className={`
+            bg-white-custom font-semibold cursor-pointer rounded-lg 
+            min-w-[48px] h-[48px] text-lg
+            transition-all duration-300 ease-in-out
+
+            ${currentPage === number 
+              ? 'bg-blue-serene border-4 border-blue-serene text-white-custom shadow-md transform scale-105' // ESTILO ACTIVO MEJORADO: ¡Borde de 4px!
+              : 'bg-white-custom border-2 border-light-gray-meraqui text-blue-serene hover:bg-light-gray-meraqui hover:text-black-meraqui hover:border-black-meraqui'} 
+          `}
         >
           {number}
         </button>
@@ -34,6 +36,7 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
   );
 };
 
+// ... (El resto de CategoryPage.jsx permanece igual)
 
 const CategoryPage = () => {
   const { categoryName } = useParams();
@@ -49,9 +52,6 @@ const CategoryPage = () => {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  // =================================================================
-  // === AQUÍ ESTÁ LA LÍNEA QUE FALTABA: Definimos la función paginate ===
-  // =================================================================
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const title = categoryName ? categoryName.charAt(0).toUpperCase() + categoryName.slice(1) : '';
