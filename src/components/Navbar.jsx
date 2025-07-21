@@ -3,12 +3,14 @@ import { Link, NavLink } from 'react-router-dom';
 import LogoMf from '../assets/logoMF.png';       // El logo que aparece al SCROLL
 import LogoMeraqui from '../assets/meraquilogo.png'; // El logo INICIAL
 
+// Importa los íconos necesarios
+import { FaFemale, FaMale, FaChild } from 'react-icons/fa'; 
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   const handleScroll = () => {
     const offset = window.scrollY;
-    // Trigger scroll effect at 80px
     setScrolled(offset > 80);
   };
 
@@ -36,7 +38,7 @@ const Navbar = () => {
         {scrolled ? ( // AL SCROLL: Muestra LogoMf (el pequeño)
           <Link to="/" className="transition-all duration-500 ease-in-out">
             <img 
-              src={LogoMf} // Aquí usamos LogoMf para el estado 'scrolled'
+              src={LogoMf} 
               alt="Meraqui Fashion Logo Compacto" 
               className="h-10 w-auto transition-all duration-500 ease-in-out opacity-100 scale-100"
             />
@@ -44,32 +46,50 @@ const Navbar = () => {
         ) : ( // INICIAL: Muestra MeraquiLogo (el principal)
           <Link to="/" className="no-underline transition-all duration-500 ease-in-out">
             <img 
-              src={LogoMeraqui} // Aquí usamos LogoMeraqui para el estado INICIAL
+              src={LogoMeraqui} 
               alt="Meraqui Fashion Logo Principal" 
-              className="h-20 w-auto transition-all duration-500 ease-in-out opacity-100 scale-100" // Ajusta h-20 para que sea visible
+              className="h-20 w-auto transition-all duration-500 ease-in-out opacity-100 scale-100" 
             />
           </Link>
         )}
       </div>
       
       <nav className="flex-1 flex justify-end items-center gap-6 md:gap-10">
+        {/* Categoría Mujer */}
         <NavLink 
           to="/categoria/mujer" 
-          className="text-blue-serene font-montserrat font-medium text-base relative pb-2 transition-colors duration-300 hover:text-black-meraqui after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-blue-serene after:transition-all after:duration-300 hover:after:w-full [&.active]:after:w-full [&.active]:text-black-meraqui"
+          className="group flex items-center gap-1 font-montserrat font-medium text-base relative px-3 py-2 -mx-3 rounded-md 
+                     transition-all duration-300 ease-in-out 
+                     text-blue-serene hover:text-black-meraqui 
+                     hover:bg-light-gray-meraqui/30 [&.active]:text-black-meraqui [&.active]:bg-light-gray-meraqui/20" // Nuevo: fondo sutil en hover y activo
         >
-          Mujer
+          <FaFemale className="text-lg transition-colors duration-300 group-hover:text-black-meraqui [&.active]:text-black-meraqui" /> 
+          <span>Mujer</span>
+          {/* La línea inferior se elimina o se transforma en el fondo sutil */}
         </NavLink>
+
+        {/* Categoría Hombre */}
         <NavLink 
           to="/categoria/hombre" 
-          className="text-blue-serene font-montserrat font-medium text-base relative pb-2 transition-colors duration-300 hover:text-black-meraqui after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-blue-serene after:transition-all after:duration-300 hover:after:w-full [&.active]:after:w-full [&.active]:text-black-meraqui"
+          className="group flex items-center gap-1 font-montserrat font-medium text-base relative px-3 py-2 -mx-3 rounded-md 
+                     transition-all duration-300 ease-in-out 
+                     text-blue-serene hover:text-black-meraqui 
+                     hover:bg-light-gray-meraqui/30 [&.active]:text-black-meraqui [&.active]:bg-light-gray-meraqui/20"
         >
-          Hombre
+          <FaMale className="text-lg transition-colors duration-300 group-hover:text-black-meraqui [&.active]:text-black-meraqui" /> 
+          <span>Hombre</span>
         </NavLink>
+
+        {/* Categoría Niños */}
         <NavLink 
           to="/categoria/ninos" 
-          className="text-blue-serene font-montserrat font-medium text-base relative pb-2 transition-colors duration-300 hover:text-black-meraqui after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-blue-serene after:transition-all after:duration-300 hover:after:w-full [&.active]:after:w-full [&.active]:text-black-meraqui"
+          className="group flex items-center gap-1 font-montserrat font-medium text-base relative px-3 py-2 -mx-3 rounded-md 
+                     transition-all duration-300 ease-in-out 
+                     text-blue-serene hover:text-black-meraqui 
+                     hover:bg-light-gray-meraqui/30 [&.active]:text-black-meraqui [&.active]:bg-light-gray-meraqui/20"
         >
-          Niños
+          <FaChild className="text-lg transition-colors duration-300 group-hover:text-black-meraqui [&.active]:text-black-meraqui" /> 
+          <span>Niños</span>
         </NavLink>
       </nav>
     </header>
