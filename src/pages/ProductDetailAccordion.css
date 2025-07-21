@@ -1,0 +1,27 @@
+.accordion-content {
+  padding-top: 1rem;
+  line-height: 1.625;
+  color: #4B5563;
+}
+
+@keyframes bounce-once {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-once {
+  animation: bounce-once 0.3s ease;
+}
+
+.size-button[aria-selected="true"] {
+  background-color: #305f7f !important;
+  border-color: #305f7f !important;
+  color: #ffffff !important;
+}
