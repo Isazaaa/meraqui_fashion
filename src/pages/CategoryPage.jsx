@@ -3,10 +3,17 @@ import { useParams } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
+// --- MEJOR PRÁCTICA: Pagination se define fuera de CategoryPage ---
+// Así no se vuelve a crear en cada renderizado y el código es más limpio.
 const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
     pageNumbers.push(i);
+  }
+
+  // Si solo hay una página o menos, no mostramos los botones.
+  if (pageNumbers.length <= 1) {
+    return null;
   }
 
   return (
@@ -15,9 +22,10 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
         <button 
           key={number} 
           onClick={() => paginate(number)} 
-          className={`bg-white-custom border border-gray-300 text-blue-serene font-semibold cursor-pointer rounded-lg min-w-[44px] h-[44px] transition-all duration-200
+          // Clases de Tailwind para los botones de paginación
+          className={`bg-white border border-gray-300 text-blue-serene font-semibold cursor-pointer rounded-lg min-w-[44px] h-[44px] transition-all duration-200
             hover:bg-gray-100 hover:border-gray-400
-            ${currentPage === number ? 'bg-blue-serene text-white-custom border-blue-serene' : ''}`}
+            ${currentPage === number ? 'bg-blue-serene text-white border-blue-serene' : ''}`}
         >
           {number}
         </button>
@@ -26,13 +34,12 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
   );
 };
 
+
 const CategoryPage = () => {
   const { categoryName } = useParams();
   
   const [currentPage, setCurrentPage] = useState(1);
-  // Considera reducir este número para que la paginación aparezca antes
-  // si hay pocas columnas y las tarjetas son muy grandes.
-  const productsPerPage = 12; // Un número razonable para más grandes (ej. 3 columnas x 4 filas)
+  const productsPerPage = 12;
 
   const filteredProducts = products.filter(
     (product) => product.category === categoryName
@@ -42,7 +49,12 @@ const CategoryPage = () => {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const title = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
+  // =================================================================
+  // === AQUÍ ESTÁ LA LÍNEA QUE FALTABA: Definimos la función paginate ===
+  // =================================================================
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const title = categoryName ? categoryName.charAt(0).toUpperCase() + categoryName.slice(1) : '';
 
   return (
     <div className="py-8 px-5 md:px-10 lg:px-20 max-w-[1400px] mx-auto">
@@ -51,8 +63,7 @@ const CategoryPage = () => {
         <p className="text-lg md:text-xl text-gray-600">Descubre nuestra selección de prendas.</p>
       </header>
       
-      {/* Cuadrícula de productos - AJUSTADA PARA TARJETAS MÁS GRANDES */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12 px-0.5"> 
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12"> 
         {currentProducts.length > 0 ? (
           currentProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
@@ -62,14 +73,12 @@ const CategoryPage = () => {
         )}
       </div>
 
-      {filteredProducts.length > productsPerPage && (
-        <Pagination
-          productsPerPage={productsPerPage}
-          totalProducts={filteredProducts.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
-      )}
+      <Pagination
+        productsPerPage={productsPerPage}
+        totalProducts={filteredProducts.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

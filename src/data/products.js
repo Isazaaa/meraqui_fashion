@@ -111,6 +111,74 @@ export const products = [
     sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
   },
 
+       {
+    // --- OTRO PRODUCTO COMPLETO ---
+    id: 9,
+    name: "Trío short + top + gorra",
+    category: 'mujer',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105488/short-top-nike_rcttx5.jpg',
+
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    materials: 'Tela burda licrada',
+    sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
+  },
+
+       {
+    // --- OTRO PRODUCTO COMPLETO ---
+    id: 10,
+    name: "Trío short + camisilla + gorra",
+    category: 'mujer',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105480/short-camisola_wiskaf.jpg',
+
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    materials: 'Tela burda licrada',
+    sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
+  },
+
+       {
+    // --- OTRO PRODUCTO COMPLETO ---
+    id: 11,
+    name: "Conjunto short + top",
+    category: 'mujer',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105392/short-top-enresortado_ajaqqi.jpg',
+
+    retailPrice: 42000, //Precio Detal
+    wholesalePrice: 32000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
+    materials: 'Tela burda licrada',
+    sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
+  },
+
+         {
+    // --- OTRO PRODUCTO COMPLETO ---
+    id: 12,
+    name: "Conjunto short + top",
+    category: 'mujer',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105392/short-top-enresortado2_xgyrpa.jpg',
+
+    retailPrice: 42000, //Precio Detal
+    wholesalePrice: 32000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
+    materials: 'Tela burda licrada',
+    sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
+  },
+  
+  {
+    // --- OTRO PRODUCTO COMPLETO ---
+    id: 13,
+    name: "Conjunto short + camiseta LA",
+    category: 'mujer',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753108041/short-camiseta-basica_yhy7f2.jpg',
+
+    retailPrice: 50000, //Precio Detal
+    wholesalePrice: 40000, //Precio por mayor
+    specialFabricPrice: 48000, //Precio tela fría
+    materials: 'Short en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL'] // Cada producto debe tener su propio arreglo de tallas
+  },
+
       {
     // --- OTRO PRODUCTO COMPLETO ---
     id: 30,
