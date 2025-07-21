@@ -18,7 +18,7 @@ export const products = [
     id: 2,
     name: "Conjunto short + camiseta Mickey",
     category: 'mujer',
-    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752719573/short-micki_lkrqpn.jpg',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753108576/short-micki_ktrnjd.jpg',
 
     retailPrice: 50000, //Precio Detal
     wholesalePrice: 40000, //Precio por mayor
