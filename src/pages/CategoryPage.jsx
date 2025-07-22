@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useLocation, Link, useSearchParams } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import './CategoryPage.css';
 
 const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -14,20 +15,14 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
   }
 
   return (
-    <nav className="flex justify-center items-center mt-12 gap-3">
+    <nav className="pagination-container">
       {pageNumbers.map(number => (
-        <button 
-          key={number} 
-          onClick={() => paginate(number)} 
-          className={`
-            bg-white-custom font-semibold cursor-pointer rounded-lg 
-            min-w-[48px] h-[48px] text-lg
-            transition-all duration-300 ease-in-out
-
-            ${currentPage === number 
-              ? 'bg-blue-serene border-4 border-blue-serene text-white-custom shadow-md transform scale-105' // ESTILO ACTIVO MEJORADO: ¡Borde de 4px!
-              : 'bg-white-custom border-2 border-light-gray-meraqui text-blue-serene hover:bg-light-gray-meraqui hover:text-black-meraqui hover:border-black-meraqui'} 
-          `}
+        <button
+          key={number}
+          onClick={() => paginate(number)}
+          className={`pagination-button ${currentPage === number ? 'active' : 'inactive'}`}
+          aria-label={`Ir a la página ${number}`}
+          aria-current={currentPage === number ? 'page' : undefined}
         >
           {number}
         </button>
@@ -36,41 +31,171 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
   );
 };
 
-// ... (El resto de CategoryPage.jsx permanece igual)
-
 const CategoryPage = () => {
   const { categoryName } = useParams();
-  
-  const [currentPage, setCurrentPage] = useState(1);
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const productsPerPage = 12;
 
-  const filteredProducts = products.filter(
-    (product) => product.category === categoryName
-  );
+  // Inicializar estados
+  const [currentPage, setCurrentPage] = useState(() => {
+    const queryPage = searchParams.get('page');
+    const savedPage = sessionStorage.getItem(`category_${categoryName}_page`);
+    const statePage = location.state?.currentPage;
+    console.log('Initializing currentPage:', { queryPage, savedPage, statePage });
+    return Number(queryPage) || Number(savedPage) || Number(statePage) || 1;
+  });
+  const [selectedSubcategory, setSelectedSubcategory] = useState(() => {
+    const querySubcategory = searchParams.get('subcategory');
+    const savedSubcategory = sessionStorage.getItem(`category_${categoryName}_subcategory`);
+    const stateSubcategory = location.state?.selectedSubcategory;
+    console.log('Initializing selectedSubcategory:', { querySubcategory, savedSubcategory, stateSubcategory });
+    return querySubcategory || savedSubcategory || stateSubcategory || 'all';
+  });
 
+  // Obtener subcategorías únicas, asegurando que "all" esté primero
+  const subcategories = ['all', ...new Set(products
+    .filter(product => product.category === categoryName)
+    .map(product => product.subcategory)
+    .filter(Boolean)
+  )].sort((a, b) => a === 'all' ? -1 : b === 'all' ? 1 : a.localeCompare(b));
+  console.log('Subcategories for', categoryName, ':', subcategories);
+
+  // Contar productos por subcategoría
+  const subcategoryCounts = subcategories.reduce((acc, subcategory) => {
+    const count = subcategory === 'all'
+      ? products.filter(product => product.category === categoryName).length
+      : products.filter(product => product.category === categoryName && product.subcategory === subcategory).length;
+    return { ...acc, [subcategory]: count };
+  }, {});
+  console.log('Subcategory counts:', subcategoryCounts);
+
+  // Filtrar productos
+  const filteredProducts = products.filter(product =>
+    product.category === categoryName &&
+    (selectedSubcategory === 'all' || product.subcategory === selectedSubcategory)
+  );
+  console.log('Filtered products:', filteredProducts.map(p => ({ id: p.id, name: p.name })));
+
+  // Calcular productos a mostrar
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  console.log('Rendering products for page', currentPage, ':', currentProducts.map(p => ({ id: p.id, name: p.name })));
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Validar currentPage
+  const maxPage = Math.ceil(filteredProducts.length / productsPerPage);
+  console.log('Max pages:', maxPage, 'Current page:', currentPage);
+  useEffect(() => {
+    if (currentPage > maxPage && maxPage > 0) {
+      console.log('Adjusting currentPage from', currentPage, 'to', maxPage);
+      setCurrentPage(maxPage);
+      setSearchParams({ page: maxPage.toString(), subcategory: selectedSubcategory }, { replace: true });
+      sessionStorage.setItem(`category_${categoryName}_page`, maxPage.toString());
+    }
+  }, [currentPage, maxPage, selectedSubcategory, setSearchParams, categoryName]);
 
-  const title = categoryName ? categoryName.charAt(0).toUpperCase() + categoryName.slice(1) : '';
+  // Actualizar query params y sessionStorage
+  useEffect(() => {
+    setSearchParams({ page: currentPage.toString(), subcategory: selectedSubcategory }, { replace: true });
+    sessionStorage.setItem(`category_${categoryName}_page`, currentPage.toString());
+    sessionStorage.setItem(`category_${categoryName}_subcategory`, selectedSubcategory);
+    console.log('Updated query params and sessionStorage:', { currentPage, selectedSubcategory });
+  }, [currentPage, selectedSubcategory, categoryName, setSearchParams]);
+
+  // Resetear estados solo si no hay valores previos
+  useEffect(() => {
+    const queryPage = searchParams.get('page');
+    const querySubcategory = searchParams.get('subcategory');
+    if (!queryPage && !querySubcategory && !sessionStorage.getItem(`category_${categoryName}_page`)) {
+      console.log('No previous state found, resetting for category:', categoryName);
+      setCurrentPage(1);
+      setSelectedSubcategory('all');
+      setSearchParams({ page: '1', subcategory: 'all' }, { replace: true });
+      sessionStorage.setItem(`category_${categoryName}_page`, '1');
+      sessionStorage.setItem(`category_${categoryName}_subcategory`, 'all');
+    }
+  }, [categoryName, setSearchParams]);
+
+  // Restaurar desde location.state
+  useEffect(() => {
+    if (location.state?.currentPage || location.state?.selectedSubcategory) {
+      console.log('Restoring from location.state:', location.state);
+      const maxPage = Math.ceil(filteredProducts.length / productsPerPage);
+      if (location.state?.currentPage && Number(location.state.currentPage) <= maxPage) {
+        setCurrentPage(Number(location.state.currentPage));
+      }
+      if (location.state?.selectedSubcategory && subcategories.includes(location.state.selectedSubcategory)) {
+        setSelectedSubcategory(location.state.selectedSubcategory);
+      }
+    }
+  }, [location.state, filteredProducts.length]);
+
+  const paginate = (pageNumber) => {
+    console.log('Paginating to page:', pageNumber);
+    setCurrentPage(pageNumber);
+    setSearchParams({ page: pageNumber.toString(), subcategory: selectedSubcategory }, { replace: true });
+    sessionStorage.setItem(`category_${categoryName}_page`, pageNumber.toString());
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSubcategoryChange = (subcategory) => {
+    console.log('Changing subcategory to:', subcategory);
+    setSelectedSubcategory(subcategory);
+    setCurrentPage(1);
+    setSearchParams({ page: '1', subcategory: subcategory }, { replace: true });
+    sessionStorage.setItem(`category_${categoryName}_subcategory`, subcategory);
+    sessionStorage.setItem(`category_${categoryName}_page`, '1');
+  };
+
+  const title = categoryName ? categoryName.charAt(0).toUpperCase() + categoryName.slice(1) : 'Categoría';
 
   return (
-    <div className="py-8 px-5 md:px-10 lg:px-20 max-w-[1400px] mx-auto">
-      <header className="text-center py-8 md:py-12 border-b border-gray-200 mb-12">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-2">{title}</h1>
-        <p className="text-lg md:text-xl text-gray-600">Descubre nuestra selección de prendas.</p>
+    <div className="category-page-container">
+      <header className="category-header">
+        <h1 className="category-title">{title}</h1>
+        <p className="category-description">Descubre nuestra selección de prendas.</p>
       </header>
-      
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12"> 
-        {currentProducts.length > 0 ? (
-          currentProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))
-        ) : (
-          <p className="col-span-full text-center text-gray-600 text-lg py-20">No hay productos en esta categoría por el momento.</p>
-        )}
+
+      <div className="subcategory-filters-container">
+        {subcategories.map(subcategory => (
+          <button
+            key={subcategory}
+            onClick={() => handleSubcategoryChange(subcategory)}
+            className={`subcategory-button ${selectedSubcategory === subcategory ? 'active' : 'inactive'}`}
+            aria-label={`Filtrar por ${subcategory === 'all' ? 'todas las subcategorías' : subcategory}`}
+            aria-current={selectedSubcategory === subcategory ? 'true' : 'false'}
+            title={`${subcategory === 'all' ? 'Todos' : subcategory.charAt(0).toUpperCase() + subcategory.slice(1)} (${subcategoryCounts[subcategory]} productos)`}
+          >
+            <span>{subcategory === 'all' ? 'Todos' : subcategory.charAt(0).toUpperCase() + subcategory.slice(1)}</span>
+            <span className="subcategory-count">{subcategoryCounts[subcategory]}</span>
+          </button>
+        ))}
+      </div>
+
+      {currentProducts.length === 0 && (
+        <div className="no-products-message">
+          <p className="no-products-text">Lo sentimos, no hay productos disponibles en esta subcategoría por el momento. 😟</p>
+          <button
+            onClick={() => handleSubcategoryChange('all')}
+            className="no-products-button"
+          >
+            Ver todos los productos
+          </button>
+        </div>
+      )}
+
+      <div className="products-grid">
+        {currentProducts.map((product) => (
+          <Link
+            key={product.id}
+            to={`/producto/${product.id}?page=${currentPage}&subcategory=${encodeURIComponent(selectedSubcategory)}`}
+            state={{ currentPage, selectedSubcategory }}
+            className="product-link"
+          >
+            <ProductCard product={product} />
+          </Link>
+        ))}
       </div>
 
       <Pagination

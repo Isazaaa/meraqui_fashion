@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
@@ -7,6 +7,11 @@ import './ProductDetailAccordion.css';
 const ProductDetailPage = () => {
   const { productId } = useParams();
   const product = products.find(p => p.id == productId);
+
+  // Forzar scroll al inicio al cargar la página
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [productId]);
 
   if (!product) {
     return (
@@ -128,19 +133,9 @@ const ProductDetailPage = () => {
                   {product.wholesalePrice && <li className="mb-1"><strong className="font-semibold text-gray-800">Al por Mayor (desde 6 unidades):</strong> {formatPrice(product.wholesalePrice)}</li>}
                   {product.specialFabricPrice && <li><strong className="font-semibold text-gray-800">Opción Tela Fría:</strong> {formatPrice(product.specialFabricPrice)}</li>}
                 </ul>
-                <p className="text-sm text-gray-500 mt-4">Contáctanos por WhatsApp para realizar tus compras.</p>
+                <p className="text-sm text-gray-600 mt-4">Contáctanos por WhatsApp para realizar tus compras.</p>
               </div>
             </div>
-
-            <details className="py-4 border-t border-gray-200">
-              <summary className="font-semibold text-lg cursor-pointer flex justify-between items-center list-none">
-                Cuidados del Producto
-                <span className="text-xl transform transition-transform duration-400"></span>
-              </summary>
-              <div className="accordion-content pt-4 leading-relaxed text-gray-700">
-                <p>Lavar a máquina en frío con colores similares. No usar blanqueador. Secar a baja temperatura. Planchar a temperatura baja si es necesario.</p>
-              </div>
-            </details>
           </div>
         </div>
       </div>

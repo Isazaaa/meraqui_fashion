@@ -11,8 +11,9 @@ const Footer = () => {
                     <h4 className="text-2xl font-bold mb-4 text-blue-serene">Meraqui Fashion</h4>
                     {/* Texto ahora en blanco-custom para mayor legibilidad */}
                     <p className="text-white-custom text-sm leading-relaxed">
-                        Tu tienda virtual de moda casual, donde cada prenda cuenta una historia. 
-                        Confección y diseño personalizado para expresar tu estilo único.
+                        Tienda virtual de ropa casual con confección, estampado y bordado personalizado.
+                        Ideal para empresas, fechas especiales o emprendedoras.
+                        Calidad, buen precio y envíos a todo el país.
                     </p>
                 </div>
 
@@ -23,7 +24,6 @@ const Footer = () => {
                         <li><Link to="/categoria/mujer" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Mujer</Link></li>
                         <li><Link to="/categoria/hombre" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Hombre</Link></li>
                         <li><Link to="/categoria/ninos" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Niños</Link></li>
-                        <li><Link to="/novedades" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Novedades</Link></li>
                     </ul>
                 </div>
 
@@ -32,13 +32,13 @@ const Footer = () => {
                     <h4 className="text-xl font-bold mb-4 text-white-custom">Contacto</h4>
                     <ul className="space-y-3">
                         <li className="flex items-center text-white-custom text-sm">
-                            <FaWhatsapp className="text-blue-serene mr-3 text-lg" /> 
+                            <FaWhatsapp className="text-blue-serene mr-3 text-lg" />
                             <a href="https://wa.me/573205646710?text=¡Hola!%20Vengo%20de%20la%20página%20web%20de%20Meraqui%20Fashion." target="_blank" rel="noopener noreferrer" className="hover:text-blue-serene transition-colors duration-300">
                                 +57 320 564 6710
                             </a>
                         </li>
                         <li className="flex items-center text-white-custom text-sm">
-                            <FaEnvelope className="text-blue-serene mr-3 text-lg" /> 
+                            <FaEnvelope className="text-blue-serene mr-3 text-lg" />
                             <a href="mailto:info@meraquifashion.com" className="hover:text-blue-serene transition-colors duration-300">
                                 info@meraquifashion.com
                             </a>
@@ -50,8 +50,8 @@ const Footer = () => {
                 <div className="footer-section">
                     <h4 className="text-xl font-bold mb-4 text-white-custom">Conéctate</h4>
                     <div className="flex space-x-4 mb-6">
-                        <a href="https://www.instagram.com/meraquifashion/" target="_blank" rel="noopener noreferrer" 
-                           className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-3xl">
+                        <a href="https://www.instagram.com/meraquifashion/" target="_blank" rel="noopener noreferrer"
+                            className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-3xl">
                             <FaInstagram />
                         </a>
                     </div>
@@ -63,7 +63,7 @@ const Footer = () => {
                     </ul>
                 </div>
             </div>
-            
+
             <div className="text-center pt-8 text-gray-400 text-xs">
                 {/* Texto "Desarrollado por" con enlace a StelarCode.com */}
                 <p>&copy; {new Date().getFullYear()} Meraqui Fashion. Todos los derechos reservados. | Desarrollado por{" "}
