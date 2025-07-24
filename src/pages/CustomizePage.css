@@ -1,0 +1,309 @@
+/* src/styles/CustomizePage.css */
+
+/* Variables CSS */
+:root {
+    --blue-serene: #4A90E2;
+    --light-gray-meraqui: #E2E8F0;
+    --black-meraqui: #1A202C;
+    --white-custom: #FFFFFF;
+
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    --blue-hover: #3a7fd0;
+    --gray-hover: #F3F4F6;
+    --green-whatsapp: #25D366;
+    --green-whatsapp-hover: #1DAE54;
+}
+
+/* Base de la página */
+.customize-page {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc; /* Un gris muy claro */
+}
+
+/* Contenedor principal de la tarjeta */
+.customize-page > div {
+    background-color: var(--white-custom);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-2xl);
+    padding: 2rem;
+}
+
+@media (min-width: 768px) {
+    .customize-page > div {
+        padding: 3rem;
+    }
+}
+
+/* Títulos y subtítulos */
+.customize-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #1a202c; /* black-meraqui */
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .customize-title {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .customize-title {
+        font-size: 3.75rem;
+    }
+}
+
+.customize-subtitle {
+    font-size: 1.125rem;
+    color: #4a5568; /* gray-600 */
+    text-align: center;
+    margin-bottom: 2.5rem;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Contenedor de la cuadrícula (preview + controls) */
+.customize-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+    .customize-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4rem;
+    }
+}
+
+/* Contenedor de previsualización */
+.customize-preview-container {
+    position: relative;
+    background-color: #f7fafc; /* gray-100 */
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    min-height: 500px; /* Altura mínima para mantener consistencia */
+}
+
+.customize-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.customize-image-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* transition: all 0.3s ease-in-out; */ /* No transición en la imagen base para evitar flashes */
+}
+
+/* Estampado de diseño */
+.customize-stamp {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px dashed rgba(156, 163, 175, 0.8); /* gray-400 con opacidad para ser más sutil */
+    opacity: 0.9; /* Menos transparente para mejor visibilidad */
+    position: absolute;
+    cursor: grab;
+    box-sizing: border-box;
+    /* Transiciones para suavizar movimiento y redimensionamiento */
+    transition: border-color 0.2s ease-in-out;
+}
+
+.customize-stamp:active {
+    cursor: grabbing;
+    border-color: var(--blue-serene); /* Resaltar borde cuando está activo */
+}
+
+/* Puntos de redimensionamiento */
+.resize-handle {
+    position: absolute;
+    width: 18px; /* ligeramente más grande */
+    height: 18px;
+    background-color: var(--blue-serene);
+    border: 2px solid var(--white-custom);
+    border-radius: 50%;
+    cursor: se-resize;
+    z-index: 20;
+    box-shadow: var(--shadow-sm);
+}
+
+.resize-handle.bottom-right {
+    bottom: -9px; /* La mitad del tamaño del handle */
+    right: -9px;
+}
+
+
+/* Contenedor de controles */
+.customize-controls-container {
+    padding: 1.5rem 2rem;
+    background-color: #fefefe; /* Un blanco más puro */
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid #f0f0f0; /* Un borde más claro */
+}
+
+/* Secciones de control */
+.customize-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb; /* gray-200 */
+}
+
+.customize-section:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.customize-section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937; /* gray-900 */
+    margin-bottom: 1rem;
+}
+
+/* Opciones de botones */
+.customize-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.customize-option-button {
+    flex-grow: 1;
+    min-width: 80px;
+    max-width: fit-content;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #d1d5db; /* gray-200 */
+    font-weight: 500;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background-color: var(--white-custom);
+    color: #4b5563; /* gray-700 */
+    text-align: center;
+    box-shadow: var(--shadow-sm); /* Sombra sutil por defecto */
+}
+
+.customize-option-button:hover {
+    background-color: var(--gray-hover);
+    border-color: var(--blue-serene);
+    color: var(--blue-serene);
+    transform: translateY(-2px); /* Pequeña elevación en hover */
+    box-shadow: var(--shadow-md); /* Sombra más grande en hover */
+}
+
+.customize-option-button.active {
+    background-color: var(--blue-serene);
+    color: var(--white-custom);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.05);
+    border-color: var(--blue-serene);
+}
+
+/* Subida de archivo */
+.customize-file-upload-label {
+    background-color: var(--blue-serene);
+    color: var(--white-custom);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.customize-file-upload-label:hover {
+    background-color: var(--blue-hover);
+    transform: translateY(-2px);
+}
+
+.customize-file-upload-label svg {
+    margin-right: 0.5rem;
+}
+
+.customize-file-input {
+    display: none;
+}
+
+/* Botón de enviar por WhatsApp */
+.customize-submit-button {
+    background-color: var(--green-whatsapp);
+    color: var(--white-custom);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    box-shadow: var(--shadow-md); /* Sombra por defecto */
+}
+
+.customize-submit-button:hover:not(:disabled) {
+    background-color: var(--green-whatsapp-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg); /* Sombra más grande en hover */
+}
+
+.customize-submit-button:disabled {
+    background-color: #9CA3AF;
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Placeholder para la previsualización */
+.customize-preview-container .text-gray-500 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(243, 244, 246, 0.8);
+    border-radius: inherit;
+    font-weight: 500;
+}
+
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .customize-preview-container {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 640px) {
+    .customize-preview-container {
+        min-height: 350px;
+    }
+}
+
+/* Nuevo estilo para el botón de descarga */
+.customize-download-button {
+    background-color: var(--blue-serene); /* O el color que prefieras, ej. un gris */
+    color: var(--white-custom);
+    box-shadow: var(--shadow-md);
+}
+
+.customize-download-button:hover {
+    background-color: var(--blue-hover); /* Un tono más oscuro en hover */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
