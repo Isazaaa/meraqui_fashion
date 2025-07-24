@@ -1,3 +1,4 @@
+/* src/index.css */
 @import "tailwindcss";
 /* Importar solo Montserrat desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
@@ -9,10 +10,32 @@
 
 
 body {
-  font-family: 'Montserrat'; /* Ahora aplica Montserrat globalmente */
+  font-family: 'Montserrat', 'sans-serif'; /* Ahora aplica Montserrat globalmente */
   color: #333333; 
   background-color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Opcional: Personaliza los botones de navegación y paginación de Swiper con Tailwind */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffffff !important; 
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 1;
+}
+
+.swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.6) !important; 
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #305f7f !important; 
+  opacity: 1 !important;
+}
