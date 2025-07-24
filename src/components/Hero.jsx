@@ -1,34 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const Hero = () => {
   const slides = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1558296796-0158a4f001b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      title: 'Tu Estilo, Tus Reglas',
-      subtitle: 'Diseña tu prenda única con estampado y bordado personalizado.',
-      ctaText: '¡Empieza a Personalizar!',
-      ctaLink: '/customizePage',
+      image:
+        "https://images.unsplash.com/photo-1558296796-0158a4f001b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Tu Estilo, Tus Reglas",
+      subtitle: "Diseña tu prenda única con estampado y bordado personalizado.",
+      ctaText: "¡Empieza a Personalizar!",
+      ctaLink: "/customizePage",
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1551803091-e373c5d67ba3?auto=format&fit=crop&q=80&w=1964',
-      title: 'Viste con intención, define tu estilo',
-      subtitle: 'Descubre prendas únicas que cuentan tu historia.',
+      image:
+        "https://images.unsplash.com/photo-1551803091-e373c5d67ba3?auto=format&fit=crop&q=80&w=1964",
+      title: "Viste con intención, define tu estilo",
+      subtitle: "Descubre prendas únicas que cuentan tu historia.",
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1596756857999-906d9bf3c9ac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      title: 'Moda que se adapta a tu ritmo',
-      subtitle: 'Confección, estampado y bordado personalizado para ti.',
+      image:
+        "https://images.unsplash.com/photo-1596756857999-906d9bf3c9ac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Moda que se adapta a tu ritmo",
+      subtitle: "Confección, estampado y bordado personalizado para ti.",
     },
   ];
 
@@ -69,17 +72,17 @@ const Hero = () => {
                     to={slide.ctaLink}
                     className="inline-block py-3 px-6 rounded-full uppercase font-semibold text-base md:text-lg tracking-wide border-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105"
                     style={{
-                      backgroundColor: '#FFFFFF', // blanco por defecto
-                      color: '#305f7f', // azul meraqui por defecto
-                      borderColor: '#305f7f',
+                      backgroundColor: "#FFFFFF", // blanco por defecto
+                      color: "#305f7f", // azul meraqui por defecto
+                      borderColor: "#305f7f",
                     }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.backgroundColor = '#305f7f';
-                      e.currentTarget.style.color = '#FFFFFF';
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "#305f7f";
+                      e.currentTarget.style.color = "#FFFFFF";
                     }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.backgroundColor = '#FFFFFF';
-                      e.currentTarget.style.color = '#305f7f';
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "#FFFFFF";
+                      e.currentTarget.style.color = "#305f7f";
                     }}
                   >
                     {slide.ctaText}
