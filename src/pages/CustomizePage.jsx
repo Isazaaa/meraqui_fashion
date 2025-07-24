@@ -1,133 +1,199 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import './CustomizePage.css';
+import './CustomizePage.css'; // Asegúrate de que este archivo CSS existe
+
+// Definición de las prendas con la nueva estructura de colores (nombre y valor HEX)
+const garments = [
+  {
+    id: 1,
+    name: 'Camiseta',
+    colors: [
+      { name: 'Blanco', value: '#FFFFFF' },
+      { name: 'Negro', value: '#000000' },
+      { name: 'Azul Claro', value: '#3498DB' },
+      { name: 'Rojo', value: '#E74C3C' },
+      { name: 'Verde', value: '#2ECC71' },
+      { name: 'Amarillo', value: '#F1C40F' },
+      { name: 'Rosa', value: '#FFC0CB' },
+      { name: 'Morado', value: '#9B59B6' },
+    ],
+    sizes: ['S', 'M', 'L', 'XL'],
+    imageUrlPrefix: 'camiseta'
+  },
+  {
+    id: 2,
+    name: 'Buso',
+    colors: [
+      { name: 'Blanco', value: '#FFFFFF' },
+      { name: 'Gris', value: '#95A5A6' },
+      { name: 'Negro', value: '#000000' },
+      { name: 'Azul Oscuro', value: '#2C3E50' },
+      { name: 'Verde Militar', value: '#7F8C8D' },
+      { name: 'Marrón', value: '#8B4513' },
+    ],
+    sizes: ['S', 'M', 'L', 'XL'],
+    imageUrlPrefix: 'buso'
+  },
+  {
+    id: 3,
+    name: 'Blusón',
+    colors: [
+      { name: 'Blanco', value: '#FFFFFF' },
+      { name: 'Rojo', value: '#C0392B' },
+      { name: 'Azul', value: '#2980B9' },
+      { name: 'Rosa Pálido', value: '#FADADD' },
+      { name: 'Verde Menta', value: '#ABEBC6' },
+    ],
+    sizes: ['S', 'M', 'L', 'XL'],
+    imageUrlPrefix: 'bluson'
+  },
+];
+
 
 const CustomizePage = () => {
-  const garments = [
-    { id: 1, name: 'Camiseta', colors: ['Blanco', 'Negro', 'Azul'], sizes: ['S', 'M', 'L', 'XL'], imageUrlPrefix: 'camiseta' },
-    { id: 2, name: 'Buso', colors: ['Blanco', 'Gris', 'Negro'], sizes: ['S', 'M', 'L', 'XL'], imageUrlPrefix: 'buso' },
-    { id: 3, name: 'Blusón', colors: ['Blanco', 'Rojo', 'Azul'], sizes: ['S', 'M', 'L', 'XL'], imageUrlPrefix: 'bluson' },
-  ];
-
   const [selectedGarment, setSelectedGarment] = useState(garments[0]);
+  // selectedColor ahora guarda el OBJETO completo { name: 'Blanco', value: '#FFFFFF' }
   const [selectedColor, setSelectedColor] = useState(garments[0].colors[0]);
   const [selectedSize, setSelectedSize] = useState(garments[0].sizes[0]);
   const [selectedGender, setSelectedGender] = useState('Hombre');
   const [selectedLocation, setSelectedLocation] = useState('Frente');
-  const [uploadedImage, setUploadedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(null); // URL Base64 de la imagen subida
 
+  // Estados para la manipulación del diseño (posición y tamaño)
   const [designPosition, setDesignPosition] = useState({ x: 0, y: 0 });
-  const [designSize, setDesignSize] = useState({ width: 200, height: 200 });
+  const [designSize, setDesignSize] = useState({ width: 200, height: 200 }); // Tamaño inicial por defecto
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [resizeStartMouse, setResizeStartMouse] = useState({ x: 0, y: 0 });
-  const [resizeStartSize, setResizeStartSize] = useState({ width: 0, height: 0 });
-  const [resizeStartPos, setResizeStartPos] = useState({ x: 0, y: 0 });
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 }); // Offset inicial para arrastre
+  const [resizeStartMouse, setResizeStartMouse] = useState({ x: 0, y: 0 }); // Posición del mouse al iniciar redimensionamiento
+  const [resizeStartSize, setResizeStartSize] = useState({ width: 0, height: 0 }); // Tamaño del diseño al iniciar redimensionamiento
+  const [resizeStartPos, setResizeStartPos] = useState({ x: 0, y: 0 }); // Posición del diseño al iniciar redimensionamiento
 
-  const fileInputRef = useRef(null);
-  const garmentImageWrapperRef = useRef(null);
-  const designStampRef = useRef(null);
-  const garmentImageRef = useRef(null);
+  // Refs para elementos DOM para obtener dimensiones y manejar eventos
+  const fileInputRef = useRef(null); // Input de tipo file
+  const garmentImageWrapperRef = useRef(null); // Contenedor del espacio de previsualización de la prenda
+  const designStampRef = useRef(null); // Div del diseño adjuntado (el que se arrastra/redimensiona)
+  const garmentImageRef = useRef(null); // Imagen base de la prenda (para el canvas)
 
-  // Efecto para centrar y ajustar tamaño inicial del diseño
+
+  // Efecto para centrar y ajustar tamaño inicial del diseño CUANDO SE SUBE UNA IMAGEN
   useEffect(() => {
-    if (uploadedImage && garmentImageWrapperRef.current) { // designStampRef.current is not needed here as it might not be rendered yet
+    // Solo se ejecuta si hay una imagen subida y el contenedor de la prenda está renderizado
+    if (uploadedImage && garmentImageWrapperRef.current) {
       const garmentRect = garmentImageWrapperRef.current.getBoundingClientRect();
       
+      // Cargar la imagen subida para obtener sus dimensiones reales y calcular el aspecto
       const img = new Image();
       img.src = uploadedImage;
       img.onload = () => {
         const aspectRatio = img.width / img.height;
+        // Calcular un tamaño inicial que sea el 50% del ancho del contenedor o 200px (el menor)
         let initialWidth = Math.min(garmentRect.width * 0.5, 200);
         let initialHeight = initialWidth / aspectRatio;
 
+        // Si la altura calculada es demasiado grande para el contenedor, ajustar por altura
         if (initialHeight > garmentRect.height * 0.5) {
             initialHeight = Math.min(garmentRect.height * 0.5, 200);
             initialWidth = initialHeight * aspectRatio;
         }
 
+        // Asegurarse de que el tamaño mínimo sea respetado
+        initialWidth = Math.max(initialWidth, 20); // Mínimo de 20px
+        initialHeight = Math.max(initialHeight, 20); // Mínimo de 20px
+
         setDesignSize({ width: initialWidth, height: initialHeight });
+
+        // Centrar el diseño en el contenedor de la prenda
         setDesignPosition({
           x: (garmentRect.width / 2) - (initialWidth / 2),
           y: (garmentRect.height / 2) - (initialHeight / 2),
         });
       };
     }
-  }, [uploadedImage, garmentImageWrapperRef]);
+  }, [uploadedImage, garmentImageWrapperRef]); // Dependencias: se dispara cuando `uploadedImage` o el contenedor cambian
 
-  // Manejar la subida de imagen
+
+  // Manejar la subida de imagen desde el input de archivo
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
-      if (file.size > 5 * 1024 * 1024) {
+      if (file.size > 5 * 1024 * 1024) { // Límite de 5MB
         alert('La imagen excede el tamaño máximo de 5MB. Por favor, sube una imagen más pequeña.');
         return;
       }
       const reader = new FileReader();
       reader.onload = () => {
-        setUploadedImage(reader.result);
+        setUploadedImage(reader.result); // Guarda la URL Base64 de la imagen
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file); // Lee el archivo como URL Base64
     } else {
       alert('Formato de imagen no válido. Por favor, sube una imagen en formato JPG o PNG.');
-      setUploadedImage(null);
+      setUploadedImage(null); // Limpia la imagen si el formato no es válido
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        fileInputRef.current.value = ''; // Limpia el input de archivo
       }
     }
   };
 
   // --- Lógica de Arrastre (Drag) ---
   const handleMouseDown = useCallback((e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evita la selección de texto o el arrastre de imagen nativo
+    // Solo inicia el arrastre si el clic es directamente en el div del diseño (no en los handles)
     if (designStampRef.current && e.target === designStampRef.current) {
       setIsDragging(true);
+      // Calcula el offset desde el clic hasta la esquina superior izquierda del diseño
       setDragOffset({
         x: e.clientX - designPosition.x,
         y: e.clientY - designPosition.y,
       });
     }
-  }, [designPosition]);
+  }, [designPosition]); // Depende de la posición actual del diseño
 
+  // --- Lógica de Movimiento del Mouse (para arrastre y redimensionamiento) ---
   const handleMouseMove = useCallback((e) => {
     if (isDragging && garmentImageWrapperRef.current && designStampRef.current) {
-      const garmentRect = garmentImageWrapperRef.current.getBoundingClientRect();
-      const designRect = designStampRef.current.getBoundingClientRect();
+      const garmentRect = garmentImageWrapperRef.current.getBoundingClientRect(); // Dimensiones del contenedor de la prenda
+      const designRect = designStampRef.current.getBoundingClientRect(); // Dimensiones actuales del diseño
 
-      let newX = e.clientX - dragOffset.x;
-      let newY = e.clientY - dragOffset.y;
+      let newX = e.clientX - dragOffset.x; // Nueva posición X
+      let newY = e.clientY - dragOffset.y; // Nueva posición Y
 
+      // Limitar el arrastre dentro de los límites del contenedor de la prenda
       newX = Math.max(0, Math.min(newX, garmentRect.width - designRect.width));
       newY = Math.max(0, Math.min(newY, garmentRect.height - designRect.height));
 
       setDesignPosition({ x: newX, y: newY });
     } else if (isResizing && garmentImageWrapperRef.current && designStampRef.current) {
-      const garmentRect = garmentImageWrapperRef.current.getBoundingClientRect();
-      const dx = e.clientX - resizeStartMouse.x;
-      const dy = e.clientY - resizeStartMouse.y;
+      const garmentRect = garmentImageWrapperRef.current.getBoundingClientRect(); // Dimensiones del contenedor de la prenda
+      
+      const dx = e.clientX - resizeStartMouse.x; // Cambio en X desde el inicio del redimensionamiento
+      const dy = e.clientY - resizeStartMouse.y; // Cambio en Y desde el inicio del redimensionamiento
 
-      let newWidth = resizeStartSize.width + dx;
-      let newHeight = resizeStartSize.height + dy;
+      let newWidth = resizeStartSize.width + dx; // Nuevo ancho tentativo
+      let newHeight = resizeStartSize.height + dy; // Nueva altura tentativa
 
+      // Mantener la relación de aspecto del diseño
       const aspectRatio = resizeStartSize.width / resizeStartSize.height;
-      if (aspectRatio && !isNaN(aspectRatio)) {
-          if (Math.abs(dx) > Math.abs(dy)) {
+      if (aspectRatio && !isNaN(aspectRatio) && isFinite(aspectRatio)) { // Asegurar que aspectRatio es un número válido y no Infinity
+          if (Math.abs(dx) > Math.abs(dy)) { // Si el movimiento horizontal es mayor, ajustar altura
             newHeight = newWidth / aspectRatio;
-          } else {
+          } else { // Si el movimiento vertical es mayor, ajustar ancho
             newWidth = newHeight * aspectRatio;
           }
       }
 
-      const minSize = 20;
-      const maxWidth = garmentRect.width * 0.9;
-      const maxHeight = garmentRect.height * 0.9;
+      // Limitar el tamaño mínimo y máximo del diseño
+      const minSize = 20; // Tamaño mínimo de 20px
+      const maxWidth = garmentRect.width * 0.9; // Máximo 90% del ancho del contenedor
+      const maxHeight = garmentRect.height * 0.9; // Máximo 90% del alto del contenedor
 
       newWidth = Math.max(minSize, Math.min(newWidth, maxWidth));
       newHeight = Math.max(minSize, Math.min(newHeight, maxHeight));
 
+      // Ajustar la posición para que el diseño no se salga del contenedor al crecer
       let newX = resizeStartPos.x;
       let newY = resizeStartPos.y;
 
+      // Si el diseño crece más allá del límite derecho o inferior, ajusta su posición
       if (newX + newWidth > garmentRect.width) {
         newX = garmentRect.width - newWidth;
       }
@@ -136,15 +202,18 @@ const CustomizePage = () => {
       }
 
       setDesignSize({ width: newWidth, height: newHeight });
-      setDesignPosition({ x: newX, y: newY });
+      setDesignPosition({ x: newX, y: newY }); // Actualizar posición también
     }
   }, [isDragging, dragOffset, isResizing, resizeStartMouse, resizeStartSize, resizeStartPos, garmentImageWrapperRef, designStampRef]);
 
+  // --- Lógica al Soltar el Mouse (terminar arrastre/redimensionamiento) ---
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
     setIsResizing(false);
   }, []);
 
+  // Efecto para añadir y limpiar los listeners de mouse al documento completo
+  // Esto es crucial para que el arrastre/redimensionamiento funcione incluso si el cursor se sale del elemento
   useEffect(() => {
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
@@ -153,42 +222,52 @@ const CustomizePage = () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [handleMouseMove, handleMouseUp]);
+  }, [handleMouseMove, handleMouseUp]); // Depende de las funciones de manejo de mouse
 
+
+  // --- Lógica para Iniciar Redimensionamiento ---
   const handleResizeMouseDown = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault(); // Evita comportamiento por defecto
+    e.stopPropagation(); // Evita que el evento se propague al diseño (para no arrastrar al redimensionar)
     setIsResizing(true);
-    setResizeStartMouse({ x: e.clientX, y: e.clientY });
-    setResizeStartSize({ width: designSize.width, height: designSize.height });
-    setResizeStartPos({ x: designPosition.x, y: designPosition.y });
+    setResizeStartMouse({ x: e.clientX, y: e.clientY }); // Posición del mouse al inicio
+    setResizeStartSize({ width: designSize.width, height: designSize.height }); // Tamaño actual del diseño
+    setResizeStartPos({ x: designPosition.x, y: designPosition.y }); // Posición actual del diseño
   }, [designSize, designPosition]);
+
 
   // --- FUNCIÓN CENTRAL: Generar la imagen combinada (retorna dataUrl) ---
   const generateCombinedImage = async () => {
+    // Verificar que todos los elementos necesarios estén disponibles
     if (!uploadedImage || !garmentImageRef.current || !designStampRef.current || !garmentImageWrapperRef.current) {
       alert('Por favor, sube un diseño para generar la imagen.');
-      return null;
+      return null; // Retorna null si no se puede generar
     }
 
-    const garmentImgElement = garmentImageRef.current;
-    const garmentWrapperRect = garmentImageWrapperRef.current.getBoundingClientRect();
+    const garmentImgElement = garmentImageRef.current; // La imagen <img> de la prenda
+    const garmentWrapperRect = garmentImageWrapperRef.current.getBoundingClientRect(); // Dimensiones del contenedor que la muestra
 
+    // Crear un elemento canvas temporal en memoria
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
+    // Establecer el tamaño del canvas al tamaño visual de la imagen de la prenda
+    // Esto es crucial para que la imagen generada coincida con lo que el usuario ve
     const renderWidth = garmentImgElement.clientWidth;
     const renderHeight = garmentImgElement.clientHeight;
 
     canvas.width = renderWidth;
     canvas.height = renderHeight;
 
+    // Dibujar la imagen de la prenda en el canvas
     const garmentImage = new Image();
-    garmentImage.crossOrigin = 'Anonymous';
+    garmentImage.crossOrigin = 'Anonymous'; // Importante para evitar problemas de CORS si la imagen viene de otro dominio
     garmentImage.src = garmentImgElement.src;
 
+    // Esperar a que la imagen de la prenda cargue antes de dibujarla
     await new Promise((resolve) => {
       garmentImage.onload = () => {
+        // Calcular cómo dibujar la imagen de la prenda en el canvas para que se vea igual que en el DOM (object-contain)
         const imgAspectRatio = garmentImage.width / garmentImage.height;
         const canvasAspectRatio = canvas.width / canvas.height;
 
@@ -197,29 +276,40 @@ const CustomizePage = () => {
         let offsetX = 0;
         let offsetY = 0;
 
-        if (imgAspectRatio > canvasAspectRatio) {
+        if (imgAspectRatio > canvasAspectRatio) { // Imagen más ancha que el canvas
           drawHeight = canvas.width / imgAspectRatio;
           offsetY = (canvas.height - drawHeight) / 2;
-        } else {
+        } else { // Imagen más alta que el canvas
           drawWidth = canvas.height * imgAspectRatio;
           offsetX = (canvas.width - drawWidth) / 2;
         }
 
         ctx.drawImage(garmentImage, offsetX, offsetY, drawWidth, drawHeight);
-        resolve();
+        resolve(); // Resuelve la promesa cuando la imagen cargue
       };
       garmentImage.onerror = () => {
-        console.error("Error al cargar la imagen de la prenda para el canvas.");
-        resolve();
+        console.error("Error al cargar la imagen de la prenda para el canvas. Se usará placeholder.");
+        // Opcional: dibujar placeholder si falla
+        const placeholderImg = new Image();
+        placeholderImg.src = '/images/placeholder.jpg';
+        placeholderImg.onload = () => {
+          ctx.drawImage(placeholderImg, 0, 0, canvas.width, canvas.height);
+          resolve();
+        };
+        placeholderImg.onerror = () => resolve(); // Resolver incluso si el placeholder falla
       };
     });
 
+    // Dibujar el diseño del usuario encima de la prenda
     const designImage = new Image();
-    designImage.crossOrigin = 'Anonymous';
+    designImage.crossOrigin = 'Anonymous'; // Importante para CORS
     designImage.src = uploadedImage;
 
+    // Esperar a que la imagen del diseño cargue
     await new Promise((resolve) => {
       designImage.onload = () => {
+        // Calcular la posición y el tamaño del diseño en relación con el canvas
+        // (escalando las coordenadas de React al tamaño del canvas)
         const scaleX = canvas.width / garmentWrapperRect.width;
         const scaleY = canvas.height / garmentWrapperRect.height;
 
@@ -237,27 +327,34 @@ const CustomizePage = () => {
       };
     });
 
-    return canvas.toDataURL('image/png');
+    // Retornar la URL de la imagen combinada
+    return canvas.toDataURL('image/png'); // O 'image/jpeg' con un segundo parámetro para calidad (ej. 0.9)
   };
 
-  // --- NUEVA FUNCIÓN: Manejar Descarga de Diseño ---
+  // --- NUEVA FUNCIÓN: Manejar la descarga del diseño personalizado ---
   const handleDownloadDesign = async () => {
-    const dataUrl = await generateCombinedImage();
+    if (!uploadedImage) {
+      alert('Por favor, sube tu diseño para poder descargarlo.');
+      return;
+    }
+    const dataUrl = await generateCombinedImage(); // Generar la imagen
     if (dataUrl) {
+      // Crear un enlace temporal para la descarga
       const a = document.createElement('a');
       a.href = dataUrl;
-      a.download = `mi-diseño-personalizado-${selectedGarment.name.toLowerCase()}-${selectedColor.toLowerCase()}.png`;
+      a.download = `mi-diseño-personalizado-${selectedGarment.name.toLowerCase()}-${selectedColor.name.toLowerCase()}.png`;
       document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      alert('¡Diseño descargado! Ahora puedes adjuntarlo a tu mensaje de WhatsApp.');
+      a.click(); // Simular clic para iniciar la descarga
+      document.body.removeChild(a); // Eliminar el enlace temporal
+      // No alert aquí, el texto al lado del botón lo explica
     }
   };
 
-  // --- FUNCIÓN ORIGINAL: Generar enlace de WhatsApp (solo texto) ---
+  // --- FUNCIÓN PARA GENERAR EL ENLACE DE WHATSAPP (solo texto) ---
   const generateWhatsAppLink = () => {
     const productName = encodeURIComponent(selectedGarment.name);
-    const color = encodeURIComponent(selectedColor);
+    // ¡CORRECCIÓN AQUÍ! Acceder a .name del objeto selectedColor
+    const color = encodeURIComponent(selectedColor.name);
     const size = encodeURIComponent(selectedSize);
     const gender = encodeURIComponent(selectedGender);
     const location = encodeURIComponent(selectedLocation);
@@ -266,11 +363,14 @@ const CustomizePage = () => {
     return `https://wa.me/573205646710?text=${encodeURIComponent(message)}`;
   };
 
-  // Función para obtener la imagen de la prenda base
+  // Función para obtener la URL de la imagen de la prenda base
   const getGarmentImage = () => {
     const garmentName = selectedGarment.imageUrlPrefix || selectedGarment.name.toLowerCase();
     const gender = selectedGender.toLowerCase();
-    const color = selectedColor.toLowerCase();
+    // ¡CORRECCIÓN AQUÍ! Acceder a .name del objeto selectedColor
+    const color = selectedColor.name.toLowerCase();
+    // La vista se basa en la selectedLocation. Si es 'Espalda', usa 'espalda', de lo contrario 'frente'.
+    // Esto es para que las mangas se vean en la vista frontal de la prenda base.
     const view = (selectedLocation === 'Espalda') ? 'espalda' : 'frente';
 
     const imagePath = `/images/${garmentName}-${gender}-${color}-${view}.jpg`;
@@ -291,32 +391,36 @@ const CustomizePage = () => {
           {/* Sección de previsualización */}
           <div className="customize-preview-container bg-gray-100 rounded-xl overflow-hidden shadow-inner flex items-center justify-center p-4 relative">
             <div ref={garmentImageWrapperRef} className="customize-image-wrapper relative w-full h-[500px] flex items-center justify-center">
+              {/* Imagen de la prenda base */}
               <img
-                ref={garmentImageRef}
-                src={getGarmentImage()}
-                alt={`${selectedGarment.name} ${selectedGender} ${selectedColor} ${selectedLocation}`}
+                ref={garmentImageRef} // Referencia para el canvas
+                src={getGarmentImage()} // Usa la función para obtener la URL de la imagen
+                alt={`${selectedGarment.name} ${selectedGender} ${selectedColor.name} ${selectedLocation}`}
                 className="w-auto h-full object-contain transition-all duration-300 ease-in-out"
-                onError={(e) => {
+                onError={(e) => { // En caso de que la imagen no cargue, usa un placeholder
                   e.target.src = '/images/placeholder.jpg';
                   e.target.alt = "Imagen no disponible";
                 }}
               />
-              {uploadedImage && (
+              {/* Div para el diseño adjuntado (arrastrable y redimensionable) */}
+              {uploadedImage && ( // Solo muestra el diseño si hay una imagen subida
                 <div
-                  ref={designStampRef}
-                  className="customize-stamp absolute bg-contain bg-no-repeat bg-center border-2 border-dashed border-gray-400 opacity-80"
+                  ref={designStampRef} // Referencia para la manipulación
+                  className="customize-stamp absolute bg-contain bg-no-repeat bg-center border-2 border-dashed border-gray-400 opacity-90"
                   style={{
-                    backgroundImage: `url(${uploadedImage})`,
-                    left: designPosition.x,
-                    top: designPosition.y,
-                    width: designSize.width,
-                    height: designSize.height,
+                    backgroundImage: `url(${uploadedImage})`, // El diseño subido como fondo
+                    left: designPosition.x, // Posición X dinámica
+                    top: designPosition.y, // Posición Y dinámica
+                    width: designSize.width, // Ancho dinámico
+                    height: designSize.height, // Alto dinámico
                   }}
-                  onMouseDown={handleMouseDown}
+                  onMouseDown={handleMouseDown} // Inicia el arrastre
                 >
+                  {/* Handle para redimensionar en la esquina inferior derecha */}
                   <div className="resize-handle bottom-right" onMouseDown={handleResizeMouseDown}></div>
                 </div>
               )}
+              {/* Mensaje si no hay diseño subido */}
               {!uploadedImage && (
                   <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-base md:text-lg p-4 bg-gray-100 bg-opacity-80 rounded-xl">
                       <p className="text-center">Sube tu diseño para verlo aquí</p>
@@ -327,7 +431,7 @@ const CustomizePage = () => {
 
           {/* Sección de controles */}
           <div className="customize-controls-container p-6 md:p-8 bg-gray-50 rounded-xl shadow-lg border border-gray-100">
-            {/* Sección de subida de imagen */}
+            {/* Sección 1: Sube tu diseño */}
             <div className="customize-section mb-8 border-b pb-6 border-gray-200">
                 <h2 className="customize-section-title font-bold text-xl text-gray-900 mb-4">1. Sube tu diseño</h2>
                 <label htmlFor="file-upload" className="customize-file-upload-label flex items-center justify-center py-3 px-6 bg-blue-serene text-white rounded-lg shadow-md hover:bg-blue-600 cursor-pointer transition-colors duration-300">
@@ -356,7 +460,7 @@ const CustomizePage = () => {
                 )}
             </div>
 
-            {/* Resto de secciones de control (Prenda, Color, Género, Talla, Ubicación) */}
+            {/* Sección 2: Elige tu prenda */}
             <div className="customize-section mb-6">
                 <h2 className="customize-section-title font-bold text-xl text-gray-900 mb-4">2. Elige tu prenda</h2>
                 <div className="customize-options flex flex-wrap gap-3">
@@ -370,6 +474,7 @@ const CustomizePage = () => {
                             }`}
                             onClick={() => {
                                 setSelectedGarment(garment);
+                                // Al cambiar de prenda, el color y la talla se resetean al primer valor de la nueva prenda
                                 setSelectedColor(garment.colors[0]);
                                 setSelectedSize(garment.sizes[0]);
                             }}
@@ -380,25 +485,36 @@ const CustomizePage = () => {
                 </div>
             </div>
 
+            {/* Sección 3: Elige el color (usando muestras de color) */}
             <div className="customize-section mb-6">
-                <h2 className="customize-section-title font-bold text-xl text-gray-900 mb-4">3. Elige el color</h2>
-                <div className="customize-options flex flex-wrap gap-3">
-                    {selectedGarment.colors.map((color) => (
-                        <button
-                            key={color}
-                            className={`customize-option-button ${
-                                selectedColor === color
-                                    ? 'active'
-                                    : ''
-                            }`}
-                            onClick={() => setSelectedColor(color)}
-                        >
-                            {color}
-                        </button>
-                    ))}
-                </div>
+              <h2 className="customize-section-title font-bold text-xl text-gray-900 mb-4">3. Elige el color</h2>
+              <div className="customize-options flex flex-wrap gap-3 max-h-40 overflow-y-auto pr-2 custom-scroll"> {/* max-h y overflow para scroll si hay muchos */}
+                {selectedGarment.colors.map((color) => (
+                  <div
+                    key={color.name}
+                    className={`customize-color-swatch-container relative cursor-pointer transition-all duration-200 ease-in-out group ${
+                      selectedColor.name === color.name ? 'active' : ''
+                    }`}
+                    onClick={() => setSelectedColor(color)}
+                    title={color.name} // Tooltip al pasar el mouse
+                  >
+                    <div
+                      className="customize-color-swatch w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center transition-all duration-200 ease-in-out"
+                      style={{ backgroundColor: color.value }} // Usa el valor HEX para el color de fondo
+                    >
+                      {/* Ícono de "check" para el color seleccionado */}
+                      {selectedColor.name === color.name && (
+                        <svg className="w-5 h-5 text-white stroke-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 13l4 4L19 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
+            {/* Sección 4: Elige el género */}
             <div className="customize-section mb-6">
                 <h2 className="customize-section-title font-bold text-xl text-gray-900 mb-4">4. Elige el género</h2>
                 <div className="customize-options flex flex-wrap gap-3">
@@ -418,6 +534,7 @@ const CustomizePage = () => {
                 </div>
             </div>
 
+            {/* Sección 5: Elige la talla */}
             <div className="customize-section mb-6">
                 <h2 className="customize-section-title font-bold text-xl text-gray-900 mb-4">5. Elige la talla</h2>
                 <div className="customize-options flex flex-wrap gap-3">
@@ -437,6 +554,7 @@ const CustomizePage = () => {
                 </div>
             </div>
 
+            {/* Sección 6: Ubicación del diseño */}
             <div className="customize-section mb-8">
                 <h2 className="customize-section-title font-bold text-xl text-gray-900 mb-4">6. Ubicación del diseño</h2>
                 <div className="customize-options flex flex-wrap gap-3">
@@ -456,25 +574,26 @@ const CustomizePage = () => {
                 </div>
             </div>
 
-            {/* NUEVO APARTADO: Descargar y WhatsApp */}
-            {uploadedImage && (
+            {/* Sección 7: Finaliza tu diseño (Descarga + WhatsApp) */}
+            {uploadedImage && ( // Solo muestra esta sección si hay un diseño subido
                 <div className="customize-section mb-8 border-b pb-6 border-gray-200">
                     <h2 className="customize-section-title font-bold text-xl text-gray-900 mb-4">7. Finaliza tu diseño</h2>
                     <p className="text-sm text-gray-600 mb-4 text-center">
-                        Si deseas que tu pedido incluya la imagen de cómo quieres tu diseño, descárgala aquí y adjúntala manualmente en WhatsApp.
+                        Si deseas que tu pedido incluya la imagen de cómo quieres tu diseño, descárgala aquí y adjúntala manualmente en WhatsApp:
                     </p>
+                    {/* Botón para descargar el diseño personalizado */}
                     <button
                         className="customize-download-button block w-full text-white text-center py-3 rounded-lg no-underline text-lg font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 mb-4"
-                        onClick={handleDownloadDesign}
+                        onClick={handleDownloadDesign} // Llama a la función de descarga
                     >
                         <div className="flex items-center justify-center gap-2">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 0 003 3h10a3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             <span>Descargar Diseño Personalizado</span>
                         </div>
                     </button>
 
                     <p className="text-sm text-gray-600 mb-4 text-center">
-                        O, si prefieres solo enviar los detalles, haz clic en el botón de WhatsApp:
+                        O, si prefieres solo enviar los detalles (sin imagen), haz clic en el botón de WhatsApp:
                     </p>
                 </div>
             )}
@@ -484,8 +603,8 @@ const CustomizePage = () => {
               className={`customize-submit-button block w-full text-white text-center py-4 rounded-lg no-underline text-xl font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 uploadedImage ? 'bg-[#25D366] hover:bg-[#1DAE54]' : 'bg-gray-400 opacity-70 cursor-not-allowed'
               }`}
-              disabled={!uploadedImage}
-              onClick={() => window.open(generateWhatsAppLink(), '_blank')}
+              disabled={!uploadedImage} // Deshabilitado si no hay imagen subida
+              onClick={() => window.open(generateWhatsAppLink(), '_blank')} // Abre WhatsApp con el mensaje de texto
             >
               <div className="flex items-center justify-center gap-2">
                 <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

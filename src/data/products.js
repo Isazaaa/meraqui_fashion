@@ -77,7 +77,7 @@ export const products = [
     id: 7,
     name: "Conjunto short + buso cuello redondo",
     category: 'mujer',
-    subcategory: 'Buso',
+    subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769627/short-buzo_ni2lwk.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
@@ -88,7 +88,7 @@ export const products = [
     id: 8,
     name: "Conjunto short + buso cuello redondo",
     category: 'mujer',
-    subcategory: 'Buso',
+    subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769587/short-buzo-marcas_vnnahh.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
@@ -99,7 +99,7 @@ export const products = [
     id: 9,
     name: "Trío short + top + gorra NY",
     category: 'mujer',
-    subcategory: 'Top',
+    subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105488/short-top-nike_rcttx5.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
@@ -110,7 +110,7 @@ export const products = [
     id: 10,
     name: "Trío short + camisilla + gorra NY",
     category: 'mujer',
-    subcategory: 'Camisilla',
+    subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105480/short-camisola_wiskaf.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
@@ -121,7 +121,7 @@ export const products = [
     id: 11,
     name: "Conjunto short + top",
     category: 'mujer',
-    subcategory: 'Top',
+    subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105392/short-top-enresortado_ajaqqi.jpg',
     retailPrice: 42000, //Precio Detal
     wholesalePrice: 32000, //Precio por mayor
@@ -133,7 +133,7 @@ export const products = [
     id: 12,
     name: "Conjunto short + top",
     category: 'mujer',
-    subcategory: 'Top',
+    subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105392/short-top-enresortado2_xgyrpa.jpg',
     retailPrice: 42000, //Precio Detal
     wholesalePrice: 32000, //Precio por mayor
