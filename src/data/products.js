@@ -75,7 +75,7 @@ export const products = [
   },
   {
     id: 7,
-    name: "Conjunto short + buso cuello redondo",
+    name: "Conjunto short + buzo cuello redondo",
     category: 'mujer',
     subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769627/short-buzo_ni2lwk.jpg',
@@ -86,7 +86,7 @@ export const products = [
   },
   {
     id: 8,
-    name: "Conjunto short + buso cuello redondo",
+    name: "Conjunto short + buzo cuello redondo",
     category: 'mujer',
     subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752769587/short-buzo-marcas_vnnahh.jpg',
@@ -368,8 +368,83 @@ export const products = [
     materials: 'Bota ancha en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
-
-
+ {
+    id: 32,
+    name: "Trio joger + top Balenciaga + gorra NY",
+    category: 'mujer',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753478207/rib-balenciaga_qqclxd.jpg',
+    retailPrice: 62000, //Precio Detal
+    wholesalePrice: 52000, //Precio por mayor
+    materials: 'Joger en burda y top tela rib',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+ {
+    id: 33,
+    name: "Trio joger + top + gorra NY",
+    category: 'mujer',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753478210/rib-sinlogo_x1kah5.jpg',
+    retailPrice: 62000, //Precio Detal
+    wholesalePrice: 52000, //Precio por mayor
+    materials: 'Joger en burda y top tela rib',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 34,
+    name: "Trio joger + body + gorra NY",
+    category: 'mujer',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753478217/body-NY_p9weog.jpg',
+    retailPrice: 60000, //Precio Detal
+    wholesalePrice: 50000, //Precio por mayor
+    materials: 'Joger en burda y body en suplex',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 35,
+    name: "Trio joger + camiseta basica + gorra",
+    category: 'mujer',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753478206/joger-camisabasica_dqawp4.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger en burda y body en suplex',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 36,
+    name: "Conjunto buzo cuello redondo + beiker New york",
+    category: 'mujer',
+    subcategory: 'Beiker',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753478216/beiker-newyork_owhguw.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Buzo cuello redondo en burda y beiker en suplex',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 37,
+    name: "Conjunto joger cargo + camiseta Florida",
+    category: 'mujer',
+    subcategory: 'Joger cargo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753478206/cargo-florida_vu3w2g.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger cargo en burda y camiseta en licra de algodon',
+    sizes: ['S-M', 'L-XL']
+  },
+     {
+    id: 38,
+    name: "Conjunto joger cargo + camiseta",
+    category: 'mujer',
+    subcategory: 'Joger cargo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753478206/cargo-florida_vu3w2g.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger cargo en burda y camiseta en licra de algodon',
+    sizes: ['S-M', 'L-XL']
+  },
 
 
 
