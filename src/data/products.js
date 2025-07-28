@@ -439,12 +439,89 @@ export const products = [
     name: "Conjunto joger cargo + camiseta",
     category: 'mujer',
     subcategory: 'Joger cargo',
-    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753478206/cargo-florida_vu3w2g.jpg',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753724397/cargo-camisas-varias_kmwroa.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
     materials: 'Joger cargo en burda y camiseta en licra de algodon',
     sizes: ['S-M', 'L-XL']
   },
+     {
+    id: 39,
+    name: "Conjunto joger cargo + camiseta Burberry",
+    category: 'mujer',
+    subcategory: 'Joger cargo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753724383/cargo-burberry_r5crzj.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger cargo en burda y camiseta en licra de algodon',
+    sizes: ['S-M', 'L-XL']
+  },
+     {
+    id: 40,
+    name: "Conjunto joger cargo + camisilla",
+    category: 'mujer',
+    subcategory: 'Joger cargo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753724398/cargo-camisilla-florida_u4f5wv.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger cargo en burda y camisilla en tela rib',
+    sizes: ['S-M', 'L-XL']
+  },
+     {
+    id: 41,
+    name: "Conjunto joger cargo + camisilla",
+    category: 'mujer',
+    subcategory: 'Joger cargo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753724398/cargo-camisilla_yqm1dm.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger cargo en burda y camisilla en tela rib',
+    sizes: ['S-M', 'L-XL']
+  },
+       {
+    id: 42,
+    name: "Conjunto joger cargo + camiseta",
+    category: 'mujer',
+    subcategory: 'Joger cargo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753724404/cargo-marcas_rpbgkw.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger cargo en burda y camiseta en licra de algodon',
+    sizes: ['S-M', 'L-XL']
+  },
+       {
+    id: 43,
+    name: "Conjunto joger cargo + camiseta Osos",
+    category: 'mujer',
+    subcategory: 'Joger cargo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753724383/cargo-osos_y3reib.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger cargo en burda y camiseta en licra de algodon',
+    sizes: ['S-M', 'L-XL']
+  },
+       {
+    id: 44,
+    name: "Conjunto joger cargo + camiseta Gucci",
+    category: 'mujer',
+    subcategory: 'Joger cargo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753724400/cargo-gucci_p4zsj2.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    materials: 'Joger cargo en burda y camiseta en licra de algodon',
+    sizes: ['S-M', 'L-XL']
+  },
+        {
+      id: 45,
+      name: "Conjunto joger cargo + camiseta Be mine",
+      category: 'mujer',
+      subcategory: 'Joger cargo',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753724383/cargo-bemine_vzravz.jpg',
+      retailPrice: 58000, //Precio Detal
+      wholesalePrice: 48000, //Precio por mayor
+      materials: 'Joger cargo en burda y camiseta en licra de algodon',
+      sizes: ['S-M', 'L-XL']
+    },
 
 
 
@@ -460,7 +537,7 @@ export const products = [
 
 
   {
-    id: 40,
+    id: 70,
     name: "Conjunto joger + camiseta NY",
     category: 'hombre',
     subcategory: 'Joger',
