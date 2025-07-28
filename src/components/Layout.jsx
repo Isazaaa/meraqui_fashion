@@ -1,18 +1,14 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const Layout = () => {
   return (
     <>
       <Navbar />
-      {/* Ajusta el padding-top del main para compensar el header fijo y dinámico.
-          El valor 'pt-28' es un valor seguro que cubre la altura máxima del navbar.
-          En pantallas más pequeñas (md), el navbar es más pequeño, puedes ajustar si es necesario.
-          Considera la altura del navbar grande (aprox. h-28 = 112px) y la del navbar encogido (h-16 = 64px).
-      */}
-      <main className="min-h-[calc(100vh-12rem)] pt-28 md:pt-28"> 
+      {/* Elimina el padding-top solo en móvil, mantén en desktop/tablet */}
+      <main className="min-h-[calc(100vh-12rem)] pt-0 sm:pt-28">
         <Outlet />
       </main>
       <Footer />
@@ -24,7 +20,11 @@ const Layout = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/800px-WhatsApp.svg.png" alt="Contactar por WhatsApp" className="w-9 h-auto" />
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/800px-WhatsApp.svg.png"
+          alt="Contactar por WhatsApp"
+          className="w-9 h-auto"
+        />
       </a>
     </>
   );
