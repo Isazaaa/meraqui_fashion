@@ -58,7 +58,7 @@ const Navbar = () => {
             ? "py-3 h-16 bg-white/80 backdrop-blur-md scrolled-gradient"
             : "py-8 h-28 bg-white/90"
         }
-        px-8 md:px-10
+        px-4 md:px-8 lg:px-10
         hidden sm:flex
       `}
       >
@@ -71,11 +71,8 @@ const Navbar = () => {
             <FaPaintBrush className="nav-category-icon" />
             <span>Personalizar</span>
           </NavLink>
-          <span
-            className="navbar-slogan"
-            title="Haz clic aquí para personalizar tu prenda"
-          >
-            ¡Haz clic aquí y personaliza tu estilo!
+          <span className="navbar-slogan" title="Personaliza tu prenda">
+            ¡Personaliza tu prenda!
           </span>
         </div>
         <div className="flex-2 flex justify-center items-center overflow-hidden relative">
