@@ -1,66 +1,143 @@
 /* src/components/Navbar.css */
 
-
 /* Cuando el header NO está scrolleado, aseguramos que el degradado esté oculto */
 header:not(.scrolled-gradient)::after {
-  opacity: 0;
+    opacity: 0;
 }
-
 
 /* --- Estilos para los botones de navegación de categorías (Mujer, Hombre, Niños) --- */
 .nav-category-link {
-  /* Estilos base del enlace */
-  display: flex;
-  align-items: center;
-  gap: 0.25rem; /* gap-1 en Tailwind */
-  font-family: 'Montserrat', sans-serif; /* Ya se hereda del body, pero lo dejamos explícito por si acaso */
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.5rem 0.75rem; /* py-2 px-3 en Tailwind */
-  margin: 0 -0.75rem; /* -mx-3 en Tailwind, para compensar el padding */
-  border-radius: 0.375rem; /* rounded-md en Tailwind */
-  position: relative;
-  overflow: hidden; /* Oculta el ::before cuando está fuera */
-  z-index: 0; /* Asegura que el ::before esté detrás del texto/icono */
-  text-decoration: none; /* Quita el subrayado */
-  color: #305f7f; /* text-blue-serene */
-  transition: color 0.3s ease; /* Transición para el color del texto */
+    /* Estilos base del enlace */
+    display: flex;
+    align-items: center;
+    gap: 0.25rem; /* gap-1 en Tailwind */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem; /* py-2 px-3 en Tailwind */
+    margin: 0 -0.75rem; /* -mx-3 en Tailwind, para compensar el padding */
+    border-radius: 0.375rem; /* rounded-md en Tailwind */
+    position: relative;
+    overflow: hidden; /* Oculta el ::before cuando está fuera */
+    z-index: 0; /* Asegura que el ::before esté detrás del texto/icono */
+    text-decoration: none; /* Quita el subrayado */
+    color: #305f7f; /* text-blue-serene */
+    transition: color 0.3s ease; /* Transición para el color del texto */
 }
-
 
 /* Pseudo-elemento para el fondo animado */
 .nav-category-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #C2C6C8; /* light-gray-meraqui */
-  z-index: -1; /* Asegura que esté detrás del contenido */
-  transform: scaleX(0); /* Inicialmente invisible horizontalmente */
-  transform-origin: left; /* La expansión comienza desde la izquierda */
-  transition: transform 0.3s ease-out; /* Animación de expansión */
-  opacity: 0.3; /* Opacidad sutil */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #C2C6C8; /* light-gray-meraqui */
+    z-index: -1; /* Asegura que esté detrás del contenido */
+    transform: scaleX(0); /* Inicialmente invisible horizontalmente */
+    transform-origin: left; /* La expansión comienza desde la izquierda */
+    transition: transform 0.3s ease-out; /* Animación de expansión */
+    opacity: 0.3; /* Opacidad sutil */
 }
 
 /* Estado hover */
 .nav-category-link:hover::before {
-  transform: scaleX(1); /* Se expande al 100% al hacer hover */
-  transform-origin: left;
+    transform: scaleX(1); /* Se expande al 100% al hacer hover */
+    transform-origin: left;
 }
 
 /* Estado activo */
 .nav-category-link.active::before {
-  transform: scaleX(1); /* También se expande al 100% cuando está activo */
-  transform-origin: left;
-  background-color: #C2C6C8; /* Mismo color o ligeramente diferente si lo deseas */
-  opacity: 0.4; /* Ligeramente más opaco que el hover para distinguirlo */
+    transform: scaleX(1); /* También se expande al 100% cuando está activo */
+    transform-origin: left;
+    background-color: #C2C6C8; /* Mismo color o ligeramente diferente si lo deseas */
+    opacity: 0.4; /* Ligeramente más opaco que el hover para distinguirlo */
 }
 
 /* Estilos para los iconos dentro del enlace */
 .nav-category-icon {
-  font-size: 1.125rem; /* text-lg */
-  transition: color 0.3s ease; /* Transición para el color del icono */
-  color: #305f7f; /* text-blue-serene */
+    font-size: 1.125rem; /* text-lg */
+    transition: color 0.3s ease; /* Transición para el color del icono */
+    color: #305f7f; /* text-blue-serene */
+}
+
+/* --- Estilos específicos para el botón "Personalizar" en el Navbar --- */
+.nav-category-link[href="/customizePage"] {
+    background-color: var(--blue-serene); /* Color principal: azul Meraqui */
+    color: var(--white-custom); /* Texto blanco */
+    padding: 0.6rem 1.2rem; /* Mantener padding para destacar */
+    border-radius: 9999px; /* Bordes redondos (pill shape) */
+    box-shadow: var(--shadow-md); /* Sombra inicial sutil */
+    transition: all 0.3s ease-in-out;
+    border: 2px solid var(--blue-serene); /* Borde azul inicial (mismo color que el fondo) */
+    /* Eliminar cualquier estilo de color o fondo que pudiera estar en la clase de Tailwind */
+    /* Dejamos las clases de Tailwind 'group' y 'hover:text-black-meraqui [&.active]:text-black-meraqui' en JSX
+       para el comportamiento general, pero el CSS específico sobrescribirá el color del texto. */
+    text-decoration: none; /* Asegurar que no tenga subrayado */
+}
+
+.nav-category-link[href="/customizePage"]:hover {
+    background-color: var(--white-custom); /* Fondo blanco al pasar el ratón */
+    color: var(--blue-serene); /* Texto azul al pasar el ratón */
+    border-color: var(--blue-serene-dark); /* Borde azul oscuro para un contraste */
+    transform: translateY(-2px) scale(1.02); /* Pequeño levantamiento y escalado */
+    box-shadow: 0 0 15px rgba(74, 144, 226, 0.6); /* Sombra con brillo azul para resaltar */
+}
+
+.nav-category-link[href="/customizePage"].active {
+    background-color: var(--white-custom); /* Fondo blanco cuando está activo */
+    color: var(--blue-serene); /* Texto azul cuando está activo */
+    border-color: var(--blue-serene-dark); /* Borde azul oscuro para mantener el contraste */
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.8); /* Sombra más pronunciada al estar activo */
+    transform: scale(1.05); /* Más grande si está activo */
+}
+
+/* Ajuste para el icono dentro del botón Personalizar */
+.nav-category-link[href="/customizePage"] .nav-category-icon {
+    color: var(--white-custom); /* Color blanco del icono por defecto */
+    transition: color 0.3s ease;
+}
+
+.nav-category-link[href="/customizePage"]:hover .nav-category-icon {
+    color: var(--blue-serene); /* Color azul del icono al pasar el ratón */
+}
+
+.nav-category-link[href="/customizePage"].active .nav-category-icon {
+    color: var(--blue-serene); /* Color azul del icono cuando está activo */
+}
+
+/* Ajuste para que el botón "Personalizar" se adapte cuando el navbar se encoge */
+header.scrolled-gradient .nav-category-link[href="/customizePage"] {
+    padding: 0.4rem 0.8rem; /* Ajustar padding cuando el navbar se encoge */
+    font-size: 0.9rem; /* Ajustar tamaño de fuente */
+}
+
+
+/* --- Regla para controlar los logos en móvil --- */
+@media (max-width: 768px) { /* Por ejemplo, para pantallas menores a md */
+    header .flex-2 .h-20.opacity-100 { /* Selecciona el logo grande cuando está visible */
+        opacity: 0 !important;
+        transform: scale(0) !important;
+        position: absolute !important; /* Asegura que no ocupe espacio */
+    }
+
+    header .flex-2 .h-10.opacity-0 { /* Selecciona el logo pequeño cuando está oculto */
+        opacity: 100 !important;
+        transform: scale(1) !important;
+        position: relative !important; /* Lo hace visible y ocupa su espacio normal */
+    }
+
+    /* Asegúrate de que el contenedor del logo también tenga un tamaño adecuado en móvil */
+    header .flex-2 {
+        height: 40px; /* Altura fija para el logo pequeño */
+        width: auto;
+    }
+
+    /* Ajuste el padding del header para móvil si es necesario */
+    header:not(.scrolled) { /* Cuando no está scrolleado en móvil */
+        padding-top: 0.75rem; /* py-3 */
+        padding-bottom: 0.75rem; /* py-3 */
+        height: 64px; /* h-16 */
+    }
 }

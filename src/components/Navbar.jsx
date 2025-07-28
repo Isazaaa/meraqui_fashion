@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import LogoMf from "../assets/logoMF.png"; // El logo que aparece al SCROLL (pequeño)
-import LogoMeraqui from "../assets/meraquilogo.png"; // El logo INICIAL (grande)
+import LogoMf from "../assets/logoMF.png"; 
+import LogoMeraqui from "../assets/meraquilogo.png"; 
 
-import { FaFemale, FaMale, FaChild } from "react-icons/fa";
+import { FaFemale, FaMale, FaChild, FaPaintBrush } from "react-icons/fa"; // Importa FaPaintBrush
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -35,7 +35,7 @@ const Navbar = () => {
     `}
     >
       <div className="flex-1 flex justify-start items-center">
-        {/* Space for mobile menu icon if needed */}
+        {/* Este div puede usarse para un futuro menú hamburguesa en móviles */}
       </div>
 
       <div className="flex-2 flex justify-center items-center overflow-hidden relative">
@@ -85,6 +85,15 @@ const Navbar = () => {
         >
           <FaChild className="nav-category-icon" />
           <span>Niños</span>
+        </NavLink>
+
+        {/* Botón Personalizar - ¡Estilos ahora solo desde CSS! */}
+        <NavLink
+          to="/customizePage"
+          className="nav-category-link group" // No se necesita 'text-blue-serene' aquí, ya se define en CSS
+        >
+          <FaPaintBrush className="nav-category-icon" />
+          <span>Personalizar</span>
         </NavLink>
       </nav>
     </header>
