@@ -11,6 +11,7 @@ export const garments = [
       { name: 'Azul Rey', value: '#003087' },
       { name: 'Verde', value: '#2ECC71' },
       { name: 'Amarillo', value: '#F1C40F' },
+      { name: 'Rojo', value: '#d81c1cff' },
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     imageUrlPrefix: 'camiseta'
@@ -78,12 +79,16 @@ export const garmentImages = {
         espalda: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466553/azul-espalda_iuuptl.jpg'
       },
       Verde: {
-        delante: 'https://res.cloudinary.com/dacdd3m0j/image/upload/placeholder.jpg', // Añade la URL de la imagen para Verde (delante)
-        espalda: 'https://res.cloudinary.com/dacdd3m0j/image/upload/placeholder.jpg'  // Añade la URL de la imagen para Verde (espalda)
+        delante: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466558/verde-delante_wcauvd.jpg', // Añade la URL de la imagen para Verde (delante)
+        espalda: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466558/verde-espalda_fln7rp.jpg'  // Añade la URL de la imagen para Verde (espalda)
       },
       Amarillo: {
         delante: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466553/amarrillo-delante_mplu1b.jpg',
         espalda: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466553/amarrillo-espalda_msv6t8.jpg'
+      },
+      Rojo: {
+        delante: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466557/roja-delante_wkcgp3.jpg',
+        espalda: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466558/roja-espalda_t3uomf.jpg'
       }
     },
     Mujer: {
