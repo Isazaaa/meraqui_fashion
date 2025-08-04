@@ -695,8 +695,30 @@ export const products = [
       name: "Dúo conjunto joger + camiseta para hombre y mujer",
       category: 'duo',
       subcategory: 'Pareja',
-      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318429/duo-conjunto2_wlxu3o.jpg',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318430/duo-joger_uhjlkg.jpg',
       retailPrice: 90000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+    {
+      id: 66,
+      name: "Dúo conjunto joger + camiseta para hombre y mujer",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754344275/duo-joger_dhybfp.jpg',
+      retailPrice: 90000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+    {
+      id: 67,
+      name: "Dúo conjunto joger + buzo para hombre y mujer",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754344283/duo-buzo_suwf9s.jpg',
+      retailPrice: 130000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
       sizes: ['S', 'M', 'L', 'XL']
@@ -713,7 +735,7 @@ export const products = [
 
 
   {
-    id: 70,
+    id: 80,
     name: "Conjunto joger + camiseta NY",
     category: 'hombre',
     subcategory: 'Joger',
