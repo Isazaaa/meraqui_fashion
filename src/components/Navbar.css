@@ -1,33 +1,22 @@
-/* src/components/Navbar.css */
-
-/* Cuando el header NO está scrolleado, aseguramos que el degradado esté oculto */
-header:not(.scrolled-gradient)::after {
-  opacity: 0;
-}
-
-/* --- Estilos para los botones de navegación de categorías (Mujer, Hombre, Niños) --- */
+/* --- Estilos base para enlaces y botones --- */
 .nav-category-link {
-  /* Estilos base del enlace */
   display: flex;
   align-items: center;
-  gap: 0.25rem; /* gap-1 en Tailwind */
+  gap: 0.5rem; /* 8px */
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 0.95rem;
-  padding: 0.4rem 0.8rem; /* py-2 px-3 en Tailwind */
-  margin: 0;
-  border-radius: 9999px; /* Bordes redondos (pill shape) */
-  position: relative;
-  text-decoration: none; /* Quita el subrayado */
+  padding: 0.5rem 1rem; /* 8px 16px */
+  border-radius: 9999px; /* Pill shape */
+  text-decoration: none;
   color: #305f7f; /* text-blue-serene */
   background: #fff;
   border: 1.5px solid #c2c6c8;
-  transition: all 0.2s;
-  min-width: 44px;
+  transition: all 0.2s ease-in-out;
   white-space: nowrap;
+  cursor: pointer;
 }
 
-/* Estado hover */
 .nav-category-link:hover,
 .nav-category-link.active {
   background: #305f7f;
@@ -35,130 +24,90 @@ header:not(.scrolled-gradient)::after {
   border-color: #305f7f;
 }
 
-/* Estilos para los iconos dentro del enlace */
 .nav-category-icon {
-  font-size: 1.1rem; /* text-lg */
-  transition: color 0.2s ease; /* Transición para el color del icono */
-  color: #305f7f; /* text-blue-serene */
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+  color: #305f7f; /* Hereda color del enlace, pero lo definimos por si acaso */
 }
 
-/* Icono blanco en hover y activo para todos los botones del header */
+/* El icono se vuelve blanco cuando el enlace padre está en hover o activo */
 .nav-category-link:hover .nav-category-icon,
-.nav-category-link.active .nav-category-icon {
+.nav-category-link.active .nav-category-icon,
+.nav-category-link:hover svg, /* Para el icono de flecha */
+.nav-category-link.active svg {
   color: #fff !important;
-  transition: color 0.2s;
 }
 
-/* Estilos para la zona izquierda del header en desktop/tablet */
-.navbar-left {
+/* --- Botón de Personalizar (diseño premium) --- */
+.nav-personalizar {
   display: flex;
   align-items: center;
-  gap: 18px;
-}
-
-.nav-personalizar {
-  background: #305f7f;
-  color: #fff;
-  border-radius: 9999px;
-  padding: 8px 18px;
+  gap: 0.5rem; /* 8px */
   font-weight: 600;
   font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  padding: 0.5rem 1.25rem; /* 8px 20px */
+  border-radius: 9999px;
+  text-decoration: none;
+  color: #fff;
+  background: #305f7f; /* Color principal */
   border: none;
-  box-shadow: 0 2px 8px rgba(48, 95, 127, 0.08);
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(48, 95, 127, 0.1);
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .nav-personalizar:hover,
 .nav-personalizar.active {
-  background: #23405a;
-  color: #fff;
+  background: #23405a; /* Tono más oscuro para hover/active */
+  transform: translateY(-2px);
 }
 
 .nav-personalizar .nav-category-icon {
-  color: #fff;
-  font-size: 1.1rem;
-  transition: color 0.2s;
+  color: #fff; /* Icono siempre blanco */
 }
 
-.navbar-slogan {
+/* --- Estilos para el Menú Desplegable --- */
+.dropdown-menu {
+  overflow: hidden; /* Para que el borde redondeado afecte a los hijos */
+  border: 1px solid #e2e8f0; /* Borde sutil */
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* 12px */
+  padding: 0.75rem 1rem; /* 12px 16px */
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active {
+  background-color: #f7f7f7; /* Fondo gris claro en hover/active */
   color: #305f7f;
+}
+
+.dropdown-icon {
   font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  animation: bounce-cta 1s infinite;
-  padding-left: 2px;
-  padding-right: 2px;
+  color: #305f7f; /* Iconos del color principal */
 }
 
-@keyframes bounce-cta {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  25% {
-    transform: translateY(-5px);
-  }
-  50% {
-    transform: translateY(0);
-  }
-  75% {
-    transform: translateY(-2px);
-  }
-}
-
-/* Elimina la regla .navbar-separator si existe */
-.navbar-separator {
-  display: none;
-}
-
-/* Responsive logo and nav for mobile only */
+/* --- Media Queries para Móvil (ya estaban bien, solo un pequeño ajuste) --- */
 @media (max-width: 639px) {
-  header {
-    padding-left: 2px !important;
-    padding-right: 2px !important;
+  .navbar-mobile {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
     height: 56px !important;
   }
-  header > div {
-    min-width: 40px !important;
-    max-width: 56px !important;
-    height: 56px !important;
+  .navbar-mobile .nav-category-link {
+    padding: 0.5rem !important;
+    min-width: 44px; /* Asegura un área táctil adecuada */
+    justify-content: center;
   }
-  header img {
-    height: 32px !important;
-    max-height: 32px !important;
-  }
-  header nav {
-    gap: 2px !important;
-    padding-bottom: 2px !important;
-    overflow-x: auto !important;
-    scrollbar-width: thin;
-    scrollbar-color: #305f7f #e2e8f0;
-  }
-  .nav-category-link {
-    padding: 0.3rem 0.6rem !important;
-    font-size: 0.9rem !important;
-    min-width: 40px !important;
-  }
+  /* Ocultar texto en móvil (ya estaba) */
   .nav-category-link span {
-    display: none !important;
+    display: none;
   }
-}
-
-/* Responsive text: oculta texto en xs, muestra en sm+ */
-@media (max-width: 480px) {
-  .nav-category-link span {
-    display: none !important;
-  }
-  header {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-}
-header {
-  padding-left: 2px;
-  padding-right: 2px;
 }

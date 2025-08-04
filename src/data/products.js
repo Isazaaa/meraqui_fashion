@@ -525,6 +525,182 @@ export const products = [
 
 
 
+        {
+      id: 50,
+      name: "Dúo camisetas Hombre y Mujer ",
+      category: 'duo',
+      subcategory: '',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316892/duo-camisetas_poknod.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+        {
+      id: 51,
+      name: "Dúo camisetas Hombre y Mujer ",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316885/monastery-duo_uiz9qd.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+        {
+      id: 52,
+      name: "Dúo camisetas Hombre y Mujer ",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-camisetas2_luwvje.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+        {
+      id: 53,
+      name: "Dúo camisetas Hombre y Mujer ",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-camisetas4_owsuhn.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+        {
+      id: 54,
+      name: "Dúo camisetas Hombre y Mujer ",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-camisetas3_xivcfw.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 55,
+      name: "Dúo camisetas Hombre y Mujer ",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316885/duo-pareja2_nhaipr.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 56,
+      name: "Dúo camisetas Hombre y Mujer ",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316885/duo-pareja3_t2avpi.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 57,
+      name: "Dúo camisetas Hombre y Mujer ",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-pareja_pjthtq.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 58,
+      name: "Dúo camisetas Madre e hija ",
+      category: 'duo',
+      subcategory: 'Madre e hija',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-mama-hija_bfyvkx.jpg',
+      retailPrice: 40000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 59,
+      name: "Dúo camisetas + gorra ",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316885/duo-camisetas5_ynroci.jpg',
+      retailPrice: 35000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 60,
+      name: "Dúo conjunto short + camiseta para hombre y mujer",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318438/duo-conjunto_gkphvr.jpg',
+      retailPrice: 82000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 61,
+      name: "Dúo conjunto short + camiseta para hombre y mujer",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318430/duo-conjunto4_irhvoa.jpg',
+      retailPrice: 82000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 62,
+      name: "Dúo conjunto short + camiseta para hombre y mujer",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318430/duo-conjunto5_nw6ezg.jpg',
+      retailPrice: 82000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 63,
+      name: "Dúo conjunto short + camiseta para hombre y mujer Palmeras",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318429/duo-conjunto3_etyasz.jpg',
+      retailPrice: 82000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+      {
+      id: 64,
+      name: "Dúo conjunto short + camiseta para hombre y mujer",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318429/duo-conjunto2_wlxu3o.jpg',
+      retailPrice: 82000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
+    {
+      id: 65,
+      name: "Dúo conjunto joger + camiseta para hombre y mujer",
+      category: 'duo',
+      subcategory: 'Pareja',
+      image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318429/duo-conjunto2_wlxu3o.jpg',
+      retailPrice: 90000, //Precio Detal
+      /* wholesalePrice: 48000, //Precio por mayor */
+      materials: 'Tela licra de algodón',
+      sizes: ['S', 'M', 'L', 'XL']
+    },
 
 
 
