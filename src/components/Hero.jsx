@@ -8,14 +8,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+// Importar la imagen local
+import personalizar from "../assets/personalizar.png";
+
 const Hero = () => {
   const slides = [
     {
       id: 1,
-      image:
-        "https://images.unsplash.com/photo-1558296796-0158a4f001b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: personalizar,
       title: "Tu Estilo, Tus Reglas",
-      subtitle: "Diseña tu prenda única con estampado y bordado personalizado.",
+      subtitle: "Diseña tu prenda única con estampado",
       ctaText: "¡Empieza a Personalizar!",
       ctaLink: "/customizePage",
     },
@@ -56,15 +58,15 @@ const Hero = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div
-              className="relative w-full h-full bg-cover bg-center flex justify-center items-center text-center text-white-custom font-sans"
+              className="relative w-full h-full bg-cover bg-center flex justify-center items-center text-center font-sans"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              <div className="absolute inset-0 bg-black/25"></div>
-              <div className="relative z-10 p-4 max-w-3xl">
+              <div className="absolute inset-0 bg-black/35"></div>
+              <div className="relative z-10 p-4 max-w-3xl text-white">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-wide leading-tight drop-shadow-md">
                   {slide.title}
                 </h1>
-                <p className="text-lg md:text-xl mb-8 opacity-90 drop-shadow-sm">
+                <p className="text-lg md:text-xl mb-8 opacity-95 drop-shadow-sm">
                   {slide.subtitle}
                 </p>
                 {slide.id === 1 && (
