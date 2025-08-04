@@ -3,6 +3,10 @@ import CategoryPage from '../pages/CategoryPage';
 import HomePage from '../pages/HomePage';
 import ProductDetailPage from '../pages/ProductDetailPage'; 
 import CustomizePage from '../pages/CustomizePage'; 
+// Importa las nuevas páginas
+import PrivacyPolicy from '../pages/PrivacyPolicy';
+import TermsAndConditions from '../pages/TermsAndConditions';
+import ShippingAndReturns from '../pages/ShippingAndReturns';
 
 export const routes = [
   {
@@ -18,14 +22,25 @@ export const routes = [
         element: <CategoryPage />,
       },
       {
-        // 2. Añade la nueva ruta para el detalle de producto
-        path: '/producto/:productId', // La URL será, por ej: /producto/conjunto-joger
+        path: '/producto/:productId',
         element: <ProductDetailPage />,
       },
       {
-        // 2. Añade la nueva ruta para el detalle de producto
-        path: '/customizePage', // La URL será, por ej: /producto/conjunto-joger
+        path: '/customizePage',
         element: <CustomizePage />,
+      },
+      // Nuevas rutas para las políticas
+      {
+        path: '/politicas-privacidad',
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: '/terminos-condiciones',
+        element: <TermsAndConditions />,
+      },
+      {
+        path: '/envios-devoluciones',
+        element: <ShippingAndReturns />,
       },
     ],
   },
