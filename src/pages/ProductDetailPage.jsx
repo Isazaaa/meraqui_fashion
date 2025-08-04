@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+// 1. Importar 'Link' junto a 'useParams'
+import { Link, useParams } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import './ProductDetailAccordion.css';
@@ -8,7 +9,7 @@ const ProductDetailPage = () => {
   const { productId } = useParams();
   const product = products.find(p => p.id == productId);
 
-  // Forzar scroll al inicio al cargar la página
+  // Forzar scroll al inicio al cambiar de producto
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [productId]);
@@ -34,7 +35,6 @@ const ProductDetailPage = () => {
   const sizeForWhatsApp = selectedSize ? encodeURIComponent(` en talla ${selectedSize}`) : '';
   const whatsappLink = `https://wa.me/573205646710?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20*${productNameForWhatsApp}*%20${sizeForWhatsApp}.%0A%0APor%20favor,%20dame%20más%20información.`;
 
-  // Función para mezclar array (Fisher-Yates shuffle)
   const shuffleArray = (array) => {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -44,12 +44,13 @@ const ProductDetailPage = () => {
     return shuffled;
   };
 
-  // Memoizar productos recomendados basados en productId
   const recommendedProducts = useMemo(() => {
+    // Reiniciar la talla seleccionada cuando el producto principal cambia
+    setSelectedSize('');
     return shuffleArray(
-      products.filter(p => p.category === product.category && p.id !== product.id)
+      products.filter(p => p.category === product.category && p.id != product.id)
     ).slice(0, 4);
-  }, [productId]);
+  }, [productId, product.category, product.id]); // Dependencias más precisas
 
   return (
     <div className="max-w-[1200px] mx-auto my-12 px-5 font-sans">
@@ -141,11 +142,18 @@ const ProductDetailPage = () => {
       </div>
 
       {recommendedProducts.length > 0 && (
-        <div className="py-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Productos Recomendados</h2>
+        <div className="py-8 mt-12 border-t border-gray-200">
+          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">También te podría interesar</h2>
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12">
+            {/* 2. CORRECCIÓN: Cambiar 'product' a 'producto' */}
             {recommendedProducts.map((recommendedProduct) => (
-              <ProductCard key={recommendedProduct.id} product={recommendedProduct} />
+              <Link 
+                to={`/producto/${recommendedProduct.id}`} 
+                key={recommendedProduct.id} 
+                className="block outline-none focus:ring-2 focus:ring-blue-serene focus:ring-offset-2 rounded-lg"
+              >
+                <ProductCard product={recommendedProduct} />
+              </Link>
             ))}
           </div>
         </div>
