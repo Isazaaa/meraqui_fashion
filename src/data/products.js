@@ -721,11 +721,26 @@ export const products = [
       retailPrice: 130000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+       duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L'] },
+  ]
     },
 
 
-
+{
+  id: 'duo-pareja',
+  name: 'Conjunto Pareja',
+  category: 'duo', // O la categoría que uses para dúos
+  image: 'ruta/a/la/imagen.jpg',
+  retailPrice: 120000,
+  wholesalePrice: 100000,
+  materials: 'Algodón y Spandex',
+  duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL']},
+  ]
+},
 
 
 
