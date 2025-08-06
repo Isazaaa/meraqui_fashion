@@ -540,7 +540,7 @@ export const products = [
       id: 51,
       name: "Dúo camisetas Hombre y Mujer ",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316885/monastery-duo_uiz9qd.jpg',
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -551,7 +551,7 @@ export const products = [
       id: 52,
       name: "Dúo camisetas Hombre y Mujer ",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-camisetas2_luwvje.jpg',
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -562,7 +562,7 @@ export const products = [
       id: 53,
       name: "Dúo camisetas Hombre y Mujer ",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-camisetas4_owsuhn.jpg',
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -573,7 +573,7 @@ export const products = [
       id: 54,
       name: "Dúo camisetas Hombre y Mujer ",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-camisetas3_xivcfw.jpg',
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -584,7 +584,7 @@ export const products = [
       id: 55,
       name: "Dúo camisetas Hombre y Mujer ",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316885/duo-pareja2_nhaipr.jpg',
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -595,7 +595,7 @@ export const products = [
       id: 56,
       name: "Dúo camisetas Hombre y Mujer ",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316885/duo-pareja3_t2avpi.jpg',
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -606,7 +606,7 @@ export const products = [
       id: 57,
       name: "Dúo camisetas Hombre y Mujer ",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-pareja_pjthtq.jpg',
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -617,7 +617,7 @@ export const products = [
       id: 58,
       name: "Dúo camisetas Madre e hija ",
       category: 'duo',
-      subcategory: 'Madre e hija',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316884/duo-mama-hija_bfyvkx.jpg',
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -628,7 +628,7 @@ export const products = [
       id: 59,
       name: "Dúo camisetas + gorra ",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754316885/duo-camisetas5_ynroci.jpg',
       retailPrice: 35000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -639,7 +639,7 @@ export const products = [
       id: 60,
       name: "Dúo conjunto short + camiseta para hombre y mujer",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318438/duo-conjunto_gkphvr.jpg',
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -650,7 +650,7 @@ export const products = [
       id: 61,
       name: "Dúo conjunto short + camiseta para hombre y mujer",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318430/duo-conjunto4_irhvoa.jpg',
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -661,7 +661,7 @@ export const products = [
       id: 62,
       name: "Dúo conjunto short + camiseta para hombre y mujer",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318430/duo-conjunto5_nw6ezg.jpg',
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -672,7 +672,7 @@ export const products = [
       id: 63,
       name: "Dúo conjunto short + camiseta para hombre y mujer Palmeras",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318429/duo-conjunto3_etyasz.jpg',
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -683,7 +683,7 @@ export const products = [
       id: 64,
       name: "Dúo conjunto short + camiseta para hombre y mujer",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318429/duo-conjunto2_wlxu3o.jpg',
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -694,7 +694,7 @@ export const products = [
       id: 65,
       name: "Dúo conjunto joger + camiseta para hombre y mujer",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754318430/duo-joger_uhjlkg.jpg',
       retailPrice: 90000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -705,7 +705,7 @@ export const products = [
       id: 66,
       name: "Dúo conjunto joger + camiseta para hombre y mujer",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754344275/duo-joger_dhybfp.jpg',
       retailPrice: 90000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -716,7 +716,7 @@ export const products = [
       id: 67,
       name: "Dúo conjunto joger + buzo para hombre y mujer",
       category: 'duo',
-      subcategory: 'Pareja',
+      subcategory: '',
       image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754344283/duo-buzo_suwf9s.jpg',
       retailPrice: 130000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
@@ -728,19 +728,7 @@ export const products = [
     },
 
 
-{
-  id: 'duo-pareja',
-  name: 'Conjunto Pareja',
-  category: 'duo', // O la categoría que uses para dúos
-  image: 'ruta/a/la/imagen.jpg',
-  retailPrice: 120000,
-  wholesalePrice: 100000,
-  materials: 'Algodón y Spandex',
-  duoOptions: [
-    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
-    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL']},
-  ]
-},
+
 
 
 
@@ -755,10 +743,120 @@ export const products = [
     category: 'hombre',
     subcategory: 'Joger',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752764412/conjunto-nike_gxjgxx.jpg',
-    retailPrice: 57000,
-    wholesalePrice: 47000,
-    specialFabricPrice: 58000,
+    retailPrice: 57000, //Precio Detal
+    wholesalePrice: 47000, //Precio por mayor
+   /*  specialFabricPrice: 58000, */
     materials: 'Joger en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+
+   {
+    id: 81,
+    name: "Conjunto Pantaloneta + camiseta Dsquared",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345233/short-hombre_rc4zls.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 82,
+    name: "Conjunto Pantaloneta + camiseta Jordan 23",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345226/short-hombre-jordan_x2rxt9.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 83,
+    name: "Conjunto Pantaloneta + camiseta Nike",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345225/short-hombre-chulo_pmkrc0.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 84,
+    name: "Conjunto Pantaloneta + camiseta",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345225/short-hombre4_ad5djg.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 85,
+    name: "Conjunto Pantaloneta + camiseta León",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345227/short-hombre-leon_bqdvay.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 86,
+    name: "Conjunto Pantaloneta + camiseta Nike Air",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345229/short-hombre-nike_uilwre.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 87,
+    name: "Conjunto Pantaloneta + camiseta Monastery",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345229/short-hombre-monastery_ychif9.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+  
+   {
+    id: 88,
+    name: "Conjunto Pantaloneta + camiseta",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345224/short-hombre2_vxa31z.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 89,
+    name: "Conjunto Pantaloneta + camiseta",
+    category: 'hombre',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345224/short-hombre3_fb7q6t.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
 ];
