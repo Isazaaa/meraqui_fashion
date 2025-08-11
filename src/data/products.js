@@ -859,4 +859,160 @@ export const products = [
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
+   {
+    id: 90,
+    name: "Conjunto Joger + camiseta",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689558/hombre-joger1_t23crs.jpg',
+    retailPrice: 57000, //Precio Detal
+    wholesalePrice: 47000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 91,
+    name: "Trío joger + pantaloneta + camiseta",
+    category: 'hombre',
+    subcategory: 'Combo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689558/hombre-joger-pantaloneta_hl9x8g.jpg',
+    retailPrice: 78000, //Precio Detal
+    wholesalePrice: 68000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger y pantalona en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 92,
+    name: "Conjunto Joger + camiseta",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689569/hombre-joger2_x9rcpq.jpg',
+    retailPrice: 57000, //Precio Detal
+    wholesalePrice: 47000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 93,
+    name: "Conjunto Joger + camiseta",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689569/hombre-joger3_k5ro6p.jpg',
+    retailPrice: 57000, //Precio Detal
+    wholesalePrice: 47000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 94,
+    name: "Conjunto Joger + camiseta",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689569/hombre-joger4_gjlgvv.jpg',
+    retailPrice: 57000, //Precio Detal
+    wholesalePrice: 47000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 95,
+    name: "Conjunto Joger + camiseta",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689570/hombre-joger5_qj886x.jpg',
+    retailPrice: 57000, //Precio Detal
+    wholesalePrice: 47000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+   {
+    id: 96,
+    name: "Conjunto Joger + camiseta",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689558/hombre-joger1_t23crs.jpg',
+    retailPrice: 57000, //Precio Detal
+    wholesalePrice: 47000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 97,
+    name: "Trío joger + pantaloneta + camiseta",
+    category: 'hombre',
+    subcategory: 'Combo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689573/hombre-joger-pantaloneta2_wvnowi.jpg',
+    retailPrice: 78000, //Precio Detal
+    wholesalePrice: 68000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger y pantalona en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 98,
+    name: "Trío joger + pantaloneta + camiseta",
+    category: 'hombre',
+    subcategory: 'Combo',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689573/hombre-joger-pantaloneta3_cruoel.jpg',
+    retailPrice: 78000, //Precio Detal
+    wholesalePrice: 68000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger y pantalona en burda y camiseta en licra de algodón',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 99,
+    name: "Conjunto joger, + buzo con chompa",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754690354/hjoger-buzo2_u4hnck.jpg',
+    retailPrice: 70000, //Precio Detal
+    wholesalePrice: 60000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y buzo en burda licrada',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 100,
+    name: "Conjunto joger, + buzo con chompa nike",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754690354/hjoger-buzo-nike_vdy9eo.jpg',
+    retailPrice: 70000, //Precio Detal
+    wholesalePrice: 60000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y buzo en burda licrada',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 101,
+    name: "Conjunto joger, + buzo con chompa puma",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754690354/hjoger-buzo-puma_n36fru.jpg',
+    retailPrice: 70000, //Precio Detal
+    wholesalePrice: 60000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y buzo en burda licrada',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
+     {
+    id: 102,
+    name: "Conjunto joger, + buzo con chompa",
+    category: 'hombre',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754690362/hjoger-buzo_uhc9ff.jpg',
+    retailPrice: 70000, //Precio Detal
+    wholesalePrice: 60000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en burda y buzo en burda licrada',
+    sizes: ['S', 'M', 'L', 'XL']
+  },
 ];
