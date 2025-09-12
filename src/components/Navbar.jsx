@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
-import LogoMf from "../assets/logoMF.png";
+import LogoMf from "../../public/logoMF.png";
 import LogoMeraqui from "../assets/meraquilogo.png";
 import { FaFemale, FaMale, FaChild, FaPaintBrush, FaUserFriends, FaChevronDown } from "react-icons/fa";
 import "./Navbar.css";
