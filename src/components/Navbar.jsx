@@ -113,8 +113,8 @@ const Navbar = () => {
               <NavLink to="/categoria/hombre" className="dropdown-item group">
                 <FaMale className="dropdown-icon" /> Hombre
               </NavLink>
-              <NavLink to="/categoria/ninos" className="dropdown-item group">
-                <FaChild className="dropdown-icon" /> Niños
+              <NavLink to="/categoria/infantil" className="dropdown-item group">
+                <FaChild className="dropdown-icon" /> Infantil
               </NavLink>
               <NavLink to="/categoria/duo" className="dropdown-item group">
                 <FaUserFriends className="dropdown-icon" /> Duo

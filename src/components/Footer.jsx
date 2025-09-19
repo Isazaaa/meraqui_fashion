@@ -23,7 +23,7 @@ const Footer = () => {
                     <ul className="space-y-2">
                         <li><Link to="/categoria/mujer" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Mujer</Link></li>
                         <li><Link to="/categoria/hombre" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Hombre</Link></li>
-                        <li><Link to="/categoria/ninos" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Niños</Link></li>
+                        <li><Link to="/categoria/ninos" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Infantil</Link></li>
                         <li><Link to="/customizePage" className="text-white-custom hover:text-blue-serene transition-colors duration-300 text-sm">Personalizar</Link></li>
                     </ul>
                 </div>

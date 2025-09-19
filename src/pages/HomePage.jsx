@@ -56,7 +56,7 @@ const HomePage = () => {
 
           {/* Tarjeta de Colección para Niños */}
           <Link 
-            to="/categoria/ninos" 
+            to="/categoria/infantil" 
             className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out block no-underline text-center"
           >
             <div className="relative w-full h-[400px] md:h-[450px] overflow-hidden">
@@ -70,7 +70,7 @@ const HomePage = () => {
             </div>
             {/* Contenido de texto debajo de la imagen */}
             <div className="p-4 bg-white-custom">
-                <h3 className="font-playfair text-3xl md:text-4xl font-bold text-black-meraqui m-0">Niños</h3>
+                <h3 className="font-playfair text-3xl md:text-4xl font-bold text-black-meraqui m-0">Infantil</h3>
                 <p className="font-montserrat text-base text-gray-700 mt-2">Diversión y comodidad</p>
             </div>
           </Link>

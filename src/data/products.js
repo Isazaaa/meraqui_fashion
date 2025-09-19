@@ -534,7 +534,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
         {
       id: 51,
@@ -545,7 +548,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
         {
       id: 52,
@@ -556,7 +562,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
         {
       id: 53,
@@ -567,7 +576,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
         {
       id: 54,
@@ -578,7 +590,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 55,
@@ -589,7 +604,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 56,
@@ -600,7 +618,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 57,
@@ -611,7 +632,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 58,
@@ -622,7 +646,10 @@ export const products = [
       retailPrice: 40000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 59,
@@ -633,7 +660,10 @@ export const products = [
       retailPrice: 35000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 60,
@@ -644,7 +674,10 @@ export const products = [
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 61,
@@ -655,7 +688,10 @@ export const products = [
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 62,
@@ -666,7 +702,10 @@ export const products = [
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 63,
@@ -677,7 +716,10 @@ export const products = [
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
       {
       id: 64,
@@ -688,7 +730,10 @@ export const products = [
       retailPrice: 82000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
     {
       id: 65,
@@ -699,7 +744,10 @@ export const products = [
       retailPrice: 90000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
     {
       id: 66,
@@ -710,7 +758,10 @@ export const products = [
       retailPrice: 90000, //Precio Detal
       /* wholesalePrice: 48000, //Precio por mayor */
       materials: 'Tela licra de algodón',
-      sizes: ['S', 'M', 'L', 'XL']
+        duoOptions: [
+    { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
+  ]
     },
     {
       id: 67,
@@ -723,7 +774,7 @@ export const products = [
       materials: 'Tela licra de algodón',
        duoOptions: [
     { name: 'Hombre', sizes: ['S', 'M', 'L', 'XL'] },
-    { name: 'Mujer', sizes: ['S', 'M', 'L'] },
+    { name: 'Mujer', sizes: ['S', 'M', 'L', 'XL'] },
   ]
     },
 
@@ -1014,5 +1065,217 @@ export const products = [
     /* specialFabricPrice: 58000, */
     materials: 'Joger en burda y buzo en burda licrada',
     sizes: ['S', 'M', 'L', 'XL']
+  },
+
+
+
+
+
+    {
+    id: 115,
+    name: "Conjunto en pantaloneta + camiseta",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758318191/short-camisa-ni%C3%B1os2_q0tzrg.jpg',
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+  {
+    id: 116,
+    name: "Conjunto en pantaloneta + camiseta",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758318190/short-camisa-ni%C3%B1os_vpcokt.jpg',
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 117,
+    name: "Conjunto en pantaloneta + camiseta",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758318190/short-cami-ni%C3%B1os1_tzaqpo.jpg',
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 118,
+    name: "Conjunto en pantaloneta + camiseta Stitch",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758318172/short-camisetas-ni%C3%B1os5_fkp6jx.jpg',
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 119,
+    name: "Conjunto en pantaloneta + camiseta",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758318171/short-camiseta-ni%C3%B1os6_us1xfk.jpg',
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 120,
+    name: "Conjunto en pantaloneta + camiseta Minnie",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758318171/short-camiseta-ni%C3%B1oss_hdqegy.jpg',
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 121,
+    name: "Conjunto en pantaloneta + camiseta Lilo y Stitch",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758318171/short-camiseta-ni%C3%B1os4_odgjpr.jpg',
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+     {
+    id: 122,
+    name: "Conjunto en pantaloneta + camiseta",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758318170/short-camisa-ni%C3%B1os7_ezzpuc.jpg',
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+
+   {
+    id: 123,
+    name: "Conjunto joger + camiseta Kuromi",
+    category: 'infantil',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758320401/joger-camisa-ni%C3%B1os_y4qvn9.jpg',
+    retailPrice: 48000, //Precio Detal
+    wholesalePrice: 38000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 124,
+    name: "Conjunto joger + camiseta LA",
+    category: 'infantil',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758320413/joger-ni%C3%B1o_uyvcei.jpg',
+    retailPrice: 48000, //Precio Detal
+    wholesalePrice: 38000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 125,
+    name: "Conjunto joger + camiseta",
+    category: 'infantil',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758320406/joger-ni%C3%B1a2_rmoe8d.jpg',
+    retailPrice: 48000, //Precio Detal
+    wholesalePrice: 38000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 126,
+    name: "Conjunto joger + camiseta Barbie",
+    category: 'infantil',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758320405/joger-ni%C3%B1a_dnkv2n.jpg',
+    retailPrice: 48000, //Precio Detal
+    wholesalePrice: 38000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 127,
+    name: "Conjunto joger + camiseta",
+    category: 'infantil',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758320402/joger-camiseta-ni%C3%B1os3_jhsmi0.jpg',
+    retailPrice: 48000, //Precio Detal
+    wholesalePrice: 38000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+      {
+    id: 128,
+    name: "Conjunto joger + camiseta",
+    category: 'infantil',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758320414/joger-ni%C3%B1o2_w0gz48.jpg',
+    retailPrice: 48000, //Precio Detal
+    wholesalePrice: 38000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+
+     {
+    id: 129,
+    name: "Trio pantaloneta + camiseta + gorra.",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758321014/short-gorra2_zjchjk.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+    {
+    id: 130,
+    name: "Trio pantaloneta + camiseta + gorra.",
+    category: 'infantil',
+    subcategory: 'Pantaloneta',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758321013/short-gorra_lekqar.jpg',
+    retailPrice: 55000, //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Pantaloneta en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
+  },
+
+    {
+    id: 130,
+    name: "Trio joger + camiseta + gorra NY",
+    category: 'infantil',
+    subcategory: 'Joger',
+    image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758321760/joger-gorra_svhcts.jpg',
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    /* specialFabricPrice: 58000, */
+    materials: 'Joger en tela burda y camiseta en licra de algodón.',
+    sizes: ['2-4', '6-8', '10-12', '14-16']
   },
 ];
