@@ -10,6 +10,8 @@ import "swiper/css/navigation";
 
 // Importar la imagen local
 import personalizar from "../assets/personalizar.png";
+import carrusel2 from "../assets/carrusel2.webp";
+import carrusel3 from "../assets/carrusel3.webp";
 
 const Hero = () => {
   const slides = [
@@ -23,17 +25,15 @@ const Hero = () => {
     },
     {
       id: 2,
-      image:
-        "https://images.unsplash.com/photo-1551803091-e373c5d67ba3?auto=format&fit=crop&q=80&w=1964",
+      image: carrusel2,
       title: "Viste con intención, define tu estilo",
       subtitle: "Descubre prendas únicas que cuentan tu historia.",
     },
     {
       id: 3,
-      image:
-        "https://images.unsplash.com/photo-1596756857999-906d9bf3c9ac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: carrusel3,
       title: "Moda que se adapta a tu ritmo",
-      subtitle: "Confección, estampado y bordado personalizado para ti.",
+      subtitle: "Estampado personalizado para ti.",
     },
   ];
 
