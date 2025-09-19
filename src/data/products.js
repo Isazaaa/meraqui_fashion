@@ -1243,7 +1243,7 @@ export const products = [
 
      {
     id: 129,
-    name: "Trio pantaloneta + camiseta + gorra.",
+    name: "Trio pantaloneta + camiseta + gorra",
     category: 'infantil',
     subcategory: 'Pantaloneta',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758321014/short-gorra2_zjchjk.jpg',
@@ -1255,7 +1255,7 @@ export const products = [
   },
     {
     id: 130,
-    name: "Trio pantaloneta + camiseta + gorra.",
+    name: "Trio pantaloneta + camiseta + gorra",
     category: 'infantil',
     subcategory: 'Pantaloneta',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1758321013/short-gorra_lekqar.jpg',
@@ -1267,7 +1267,7 @@ export const products = [
   },
 
     {
-    id: 130,
+    id: 131,
     name: "Trio joger + camiseta + gorra NY",
     category: 'infantil',
     subcategory: 'Joger',
