@@ -262,6 +262,21 @@ const CustomizePage = () => {
     setIsResizing(false);
   }, []);
 
+  const handleResizeMouseDown = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsResizing(true);
+      setResizeStartMouse({ x: e.clientX, y: e.clientY });
+      setResizeStartSize({
+        width: designSize.width,
+        height: designSize.height,
+      });
+      setResizeStartPos({ x: designPosition.x, y: designPosition.y });
+    },
+    [designSize, designPosition]
+  );
+
   const handleResizeTouchStart = useCallback(
     (e) => {
       e.preventDefault();
