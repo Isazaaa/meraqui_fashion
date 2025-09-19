@@ -415,7 +415,7 @@ const CustomizePage = () => {
     const size = encodeURIComponent(selectedSize);
     const gender = encodeURIComponent(selectedGender);
     const location = encodeURIComponent(selectedLocation);
-    const message = `¡Hola! Quiero personalizar una ${productName} (${gender}) en color ${color}, talla ${size}, con un diseño en la ${location}. (Si descargaste la imagen, por favor adjúntala aquí).`;
+    const message = `¡Hola! Quiero personalizar una ${productName} (${gender}) en color ${color}, talla ${size}, con un diseño  ${location}. (Si descargaste la imagen, por favor adjúntala aquí).`;
     return `https://wa.me/573205646710?text=${encodeURIComponent(message)}`;
   };
 
@@ -680,7 +680,7 @@ const CustomizePage = () => {
                 6. Ubicación del diseño
               </h2>
               <div className="design-options-grid">
-                {["Frente", "Espalda"].map((area) => (
+                {["adelante", "atras"].map((area) => (
                   <button
                     key={area}
                     className={`design-option-button ${
