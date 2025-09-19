@@ -161,13 +161,13 @@
   cursor: grab;
   box-sizing: border-box;
   transition: border-color 0.2s ease-in-out;
-  touch-action: none; /* Previene scroll en móvil durante arrastre */
-  user-select: none; /* Previene selección de texto/imagen */
+  user-select: none;
 }
 
 .design-stamp-overlay:active {
   cursor: grabbing;
   border-color: #305f7f;
+  touch-action: none; /* Solo prevenir scroll cuando está activo */
 }
 
 /* Resize handle for the stamp */
@@ -183,7 +183,10 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   bottom: -12px; /* Half of width/height to center it on the corner */
   right: -12px; /* Half of width/height to center it on the corner */
-  touch-action: none;
+}
+
+.design-resize-handle:active {
+  touch-action: none; /* Solo prevenir scroll cuando está activo */
 }
 
 /* Placeholder for no image uploaded */
@@ -533,11 +536,23 @@
 
 /* Estilos específicos para móvil */
 @media (max-width: 768px) {
+  /* Asegurar que el body y html permitan scroll */
+  html,
+  body {
+    overflow: auto !important;
+    touch-action: manipulation; /* Permite scroll pero previene zoom */
+  }
+
+  .design-page-container {
+    overflow: auto;
+    touch-action: manipulation;
+  }
+
   .design-resize-handle {
     width: 28px; /* Aún más grande en móvil */
     height: 28px;
-    bottom: -14px;
-    right: -14px;
+    bottom: -14px; /* Half of width/height to center it on the corner */
+    right: -14px; /* Half of width/height to center it on the corner */
   }
 
   .design-stamp-overlay {
@@ -548,6 +563,7 @@
   .design-garment-display {
     min-height: 400px;
     padding: 10px;
+    overflow: visible; /* Permitir que el contenido sea visible */
   }
 
   /* Ajuste del grid para móvil */

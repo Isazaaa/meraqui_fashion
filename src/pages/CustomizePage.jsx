@@ -167,8 +167,9 @@ const CustomizePage = () => {
   // Funciones para manejar eventos táctiles (móvil)
   const handleTouchStart = useCallback(
     (e) => {
-      e.preventDefault();
+      // Solo prevenir el comportamiento por defecto si es el elemento del diseño
       if (designStampRef.current && e.target === designStampRef.current) {
+        e.preventDefault(); // Solo prevenir aquí
         const touch = e.touches[0];
         setIsDragging(true);
         setDragOffset({
@@ -182,7 +183,11 @@ const CustomizePage = () => {
 
   const handleTouchMove = useCallback(
     (e) => {
-      e.preventDefault();
+      // Solo prevenir scroll si estamos arrastrando o redimensionando
+      if (isDragging || isResizing) {
+        e.preventDefault();
+      }
+
       if (
         isDragging &&
         garmentImageWrapperRef.current &&
@@ -278,8 +283,9 @@ const CustomizePage = () => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
 
-    // Eventos táctiles (móvil)
-    document.addEventListener("touchmove", handleTouchMove, { passive: false });
+    // Eventos táctiles con passive: false solo cuando sea necesario
+    const touchMoveOptions = { passive: false };
+    document.addEventListener("touchmove", handleTouchMove, touchMoveOptions);
     document.addEventListener("touchend", handleTouchEnd);
 
     return () => {
