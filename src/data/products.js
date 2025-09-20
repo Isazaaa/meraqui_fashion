@@ -123,9 +123,9 @@ export const products = [
     category: 'mujer',
     subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105392/short-top-enresortado_ajaqqi.jpg',
-    retailPrice: 42000, //Precio Detal
-    wholesalePrice: 32000, //Precio por mayor
-    specialFabricPrice: 48000, // Precio tela fria
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
+
     materials: 'Tela burda licrada',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -135,9 +135,8 @@ export const products = [
     category: 'mujer',
     subcategory: 'Short',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753105392/short-top-enresortado2_xgyrpa.jpg',
-    retailPrice: 42000, //Precio Detal
-    wholesalePrice: 32000, //Precio por mayor
-    specialFabricPrice: 48000, // Precio tela fria
+    retailPrice: 45000, //Precio Detal
+    wholesalePrice: 35000, //Precio por mayor
     materials: 'Tela burda licrada',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -266,9 +265,9 @@ export const products = [
     category: 'mujer',
     subcategory: 'Licra',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753122000/lircra-buson-croto2_iz9lvl.jpg',
-    retailPrice: 50000,  //Precio Detal
-    wholesalePrice: 40000, //Precio por mayor
-    specialFabricPrice: 48000, // Precio tela fria
+    retailPrice: 55000,  //Precio Detal
+    wholesalePrice: 45000, //Precio por mayor
+    specialFabricPrice: 52000, // Precio tela fria
     materials: 'Licra en suplex y bluson corto en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -278,9 +277,9 @@ export const products = [
     category: 'mujer',
     subcategory: 'Beiker',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753122329/beiker-gorra-alo_cydhmo.jpg',
-    retailPrice: 50000, //Precio Detal
-    wholesalePrice: 40000, //Precio por mayor
-    specialFabricPrice: 48000, //Precio tela fria
+    retailPrice: 58000, //Precio Detal
+    wholesalePrice: 48000, //Precio por mayor
+    specialFabricPrice: 58000, //Precio tela fria
     materials: 'beiker suplex y bluson corto en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -292,7 +291,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753219017/campana-camisa2_fxiezc.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
-    specialFabricPrice: 48000, //Precio tela fria
+    specialFabricPrice: 58000, //Precio tela fria
     materials: 'Bota ancha en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -304,7 +303,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753219017/campana-camisa_ppydmc.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
-    specialFabricPrice: 48000, //Precio tela fria
+    specialFabricPrice: 58000, //Precio tela fria
     materials: 'Bota ancha en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -316,7 +315,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753219017/campana-newyork_jcggs6.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
-    specialFabricPrice: 48000, //Precio tela fria
+    specialFabricPrice: 58000, //Precio tela fria
     materials: 'Bota ancha en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -340,7 +339,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753220529/campana-tigre_tkh56j.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
-    specialFabricPrice: 48000, //Precio tela fria
+    specialFabricPrice: 58000, //Precio tela fria
     materials: 'Bota ancha en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -352,7 +351,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753220536/campana-london_mocjl8.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
-    specialFabricPrice: 48000, //Precio tela fria
+    specialFabricPrice: 58000, //Precio tela fria
     materials: 'Bota ancha en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -364,7 +363,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1753220519/camapana-camisa-broklyn_odsnhc.jpg',
     retailPrice: 58000, //Precio Detal
     wholesalePrice: 48000, //Precio por mayor
-    specialFabricPrice: 48000, //Precio tela fria
+    specialFabricPrice: 58000, //Precio tela fria
     materials: 'Bota ancha en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -796,7 +795,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1752764412/conjunto-nike_gxjgxx.jpg',
     retailPrice: 57000, //Precio Detal
     wholesalePrice: 47000, //Precio por mayor
-   /*  specialFabricPrice: 58000, */
+    specialFabricPrice: 58000,
     materials: 'Joger en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -809,7 +808,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345233/short-hombre_rc4zls.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 54000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -821,7 +820,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345226/short-hombre-jordan_x2rxt9.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 54000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -833,7 +832,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345225/short-hombre-chulo_pmkrc0.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 54000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -845,7 +844,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345225/short-hombre4_ad5djg.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 54000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -857,7 +856,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345227/short-hombre-leon_bqdvay.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 54000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -869,7 +868,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345229/short-hombre-nike_uilwre.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 58000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -881,7 +880,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345229/short-hombre-monastery_ychif9.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 54000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -894,7 +893,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345224/short-hombre2_vxa31z.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 54000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -906,7 +905,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754345224/short-hombre3_fb7q6t.jpg',
     retailPrice: 55000, //Precio Detal
     wholesalePrice: 45000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 54000,
     materials: 'Pantaloneta en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -918,7 +917,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689558/hombre-joger1_t23crs.jpg',
     retailPrice: 57000, //Precio Detal
     wholesalePrice: 47000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 58000,
     materials: 'Joger en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -942,7 +941,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689569/hombre-joger2_x9rcpq.jpg',
     retailPrice: 57000, //Precio Detal
     wholesalePrice: 47000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 58000,
     materials: 'Joger en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -954,7 +953,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689569/hombre-joger3_k5ro6p.jpg',
     retailPrice: 57000, //Precio Detal
     wholesalePrice: 47000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 58000,
     materials: 'Joger en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -966,7 +965,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689569/hombre-joger4_gjlgvv.jpg',
     retailPrice: 57000, //Precio Detal
     wholesalePrice: 47000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 58000,
     materials: 'Joger en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -978,7 +977,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689570/hombre-joger5_qj886x.jpg',
     retailPrice: 57000, //Precio Detal
     wholesalePrice: 47000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 58000,
     materials: 'Joger en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -990,7 +989,7 @@ export const products = [
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754689558/hombre-joger1_t23crs.jpg',
     retailPrice: 57000, //Precio Detal
     wholesalePrice: 47000, //Precio por mayor
-    /* specialFabricPrice: 58000, */
+    specialFabricPrice: 58000,
     materials: 'Joger en burda y camiseta en licra de algodón',
     sizes: ['S', 'M', 'L', 'XL']
   },
@@ -1020,48 +1019,48 @@ export const products = [
   },
      {
     id: 99,
-    name: "Conjunto joger, + buzo con chompa",
+    name: "Conjunto joger + buzo con chompa",
     category: 'hombre',
     subcategory: 'Joger',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754690354/hjoger-buzo2_u4hnck.jpg',
-    retailPrice: 70000, //Precio Detal
-    wholesalePrice: 60000, //Precio por mayor
+    retailPrice: 68000, //Precio Detal
+    wholesalePrice: 58000, //Precio por mayor
     /* specialFabricPrice: 58000, */
     materials: 'Joger en burda y buzo en burda licrada',
     sizes: ['S', 'M', 'L', 'XL']
   },
      {
     id: 100,
-    name: "Conjunto joger, + buzo con chompa nike",
+    name: "Conjunto joger + buzo con chompa nike",
     category: 'hombre',
     subcategory: 'Joger',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754690354/hjoger-buzo-nike_vdy9eo.jpg',
-    retailPrice: 70000, //Precio Detal
-    wholesalePrice: 60000, //Precio por mayor
+    retailPrice: 68000, //Precio Detal
+    wholesalePrice: 58000, //Precio por mayor
     /* specialFabricPrice: 58000, */
     materials: 'Joger en burda y buzo en burda licrada',
     sizes: ['S', 'M', 'L', 'XL']
   },
      {
     id: 101,
-    name: "Conjunto joger, + buzo con chompa puma",
+    name: "Conjunto joger + buzo con chompa puma",
     category: 'hombre',
     subcategory: 'Joger',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754690354/hjoger-buzo-puma_n36fru.jpg',
-    retailPrice: 70000, //Precio Detal
-    wholesalePrice: 60000, //Precio por mayor
+    retailPrice: 68000, //Precio Detal
+    wholesalePrice: 58000, //Precio por mayor
     /* specialFabricPrice: 58000, */
     materials: 'Joger en burda y buzo en burda licrada',
     sizes: ['S', 'M', 'L', 'XL']
   },
      {
     id: 102,
-    name: "Conjunto joger, + buzo con chompa",
+    name: "Conjunto joger + buzo con chompa",
     category: 'hombre',
     subcategory: 'Joger',
     image: 'https://res.cloudinary.com/dacdd3m0j/image/upload/v1754690362/hjoger-buzo_uhc9ff.jpg',
-    retailPrice: 70000, //Precio Detal
-    wholesalePrice: 60000, //Precio por mayor
+    retailPrice: 68000, //Precio Detal
+    wholesalePrice: 58000, //Precio por mayor
     /* specialFabricPrice: 58000, */
     materials: 'Joger en burda y buzo en burda licrada',
     sizes: ['S', 'M', 'L', 'XL']
