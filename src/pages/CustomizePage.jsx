@@ -415,7 +415,7 @@ const CustomizePage = () => {
     const size = encodeURIComponent(selectedSize);
     const gender = encodeURIComponent(selectedGender);
     const location = encodeURIComponent(selectedLocation);
-    const message = `¡Hola! Quiero personalizar una ${productName} (${gender}) en color ${color}, talla ${size}, con un diseño  ${location}. (Si descargaste la imagen, por favor adjúntala aquí).`;
+    const message = `¡Hola! Quiero personalizar una ${productName} (${gender}) en color ${color}, talla ${size}, con un diseño ubicado en ${location}. (Si descargaste la imagen, por favor adjúntala aquí).`;
     return `https://wa.me/573205646710?text=${encodeURIComponent(message)}`;
   };
 
