@@ -431,7 +431,7 @@ const CustomizePage = () => {
         selectedGarment.imageUrlPrefix || selectedGarment.name.toLowerCase();
       const gender = selectedGender.toLowerCase();
       const color = selectedColor.name.toLowerCase().replace(/\s/g, "");
-      return `/images/${garmentName}-${gender}-${color}-${view}.jpg`;
+      return `/images/${garmentName}-${gender}-${color}-${view}.webp`;
     }
 
     return imageUrl;

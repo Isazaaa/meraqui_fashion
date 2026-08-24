@@ -1,9 +1,9 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import { Link } from 'react-router-dom';
-import CategoriaMujerImg from '../assets/images/categoria-mujer.jpg';
-import CategoriaHombreImg from '../assets/images/categoria-hombre.jpg';
-import CategoriaNinosImg from '../assets/images/categoria-ninos.jpg';
+import CategoriaMujerImg from '../assets/images/categoria-mujer.webp';
+import CategoriaHombreImg from '../assets/images/categoria-hombre.webp';
+import CategoriaNinosImg from '../assets/images/categoria-ninos.webp';
 
 const HomePage = () => {
   return (

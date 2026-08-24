@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // Importar la imagen local
-import personalizar from "../assets/personalizar.png";
+import personalizar from "../assets/personalizar.webp";
 import carrusel2 from "../assets/carrusel2.webp";
 import carrusel3 from "../assets/carrusel3.webp";
 
