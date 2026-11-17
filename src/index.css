@@ -1,7 +1,5 @@
 /* src/index.css */
 @import "tailwindcss";
-/* Importar solo Montserrat desde Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 /* Importa los estilos CSS de Swiper */
 @import 'swiper/css';
@@ -9,8 +7,34 @@
 @import 'swiper/css/navigation';
 
 
+/* Design tokens (Tailwind v4). Montserrat is loaded from index.html. */
+@theme {
+  --color-black-meraqui: #000000;
+  --color-blue-serene: #305f7f;
+  --color-light-gray-meraqui: #c2c6c8;
+  --color-white-custom: #ffffff;
+
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+
+  --ease-in-out-expo: cubic-bezier(0.85, 0, 0.15, 1);
+
+  --animate-pulse-slight: pulse-slight 2s infinite ease-in-out;
+  --animate-bounce-cta: bounce-cta 1s ease-in-out infinite;
+
+  @keyframes pulse-slight {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+  @keyframes bounce-cta {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-5px); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(-2px); }
+  }
+}
+
 body {
-  font-family: 'Montserrat', 'sans-serif'; /* Ahora aplica Montserrat globalmente */
+  font-family: var(--font-sans);
   color: #333333; 
   background-color: #ffffff;
   -webkit-font-smoothing: antialiased;
