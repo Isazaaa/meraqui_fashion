@@ -1,203 +1,140 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useLocation, Link, useSearchParams } from 'react-router-dom';
-import { products } from '../data/products';
+import React, { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { FaSlidersH } from 'react-icons/fa';
 import ProductCard from '../components/ProductCard';
-import './CategoryPage.css';
-
-const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) => {
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
-        pageNumbers.push(i);
-    }
-
-    if (pageNumbers.length <= 1) {
-        return null;
-    }
-
-    return (
-        <nav className="pagination-container">
-            {pageNumbers.map(number => (
-                <button
-                    key={number}
-                    onClick={() => paginate(number)}
-                    className={`pagination-button ${currentPage === number ? 'active' : 'inactive'}`}
-                    aria-label={`Ir a la página ${number}`}
-                    aria-current={currentPage === number ? 'page' : undefined}
-                >
-                    {number}
-                </button>
-            ))}
-        </nav>
-    );
-};
+import Pagination from '../components/Pagination';
+import FilterSidebar from '../components/filters/FilterSidebar';
+import MobileFilterDrawer from '../components/filters/MobileFilterDrawer';
+import ActiveFilters from '../components/filters/ActiveFilters';
+import SortSelect from '../components/filters/SortSelect';
+import useProductFilters from '../hooks/useProductFilters';
+import { capitalize } from '../utils/productFilters';
 
 const CategoryPage = () => {
-    const { categoryName } = useParams();
-    const location = useLocation();
-    const [searchParams, setSearchParams] = useSearchParams();
-    const productsPerPage = 12;
+  const { categoryName } = useParams();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-    // Inicializar estados
-    const [currentPage, setCurrentPage] = useState(() => {
-        const queryPage = searchParams.get('page');
-        const savedPage = sessionStorage.getItem(`category_${categoryName}_page`);
-        return Number(queryPage) || Number(savedPage) || 1;
-    });
-    const [selectedSubcategory, setSelectedSubcategory] = useState(() => {
-        const querySubcategory = searchParams.get('subcategory');
-        const savedSubcategory = sessionStorage.getItem(`category_${categoryName}_subcategory`);
-        return querySubcategory || savedSubcategory || 'all';
-    });
+  const {
+    filters,
+    facets,
+    results,
+    pageItems,
+    page,
+    totalPages,
+    isUnknownCategory,
+    activeFilters,
+    setSubcategory,
+    toggleSize,
+    setPrice,
+    setSort,
+    setPage,
+    clearFilters,
+  } = useProductFilters(categoryName);
 
-    // Obtener subcategorías únicas, asegurando que "all" esté primero
-    const subcategories = ['all', ...new Set(products
-        .filter(product => product.category === categoryName)
-        .map(product => product.subcategory)
-        .filter(Boolean)
-    )].sort((a, b) => a === 'all' ? -1 : b === 'all' ? 1 : a.localeCompare(b));
+  const hasActiveFilters = activeFilters.length > 0;
+  const title = categoryName ? capitalize(categoryName) : 'Categoría';
 
-    // Contar productos por subcategoría
-    const subcategoryCounts = subcategories.reduce((acc, subcategory) => {
-        const count = subcategory === 'all'
-            ? products.filter(product => product.category === categoryName).length
-            : products.filter(product => product.category === categoryName && product.subcategory === subcategory).length;
-        return { ...acc, [subcategory]: count };
-    }, {});
+  // Props shared by the desktop sidebar and the mobile drawer.
+  const groupProps = {
+    filters,
+    facets,
+    onSubcategory: setSubcategory,
+    onToggleSize: toggleSize,
+    onPrice: setPrice,
+  };
 
-    // Filtrar productos
-    const filteredProducts = products.filter(product =>
-        product.category === categoryName &&
-        (selectedSubcategory === 'all' || product.subcategory === selectedSubcategory)
-    );
-
-    // Calcular productos a mostrar
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-
-    // Validar currentPage
-    const maxPage = Math.ceil(filteredProducts.length / productsPerPage);
-    useEffect(() => {
-        if (currentPage > maxPage && maxPage > 0) {
-            setCurrentPage(maxPage);
-            setSearchParams({ page: maxPage.toString(), subcategory: selectedSubcategory }, { replace: true });
-            sessionStorage.setItem(`category_${categoryName}_page`, maxPage.toString());
-        }
-    }, [currentPage, maxPage, selectedSubcategory, setSearchParams, categoryName]);
-
-    // Actualizar query params y sessionStorage
-    useEffect(() => {
-        setSearchParams({ page: currentPage.toString(), subcategory: selectedSubcategory }, { replace: true });
-        sessionStorage.setItem(`category_${categoryName}_page`, currentPage.toString());
-        sessionStorage.setItem(`category_${categoryName}_subcategory`, selectedSubcategory);
-    }, [currentPage, selectedSubcategory, categoryName, setSearchParams]);
-
-    // Restaurar desde location.state y resetear si no hay valores previos
-    useEffect(() => {
-        const queryPage = searchParams.get('page');
-        const querySubcategory = searchParams.get('subcategory');
-        const savedPage = sessionStorage.getItem(`category_${categoryName}_page`);
-        const savedSubcategory = sessionStorage.getItem(`category_${categoryName}_subcategory`);
-
-        if (location.state?.currentPage || location.state?.selectedSubcategory) {
-            const maxPageForState = Math.ceil(
-                products.filter(p => p.category === categoryName &&
-                    (location.state.selectedSubcategory === 'all' || p.subcategory === location.state.selectedSubcategory)
-                ).length / productsPerPage
-            );
-
-            if (location.state.currentPage && Number(location.state.currentPage) <= maxPageForState) {
-                setCurrentPage(Number(location.state.currentPage));
-            }
-            if (location.state.selectedSubcategory && subcategories.includes(location.state.selectedSubcategory)) {
-                setSelectedSubcategory(location.state.selectedSubcategory);
-            }
-            // Borra el estado después de usarlo para evitar que se aplique en futuras visitas
-            window.history.replaceState({}, document.title); 
-
-        } else if (!queryPage && !querySubcategory && !savedPage && !savedSubcategory) {
-            setCurrentPage(1);
-            setSelectedSubcategory('all');
-            setSearchParams({ page: '1', subcategory: 'all' }, { replace: true });
-            sessionStorage.setItem(`category_${categoryName}_page`, '1');
-            sessionStorage.setItem(`category_${categoryName}_subcategory`, 'all');
-        }
-    }, [categoryName, location.state, productsPerPage, setSearchParams, subcategories, products]);
-
-
-    const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber);
-        setSearchParams({ page: pageNumber.toString(), subcategory: selectedSubcategory }, { replace: true });
-        sessionStorage.setItem(`category_${categoryName}_page`, pageNumber.toString());
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    const handleSubcategoryChange = (subcategory) => {
-        setSelectedSubcategory(subcategory);
-        setCurrentPage(1);
-        setSearchParams({ page: '1', subcategory: subcategory }, { replace: true });
-        sessionStorage.setItem(`category_${categoryName}_subcategory`, subcategory);
-        sessionStorage.setItem(`category_${categoryName}_page`, '1');
-    };
-
-    const title = categoryName ? categoryName.charAt(0).toUpperCase() + categoryName.slice(1) : 'Categoría';
-
+  if (isUnknownCategory) {
     return (
-        <div className="category-page-container">
-            <header className="category-header">
-                <h1 className="category-title">{title}</h1>
-                <p className="category-description">Descubre nuestra selección de prendas.</p>
-            </header>
-
-            <div className="subcategory-filters-container">
-                {subcategories.map(subcategory => (
-                    <button
-                        key={subcategory}
-                        onClick={() => handleSubcategoryChange(subcategory)}
-                        className={`subcategory-button ${selectedSubcategory === subcategory ? 'active' : 'inactive'}`}
-                        aria-label={`Filtrar por ${subcategory === 'all' ? 'todas las subcategorías' : subcategory}`}
-                        aria-current={selectedSubcategory === subcategory ? 'true' : 'false'}
-                        title={`${subcategory === 'all' ? 'Todos' : subcategory.charAt(0).toUpperCase() + subcategory.slice(1)} (${subcategoryCounts[subcategory]} productos)`}
-                    >
-                        <span>{subcategory === 'all' ? 'Todos' : subcategory.charAt(0).toUpperCase() + subcategory.slice(1)}</span>
-                        <span className="subcategory-count">{subcategoryCounts[subcategory]}</span>
-                    </button>
-                ))}
-            </div>
-
-            {currentProducts.length === 0 && (
-                <div className="no-products-message">
-                    <p className="no-products-text">Lo sentimos, no hay productos disponibles en esta subcategoría por el momento. 😟</p>
-                    <button
-                        onClick={() => handleSubcategoryChange('all')}
-                        className="no-products-button"
-                    >
-                        Ver todos los productos
-                    </button>
-                </div>
-            )}
-
-            <div className="products-grid">
-                {currentProducts.map((product) => (
-                    <Link
-                        key={product.id}
-                        to={`/producto/${product.id}?page=${currentPage}&subcategory=${encodeURIComponent(selectedSubcategory)}`}
-                        state={{ currentPage, selectedSubcategory }}
-                        className="product-link"
-                    >
-                        <ProductCard product={product} />
-                    </Link>
-                ))}
-            </div>
-
-            <Pagination
-                productsPerPage={productsPerPage}
-                totalProducts={filteredProducts.length}
-                paginate={paginate}
-                currentPage={currentPage}
-            />
-        </div>
+      <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 pb-24 pt-32 text-center md:px-10">
+        <h1 className="text-2xl font-semibold tracking-tight text-black-meraqui md:text-3xl">Categoría no encontrada</h1>
+        <p className="mt-2 text-sm text-gray-500">La categoría que buscas no existe o ya no está disponible.</p>
+        <Link
+          to="/"
+          className="mt-8 bg-black-meraqui px-6 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white-custom transition-colors duration-200 hover:bg-blue-serene focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-serene focus-visible:ring-offset-2"
+        >
+          Volver al inicio
+        </Link>
+      </div>
     );
+  }
+
+  return (
+    <div className="mx-auto max-w-[1440px] px-5 pb-20 pt-20 sm:pt-8 md:px-10 lg:px-16">
+      <header className="pb-8 pt-4 md:pb-10">
+        <h1 className="text-3xl font-semibold tracking-tight text-black-meraqui md:text-4xl">{title}</h1>
+        <p className="mt-2 text-sm text-gray-500">Descubre nuestra selección de prendas.</p>
+      </header>
+
+      {/* Toolbar: count · mobile filter button · sort */}
+      {/* Mobile: count on its own row, then filter button + sort side by side. */}
+      <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-3 border-y border-gray-200 py-3 sm:gap-x-4">
+        <button
+          type="button"
+          onClick={() => setDrawerOpen(true)}
+          aria-haspopup="dialog"
+          aria-expanded={drawerOpen}
+          className="order-2 inline-flex min-h-11 flex-1 items-center justify-center gap-2 border border-black-meraqui px-4 py-2.5 text-xs font-medium uppercase tracking-[0.1em] text-black-meraqui transition-colors duration-200 hover:bg-black-meraqui hover:text-white-custom focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-serene focus-visible:ring-offset-2 sm:order-1 sm:flex-none lg:hidden"
+        >
+          <FaSlidersH aria-hidden="true" className="h-3 w-3" />
+          Filtrar
+          {hasActiveFilters && <span className="tabular-nums">({activeFilters.length})</span>}
+        </button>
+        <p className="order-1 w-full whitespace-nowrap text-sm text-gray-500 sm:order-2 sm:mr-auto sm:w-auto" aria-live="polite">
+          {results.length} {results.length === 1 ? 'producto' : 'productos'}
+        </p>
+        <SortSelect className="order-3 flex-1 sm:flex-none" value={filters.sort} onChange={setSort} />
+      </div>
+
+      <ActiveFilters chips={activeFilters} onClear={clearFilters} />
+
+      <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12">
+        <FilterSidebar hasActiveFilters={hasActiveFilters} onClear={clearFilters} {...groupProps} />
+
+        <div>
+          {results.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-24 text-center">
+              <p className="text-base text-black-meraqui">No encontramos productos con estos filtros.</p>
+              <p className="mt-1 text-sm text-gray-500">Prueba quitando alguno para ver más resultados.</p>
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="mt-6 bg-black-meraqui px-6 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white-custom transition-colors duration-200 hover:bg-blue-serene focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-serene focus-visible:ring-offset-2"
+              >
+                Limpiar filtros
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6 xl:grid-cols-4">
+              {pageItems.map((product) => (
+                <Link
+                  key={product.id}
+                  to={`/producto/${product.id}`}
+                  className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-serene focus-visible:ring-offset-2"
+                >
+                  <ProductCard product={product} />
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <Pagination
+            totalPages={totalPages}
+            paginate={setPage}
+            currentPage={page}
+          />
+        </div>
+      </div>
+
+      <MobileFilterDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        resultCount={results.length}
+        hasActiveFilters={hasActiveFilters}
+        onClear={clearFilters}
+        {...groupProps}
+      />
+    </div>
+  );
 };
 
 export default CategoryPage;
