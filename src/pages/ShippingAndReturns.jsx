@@ -2,7 +2,7 @@ import React from 'react';
 
 const ShippingAndReturns = () => {
   return (
-    <div className="container mx-auto px-5 md:px-10 lg:px-20 py-16 font-montserrat min-h-[calc(100vh-12rem)]">
+    <div className="container mx-auto px-5 md:px-10 lg:px-20 py-16 min-h-[calc(100vh-12rem)]">
       <h1 className="text-4xl md:text-5xl font-bold text-blue-serene mb-8 text-center">Envíos y Devoluciones</h1>
       
       <div className="bg-white-custom p-8 rounded-lg shadow-lg max-w-3xl mx-auto">

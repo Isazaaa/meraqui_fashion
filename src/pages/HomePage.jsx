@@ -10,7 +10,7 @@ const HomePage = () => {
     <div className="homepage-container">
       <Hero />
       <section className="py-16 px-5 md:px-10 lg:px-20 text-center">
-        <h2 className="font-playfair text-4xl md:text-5xl mb-12 text-black-meraqui">Nuestras Colecciones</h2>
+        <h2 className="text-4xl md:text-5xl mb-12 text-black-meraqui">Nuestras Colecciones</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
           {/* Tarjeta de Colección para Mujer */}
           <Link 
@@ -28,8 +28,8 @@ const HomePage = () => {
             </div>
             {/* Contenido de texto debajo de la imagen */}
             <div className="p-4 bg-white-custom">
-                <h3 className="font-playfair text-3xl md:text-4xl font-bold text-black-meraqui m-0">Mujer</h3>
-                <p className="font-montserrat text-base text-gray-700 mt-2">Explora la última moda</p>
+                <h3 className="text-3xl md:text-4xl font-bold text-black-meraqui m-0">Mujer</h3>
+                <p className=" text-base text-gray-700 mt-2">Explora la última moda</p>
             </div>
           </Link>
 
@@ -49,8 +49,8 @@ const HomePage = () => {
             </div>
             {/* Contenido de texto debajo de la imagen */}
             <div className="p-4 bg-white-custom">
-                <h3 className="font-playfair text-3xl md:text-4xl font-bold text-black-meraqui m-0">Hombre</h3>
-                <p className="font-montserrat text-base text-gray-700 mt-2">Estilo que te define</p>
+                <h3 className="text-3xl md:text-4xl font-bold text-black-meraqui m-0">Hombre</h3>
+                <p className=" text-base text-gray-700 mt-2">Estilo que te define</p>
             </div>
           </Link>
 
@@ -70,8 +70,8 @@ const HomePage = () => {
             </div>
             {/* Contenido de texto debajo de la imagen */}
             <div className="p-4 bg-white-custom">
-                <h3 className="font-playfair text-3xl md:text-4xl font-bold text-black-meraqui m-0">Infantil</h3>
-                <p className="font-montserrat text-base text-gray-700 mt-2">Diversión y comodidad</p>
+                <h3 className="text-3xl md:text-4xl font-bold text-black-meraqui m-0">Infantil</h3>
+                <p className=" text-base text-gray-700 mt-2">Diversión y comodidad</p>
             </div>
           </Link>
         </div>
