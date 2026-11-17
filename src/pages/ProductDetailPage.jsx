@@ -12,15 +12,6 @@ const ProductDetailPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [productId]);
 
-  if (!product) {
-    return (
-      <div className="text-center py-20 px-5 font-sans">
-        <h2 className="text-2xl font-bold text-gray-800">Producto no encontrado</h2>
-        <p className="text-gray-600 mt-4">Parece que el producto que buscas no existe o fue retirado.</p>
-      </div>
-    );
-  }
-
   // MODIFICACIÓN 1: Usar un objeto para el estado de las tallas
   // Esto permite almacenar múltiples tallas por producto (e.g., para dúos).
   const [selectedSizes, setSelectedSizes] = useState({});
@@ -32,6 +23,7 @@ const ProductDetailPage = () => {
   // Efecto para inicializar las tallas del dúo al cambiar de producto.
   // Esto es crucial para que al entrar a un dúo, se inicialice correctamente.
   useEffect(() => {
+    if (!product) return;
     if (product.duoOptions && product.duoOptions.length > 0) {
       const initialSizes = product.duoOptions.reduce((acc, option) => {
         acc[option.name] = '';
@@ -44,6 +36,30 @@ const ProductDetailPage = () => {
       setSelectedDuoOption('single');
     }
   }, [productId, product]);
+
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const recommendedProducts = useMemo(() => {
+    return shuffleArray(
+      products.filter(p => p.category === product?.category && p.id !== product?.id)
+    ).slice(0, 4);
+  }, [product]);
+
+  if (!product) {
+    return (
+      <div className="text-center py-20 px-5 font-sans">
+        <h2 className="text-2xl font-bold text-gray-800">Producto no encontrado</h2>
+        <p className="text-gray-600 mt-4">Parece que el producto que buscas no existe o fue retirado.</p>
+      </div>
+    );
+  }
 
   const formatPrice = (price) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(price);
 
@@ -69,21 +85,6 @@ const ProductDetailPage = () => {
     : selectedSizes.single;
 
   const whatsappLink = `https://wa.me/573205646710?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20*${productNameForWhatsApp}*.%0A%0ATallas:%20${encodeURIComponent(sizesForWhatsApp)}.%0A%0APor%20favor,%20dame%20más%20información.`;
-
-  const shuffleArray = (array) => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
-
-  const recommendedProducts = useMemo(() => {
-    return shuffleArray(
-      products.filter(p => p.category === product.category && p.id !== product.id)
-    ).slice(0, 4);
-  }, [productId, product.category, product.id]);
 
   // Si el producto es un dúo, obtenemos las tallas de la opción seleccionada.
   const sizesToRender = isDuoProduct
