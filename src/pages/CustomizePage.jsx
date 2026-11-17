@@ -1,6 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { garments, garmentImages } from "../data/garmentData";
+import useDesignTransform from "../hooks/useDesignTransform";
+import { exportDesignImage } from "../utils/exportDesign";
 import "./CustomizePage.css";
+
+const FALLBACK_GARMENT_URL =
+  "https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466553/blanca-delante_k4moa9.jpg";
+const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
 
 const CustomizePage = () => {
   const [selectedGarment, setSelectedGarment] = useState(garments[0]);
@@ -10,402 +16,133 @@ const CustomizePage = () => {
     garments[0].gender || "Hombre"
   );
   const [selectedLocation, setSelectedLocation] = useState("Frente");
+  // Object URL of the uploaded design (revoked when replaced / on unmount).
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [designPosition, setDesignPosition] = useState({ x: 0, y: 0 });
-  const [designSize, setDesignSize] = useState({ width: 200, height: 200 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [isResizing, setIsResizing] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [resizeStartMouse, setResizeStartMouse] = useState({ x: 0, y: 0 });
-  const [resizeStartSize, setResizeStartSize] = useState({
-    width: 0,
-    height: 0,
-  });
-  const [resizeStartPos, setResizeStartPos] = useState({ x: 0, y: 0 });
+  const [isExporting, setIsExporting] = useState(false);
 
   const fileInputRef = useRef(null);
-  const garmentImageWrapperRef = useRef(null);
-  const designStampRef = useRef(null);
+  // The stage is the garment <img> box: the stamp is positioned inside it and
+  // the export is a scaled copy of it, which is what makes the export WYSIWYG.
+  const stageRef = useRef(null);
   const garmentImageRef = useRef(null);
 
+  const { transform, aspect, placeDesign, clearDesign, stampHandlers, resizeHandlers } =
+    useDesignTransform(stageRef);
+
+  // Latest object URL requested by the user; used to ignore stale image loads.
+  const pendingUrlRef = useRef(null);
+  // Object URL currently committed to state.
+  const committedUrlRef = useRef(null);
+  // Garment image URL that failed to load; the fallback is derived from it.
+  const [failedGarmentSrc, setFailedGarmentSrc] = useState(null);
+
   useEffect(() => {
-    if (uploadedImage && garmentImageWrapperRef.current) {
-      const garmentRect =
-        garmentImageWrapperRef.current.getBoundingClientRect();
-      const img = new Image();
-      img.src = uploadedImage;
-      img.onload = () => {
-        const aspectRatio = img.width / img.height;
-        let initialWidth = Math.min(garmentRect.width * 0.5, 200);
-        let initialHeight = initialWidth / aspectRatio;
-        if (initialHeight > garmentRect.height * 0.5) {
-          initialHeight = Math.min(garmentRect.height * 0.5, 200);
-          initialWidth = initialHeight * aspectRatio;
-        }
-        initialWidth = Math.max(initialWidth, 20);
-        initialHeight = Math.max(initialHeight, 20);
-        setDesignSize({ width: initialWidth, height: initialHeight });
-        setDesignPosition({
-          x: garmentRect.width / 2 - initialWidth / 2,
-          y: garmentRect.height / 2 - initialHeight / 2,
-        });
-      };
-    }
-  }, [uploadedImage, garmentImageWrapperRef]);
+    return () => {
+      // Revoke on unmount: committed URL and any upload still loading.
+      if (pendingUrlRef.current) URL.revokeObjectURL(pendingUrlRef.current);
+      if (committedUrlRef.current && committedUrlRef.current !== pendingUrlRef.current) {
+        URL.revokeObjectURL(committedUrlRef.current);
+      }
+      pendingUrlRef.current = null;
+      committedUrlRef.current = null;
+    };
+  }, []);
+
+  const commitUploadedImage = (url) => {
+    const previous = committedUrlRef.current;
+    committedUrlRef.current = url;
+    setUploadedImage(url);
+    if (previous && previous !== url) URL.revokeObjectURL(previous);
+  };
+
+  const resetFileInput = () => {
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert(
-          "La imagen excede el tamaño máximo de 5MB. Por favor, sube una imagen más pequeña."
-        );
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = () => {
-        setUploadedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
+    if (!file) return;
+    if (file.type !== "image/jpeg" && file.type !== "image/png") {
       alert(
         "Formato de imagen no válido. Por favor, sube una imagen en formato JPG o PNG."
       );
-      setUploadedImage(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+      resetFileInput();
+      return;
     }
+    if (file.size > MAX_UPLOAD_BYTES) {
+      alert(
+        "La imagen excede el tamaño máximo de 5MB. Por favor, sube una imagen más pequeña."
+      );
+      resetFileInput();
+      return;
+    }
+    const url = URL.createObjectURL(file);
+    // A newer upload supersedes any load still in flight.
+    if (pendingUrlRef.current && pendingUrlRef.current !== committedUrlRef.current) {
+      URL.revokeObjectURL(pendingUrlRef.current);
+    }
+    pendingUrlRef.current = url;
+    const img = new Image();
+    img.onload = () => {
+      // Stale load (superseded, removed or unmounted): its URL is already revoked.
+      if (pendingUrlRef.current !== url) return;
+      if (!img.naturalWidth || !img.naturalHeight) {
+        pendingUrlRef.current = null;
+        URL.revokeObjectURL(url);
+        alert("La imagen no tiene dimensiones válidas. Intenta con otro archivo.");
+        resetFileInput();
+        return;
+      }
+      placeDesign(img.naturalWidth / img.naturalHeight);
+      commitUploadedImage(url);
+    };
+    img.onerror = () => {
+      if (pendingUrlRef.current !== url) return;
+      pendingUrlRef.current = null;
+      URL.revokeObjectURL(url);
+      alert("No se pudo leer la imagen. Intenta con otro archivo.");
+      resetFileInput();
+    };
+    img.src = url;
   };
 
-  const handleMouseDown = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (designStampRef.current && e.target === designStampRef.current) {
-        setIsDragging(true);
-        setDragOffset({
-          x: e.clientX - designPosition.x,
-          y: e.clientY - designPosition.y,
-        });
-      }
-    },
-    [designPosition]
-  );
-
-  const handleMouseMove = useCallback(
-    (e) => {
-      if (
-        isDragging &&
-        garmentImageWrapperRef.current &&
-        designStampRef.current
-      ) {
-        const garmentRect =
-          garmentImageWrapperRef.current.getBoundingClientRect();
-        const designRect = designStampRef.current.getBoundingClientRect();
-        let newX = e.clientX - dragOffset.x;
-        let newY = e.clientY - dragOffset.y;
-        newX = Math.max(
-          0,
-          Math.min(newX, garmentRect.width - designRect.width)
-        );
-        newY = Math.max(
-          0,
-          Math.min(newY, garmentRect.height - designRect.height)
-        );
-        setDesignPosition({ x: newX, y: newY });
-      } else if (
-        isResizing &&
-        garmentImageWrapperRef.current &&
-        designStampRef.current
-      ) {
-        const garmentRect =
-          garmentImageWrapperRef.current.getBoundingClientRect();
-        const dx = e.clientX - resizeStartMouse.x;
-        const dy = e.clientY - resizeStartMouse.y;
-        let newWidth = resizeStartSize.width + dx;
-        let newHeight = resizeStartSize.height + dy;
-        const aspectRatio = resizeStartSize.width / resizeStartSize.height;
-        if (aspectRatio && !isNaN(aspectRatio) && isFinite(aspectRatio)) {
-          if (Math.abs(dx) > Math.abs(dy)) {
-            newHeight = newWidth / aspectRatio;
-          } else {
-            newWidth = newHeight * aspectRatio;
-          }
-        }
-        const minSize = 20;
-        const maxWidth = garmentRect.width * 0.9;
-        const maxHeight = garmentRect.height * 0.9;
-        newWidth = Math.max(minSize, Math.min(newWidth, maxWidth));
-        newHeight = Math.max(minSize, Math.min(newHeight, maxHeight));
-        let newX = resizeStartPos.x;
-        let newY = resizeStartPos.y;
-        if (newX + newWidth > garmentRect.width) {
-          newX = garmentRect.width - newWidth;
-        }
-        if (newY + newHeight > garmentRect.height) {
-          newY = garmentRect.height - newHeight;
-        }
-        setDesignSize({ width: newWidth, height: newHeight });
-        setDesignPosition({ x: newX, y: newY });
-      }
-    },
-    [
-      isDragging,
-      dragOffset,
-      isResizing,
-      resizeStartMouse,
-      resizeStartSize,
-      resizeStartPos,
-    ]
-  );
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-    setIsResizing(false);
-  }, []);
-
-  // Funciones para manejar eventos táctiles (móvil)
-  const handleTouchStart = useCallback(
-    (e) => {
-      // Solo prevenir el comportamiento por defecto si es el elemento del diseño
-      if (designStampRef.current && e.target === designStampRef.current) {
-        e.preventDefault(); // Solo prevenir aquí
-        const touch = e.touches[0];
-        setIsDragging(true);
-        setDragOffset({
-          x: touch.clientX - designPosition.x,
-          y: touch.clientY - designPosition.y,
-        });
-      }
-    },
-    [designPosition]
-  );
-
-  const handleTouchMove = useCallback(
-    (e) => {
-      // Solo prevenir scroll si estamos arrastrando o redimensionando
-      if (isDragging || isResizing) {
-        e.preventDefault();
-      }
-
-      if (
-        isDragging &&
-        garmentImageWrapperRef.current &&
-        designStampRef.current &&
-        e.touches.length === 1
-      ) {
-        const touch = e.touches[0];
-        const garmentRect =
-          garmentImageWrapperRef.current.getBoundingClientRect();
-        const designRect = designStampRef.current.getBoundingClientRect();
-        let newX = touch.clientX - dragOffset.x;
-        let newY = touch.clientY - dragOffset.y;
-        newX = Math.max(
-          0,
-          Math.min(newX, garmentRect.width - designRect.width)
-        );
-        newY = Math.max(
-          0,
-          Math.min(newY, garmentRect.height - designRect.height)
-        );
-        setDesignPosition({ x: newX, y: newY });
-      } else if (
-        isResizing &&
-        garmentImageWrapperRef.current &&
-        designStampRef.current &&
-        e.touches.length === 1
-      ) {
-        const touch = e.touches[0];
-        const garmentRect =
-          garmentImageWrapperRef.current.getBoundingClientRect();
-        const dx = touch.clientX - resizeStartMouse.x;
-        const dy = touch.clientY - resizeStartMouse.y;
-        let newWidth = resizeStartSize.width + dx;
-        let newHeight = resizeStartSize.height + dy;
-        const aspectRatio = resizeStartSize.width / resizeStartSize.height;
-        if (aspectRatio && !isNaN(aspectRatio) && isFinite(aspectRatio)) {
-          if (Math.abs(dx) > Math.abs(dy)) {
-            newHeight = newWidth / aspectRatio;
-          } else {
-            newWidth = newHeight * aspectRatio;
-          }
-        }
-        const minSize = 20;
-        const maxWidth = garmentRect.width * 0.9;
-        const maxHeight = garmentRect.height * 0.9;
-        newWidth = Math.max(minSize, Math.min(newWidth, maxWidth));
-        newHeight = Math.max(minSize, Math.min(newHeight, maxHeight));
-        let newX = resizeStartPos.x;
-        let newY = resizeStartPos.y;
-        if (newX + newWidth > garmentRect.width) {
-          newX = garmentRect.width - newWidth;
-        }
-        if (newY + newHeight > garmentRect.height) {
-          newY = garmentRect.height - newHeight;
-        }
-        setDesignSize({ width: newWidth, height: newHeight });
-        setDesignPosition({ x: newX, y: newY });
-      }
-    },
-    [
-      isDragging,
-      dragOffset,
-      isResizing,
-      resizeStartMouse,
-      resizeStartSize,
-      resizeStartPos,
-    ]
-  );
-
-  const handleTouchEnd = useCallback(() => {
-    setIsDragging(false);
-    setIsResizing(false);
-  }, []);
-
-  const handleResizeMouseDown = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsResizing(true);
-      setResizeStartMouse({ x: e.clientX, y: e.clientY });
-      setResizeStartSize({
-        width: designSize.width,
-        height: designSize.height,
-      });
-      setResizeStartPos({ x: designPosition.x, y: designPosition.y });
-    },
-    [designSize, designPosition]
-  );
-
-  const handleResizeTouchStart = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const touch = e.touches[0];
-      setIsResizing(true);
-      setResizeStartMouse({ x: touch.clientX, y: touch.clientY });
-      setResizeStartSize({
-        width: designSize.width,
-        height: designSize.height,
-      });
-      setResizeStartPos({ x: designPosition.x, y: designPosition.y });
-    },
-    [designSize, designPosition]
-  );
-
-  useEffect(() => {
-    // Eventos de mouse (desktop)
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-
-    // Eventos táctiles con passive: false solo cuando sea necesario
-    const touchMoveOptions = { passive: false };
-    document.addEventListener("touchmove", handleTouchMove, touchMoveOptions);
-    document.addEventListener("touchend", handleTouchEnd);
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("touchmove", handleTouchMove);
-      document.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
-
-  const generateCombinedImage = async () => {
-    if (
-      !uploadedImage ||
-      !garmentImageRef.current ||
-      !designStampRef.current ||
-      !garmentImageWrapperRef.current
-    ) {
-      alert("Por favor, sube un diseño para generar la imagen.");
-      return null;
+  const handleRemoveDesign = () => {
+    if (pendingUrlRef.current && pendingUrlRef.current !== committedUrlRef.current) {
+      URL.revokeObjectURL(pendingUrlRef.current);
     }
-    const garmentImgElement = garmentImageRef.current;
-    const garmentWrapperRect =
-      garmentImageWrapperRef.current.getBoundingClientRect();
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const renderWidth = garmentImgElement.clientWidth;
-    const renderHeight = garmentImgElement.clientHeight;
-    canvas.width = renderWidth;
-    canvas.height = renderHeight;
-    const garmentImage = new Image();
-    garmentImage.crossOrigin = "Anonymous";
-    garmentImage.src = garmentImgElement.src;
-    await new Promise((resolve) => {
-      garmentImage.onload = () => {
-        const imgAspectRatio = garmentImage.width / garmentImage.height;
-        const canvasAspectRatio = canvas.width / canvas.height;
-        let drawWidth = canvas.width;
-        let drawHeight = canvas.height;
-        let offsetX = 0;
-        let offsetY = 0;
-        if (imgAspectRatio > canvasAspectRatio) {
-          drawHeight = canvas.width / imgAspectRatio;
-          offsetY = (canvas.height - drawHeight) / 2;
-        } else {
-          drawWidth = canvas.height * imgAspectRatio;
-          offsetX = (canvas.width - drawWidth) / 2;
-        }
-        ctx.drawImage(garmentImage, offsetX, offsetY, drawWidth, drawHeight);
-        resolve();
-      };
-      garmentImage.onerror = () => {
-        console.error(
-          "Error al cargar la imagen de la prenda para el canvas. Se usará placeholder."
-        );
-        const placeholderImg = new Image();
-        placeholderImg.src =
-          "https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466553/blanca-delante_k4moa9.jpg";
-        placeholderImg.onload = () => {
-          ctx.drawImage(placeholderImg, 0, 0, canvas.width, canvas.height);
-          resolve();
-        };
-        placeholderImg.onerror = () => resolve();
-      };
-    });
-    const designImage = new Image();
-    designImage.crossOrigin = "Anonymous";
-    designImage.src = uploadedImage;
-    await new Promise((resolve) => {
-      designImage.onload = () => {
-        const scaleX = canvas.width / garmentWrapperRect.width;
-        const scaleY = canvas.height / garmentWrapperRect.height;
-        const designXOnCanvas = designPosition.x * scaleX;
-        const designYOnCanvas = designPosition.y * scaleY;
-        const designWidthOnCanvas = designSize.width * scaleX;
-        const designHeightOnCanvas = designSize.height * scaleY;
-        ctx.drawImage(
-          designImage,
-          designXOnCanvas,
-          designYOnCanvas,
-          designWidthOnCanvas,
-          designHeightOnCanvas
-        );
-        resolve();
-      };
-      designImage.onerror = () => {
-        console.error("Error al cargar la imagen del diseño para el canvas.");
-        resolve();
-      };
-    });
-    return canvas.toDataURL("image/png");
+    pendingUrlRef.current = null;
+    clearDesign();
+    commitUploadedImage(null);
+    resetFileInput();
   };
 
   const handleDownloadDesign = async () => {
-    if (!uploadedImage) {
+    const garmentImg = garmentImageRef.current;
+    if (!uploadedImage || !transform || !stageRef.current || !garmentImg) {
       alert("Por favor, sube tu diseño para poder descargarlo.");
       return;
     }
-    const dataUrl = await generateCombinedImage();
-    if (dataUrl) {
+    setIsExporting(true);
+    try {
+      const blob = await exportDesignImage({
+        stageEl: stageRef.current,
+        garmentSrc: garmentImg.currentSrc || garmentImg.src,
+        designSrc: uploadedImage,
+        transform,
+      });
+      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = dataUrl;
+      a.href = url;
       a.download = `mi-diseno-personalizado-${selectedGarment.name.toLowerCase()}-${selectedColor.name.toLowerCase()}.png`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch (error) {
+      console.error("Error al generar la imagen del diseño:", error);
+      alert("No se pudo generar la imagen. Inténtalo de nuevo.");
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -446,6 +183,10 @@ const CustomizePage = () => {
     }
   };
 
+  const requestedGarmentSrc = getGarmentImage();
+  const garmentFailed = failedGarmentSrc === requestedGarmentSrc;
+  const garmentSrc = garmentFailed ? FALLBACK_GARMENT_URL : requestedGarmentSrc;
+
   return (
     <div className="design-page-container">
       <div className="design-content-wrapper">
@@ -458,42 +199,38 @@ const CustomizePage = () => {
         <div className="design-grid-layout">
           {/* Design Preview Area */}
           <div className="design-preview-area">
-            <div
-              ref={garmentImageWrapperRef}
-              className="design-garment-display"
-            >
-              <img
-                ref={garmentImageRef}
-                src={getGarmentImage()}
-                alt={`${selectedGarment.name} ${selectedGender} ${selectedColor.name} ${selectedLocation}`}
-                className="design-garment-image"
-                onError={(e) => {
-                  e.target.src =
-                    "https://res.cloudinary.com/dacdd3m0j/image/upload/v1753466553/blanca-delante_k4moa9.jpg";
-                  e.target.alt = "Imagen no disponible";
-                }}
-              />
-              {uploadedImage && (
-                <div
-                  ref={designStampRef}
-                  className="design-stamp-overlay"
-                  style={{
-                    backgroundImage: `url(${uploadedImage})`,
-                    left: designPosition.x,
-                    top: designPosition.y,
-                    width: designSize.width,
-                    height: designSize.height,
+            <div className="design-garment-display">
+              <div ref={stageRef} className="design-garment-stage">
+                <img
+                  ref={garmentImageRef}
+                  src={garmentSrc}
+                  alt={garmentFailed ? "Imagen no disponible" : `${selectedGarment.name} ${selectedGender} ${selectedColor.name} ${selectedLocation}`}
+                  className="design-garment-image"
+                  crossOrigin="anonymous"
+                  draggable={false}
+                  onError={() => {
+                    if (garmentSrc !== FALLBACK_GARMENT_URL) setFailedGarmentSrc(requestedGarmentSrc);
                   }}
-                  onMouseDown={handleMouseDown}
-                  onTouchStart={handleTouchStart}
-                >
+                />
+                {uploadedImage && transform && (
                   <div
-                    className="design-resize-handle"
-                    onMouseDown={handleResizeMouseDown}
-                    onTouchStart={handleResizeTouchStart}
-                  ></div>
-                </div>
-              )}
+                    className="design-stamp-overlay"
+                    style={{
+                      backgroundImage: `url(${uploadedImage})`,
+                      left: `${transform.x * 100}%`,
+                      top: `${transform.y * 100}%`,
+                      width: `${transform.w * 100}%`,
+                      aspectRatio: aspect,
+                    }}
+                    {...stampHandlers}
+                  >
+                    <div
+                      className="design-resize-handle"
+                      {...resizeHandlers}
+                    ></div>
+                  </div>
+                )}
+              </div>
               {!uploadedImage && (
                 <div className="design-no-image-placeholder">
                   <p>Sube tu diseño para verlo aquí</p>
@@ -535,10 +272,7 @@ const CustomizePage = () => {
               {uploadedImage && (
                 <div className="flex justify-center mt-4">
                   <button
-                    onClick={() => {
-                      setUploadedImage(null);
-                      if (fileInputRef.current) fileInputRef.current.value = "";
-                    }}
+                    onClick={handleRemoveDesign}
                     className="design-remove-button"
                   >
                     <svg
@@ -708,6 +442,7 @@ const CustomizePage = () => {
                 <button
                   className="design-download-button"
                   onClick={handleDownloadDesign}
+                  disabled={isExporting}
                 >
                   <div className="design-download-button-content">
                     <svg
@@ -724,7 +459,7 @@ const CustomizePage = () => {
                         d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                       ></path>
                     </svg>
-                    <span>Descargar Diseño Personalizado</span>
+                    <span>{isExporting ? "Generando imagen..." : "Descargar Diseño Personalizado"}</span>
                   </div>
                 </button>
                 <p className="design-finalize-text">
@@ -770,9 +505,9 @@ const CustomizePage = () => {
                   ></path>
                   <path
                     fill="#fff"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M19.3,16c-0.4-0.8-0.7-0.8-1.1-0.8c-0.3,0-0.6,0-0.9,0s-0.8,0.1-1.3,0.6c-0.4,0.5-1.7,1.6-1.7,4s1.7,4.6,1.9,4.9s3.3,5.3,8.1,7.2c4,1.6,4.8,1.3,5.7,1.2c0.9-0.1,2.8-1.1,3.2-2.3	c0.4-1.1,0.4-2.1,0.3-2.3c-0.1-0.2-0.4-0.3-0.9-0.6s-2.8-1.4-3.2-1.5c-0.4-0.2-0.8-0.2-1.1,0.2c-0.3,0.5-1.2,1.5-1.5,1.9	c-0.3,0.3-0.6,0.4-1,0.1c-0.5-0.2-2-0.7-3.8-2.4c-1.4-1.3-2.4-2.8-2.6-3.3c-0.3-0.5,0-0.7,0.2-1c0.2-0.2,0.5-0.6,0.7-0.8	c0.2-0.3,0.3-0.5,0.5-0.8c0.2-0.3,0.1-0.6,0-0.8C20.6,19.3,19.7,17,19.3,16z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <span>Enviar Detalles por WhatsApp</span>

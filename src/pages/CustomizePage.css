@@ -15,21 +15,21 @@
   --color-hover-blue: #3a7fd0; /* Darker blue on hover */
   --color-hover-green: #1dae54; /* Darker green on hover */
   --color-hover-gray: #f3f4f6; /* Light gray on hover for options */
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  --design-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --design-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  --design-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  --design-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --design-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --transition-speed: 0.3s;
   --transition-timing: ease-in-out;
 }
 
 /* Base page styling */
 .design-page-container {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--color-background-light);
   min-height: 100vh;
   padding: 3rem 1.25rem; /* py-12 px-5 */
@@ -56,7 +56,7 @@
   margin-right: auto;
   background-color: var(--color-background-card);
   border-radius: 1rem; /* rounded-xl */
-  box-shadow: var(--shadow-2xl);
+  box-shadow: var(--design-shadow-2xl);
   overflow: hidden;
   padding: 2rem; /* p-8 */
 }
@@ -141,13 +141,24 @@
   justify-content: center;
 }
 
-.design-garment-image {
+/* The stage is exactly the garment image box. The stamp is positioned in
+   percentages of this box and the PNG export is a scaled copy of it. */
+.design-garment-stage {
+  position: relative;
+  flex: none;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
   max-width: 500px; /* To prevent image from being too large */
+  line-height: 0;
+}
+
+.design-garment-image {
+  display: block;
+  width: 100%;
+  height: auto;
   max-height: 500px; /* To prevent image from being too large */
-  transition: all var(--transition-speed) var(--transition-timing);
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 /* Uploaded design stamp */
@@ -155,19 +166,20 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  border: 2px dashed rgba(156, 163, 175, 0.8); /* border-2 border-dashed border-gray-400 */
-  opacity: 0.9;
+  /* Outline (not border) so the frame never shrinks the image box: what is
+     painted on screen is exactly what the export draws. */
+  outline: 2px dashed rgba(156, 163, 175, 0.8);
   position: absolute;
   cursor: grab;
   box-sizing: border-box;
-  transition: border-color 0.2s ease-in-out;
+  transition: outline-color 0.2s ease-in-out;
   user-select: none;
+  touch-action: none; /* pointer events drive drag; never scroll the page */
 }
 
 .design-stamp-overlay:active {
   cursor: grabbing;
-  border-color: #305f7f;
-  touch-action: none; /* Solo prevenir scroll cuando está activo */
+  outline-color: #305f7f;
 }
 
 /* Resize handle for the stamp */
@@ -185,8 +197,8 @@
   right: -12px; /* Half of width/height to center it on the corner */
 }
 
-.design-resize-handle:active {
-  touch-action: none; /* Solo prevenir scroll cuando está activo */
+.design-resize-handle {
+  touch-action: none;
 }
 
 /* Placeholder for no image uploaded */
@@ -215,7 +227,7 @@
   padding: 1.5rem 2rem; /* p-6 md:p-8 */
   background-color: var(--color-background-section);
   border-radius: 0.75rem; /* rounded-xl */
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--design-shadow-lg);
   border: 1px solid #f0f0f0; /* border border-gray-100 */
 }
 
@@ -260,7 +272,7 @@
   background-color: var(--color-background-card);
   color: #4b5563; /* text-gray-700 */
   text-align: center;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--design-shadow-sm);
   display: inline-flex; /* To properly center icon if added */
   align-items: center;
   justify-content: center;
@@ -271,13 +283,13 @@
   border-color: var(--color-primary-blue);
   color: var(--color-primary-blue);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--design-shadow-md);
 }
 
 .design-option-button.active {
   background-color: var(--color-primary-blue);
   color: var(--color-background-card);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--design-shadow-md);
   transform: scale(1.03); /* Slightly larger when active */
   border-color: var(--color-primary-blue);
   font-weight: 600;
@@ -310,13 +322,13 @@
   align-items: center;
   justify-content: center;
   transition: all var(--transition-speed) var(--transition-timing);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--design-shadow-sm);
 }
 
 .design-color-swatch-wrapper.active .design-color-swatch {
   border-color: var(--color-primary-blue);
   transform: scale(1.1);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--design-shadow-md);
 }
 
 .design-color-swatch-wrapper:hover .design-color-swatch {
@@ -370,7 +382,7 @@
   background-color: var(--color-primary-blue);
   color: var(--color-background-card);
   border-radius: 0.5rem; /* rounded-lg */
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--design-shadow-md);
   cursor: pointer;
   transition: background-color var(--transition-speed) var(--transition-timing),
     transform 0.2s var(--transition-timing);
@@ -380,7 +392,7 @@
 .design-upload-label:hover {
   background-color: var(--color-hover-blue);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--design-shadow-lg);
 }
 
 .design-upload-icon {
@@ -442,14 +454,14 @@
   font-size: 1.125rem; /* text-lg */
   font-weight: 600; /* font-semibold */
   transition: all var(--transition-speed) var(--transition-timing);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--design-shadow-md);
   margin-bottom: 1rem; /* mb-4 */
 }
 
 .design-download-button:hover {
   background-color: var(--color-hover-blue);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--design-shadow-lg);
 }
 
 .design-download-button-content {
@@ -477,14 +489,14 @@
   font-size: 1.25rem; /* text-xl */
   font-weight: 600; /* font-semibold */
   transition: all var(--transition-speed) var(--transition-timing);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--design-shadow-md);
   margin-top: 2.5rem;
 }
 
 .design-whatsapp-button:hover:not(:disabled) {
   background-color: var(--color-hover-green);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--design-shadow-lg);
 }
 
 .design-whatsapp-button:disabled {
@@ -515,8 +527,10 @@
   .design-garment-display {
     height: 500px;
   }
-  .design-garment-image {
+  .design-garment-stage {
     max-width: 400px;
+  }
+  .design-garment-image {
     max-height: 400px;
   }
 }
@@ -528,8 +542,10 @@
   .design-garment-display {
     height: 400px;
   }
-  .design-garment-image {
+  .design-garment-stage {
     max-width: 300px;
+  }
+  .design-garment-image {
     max-height: 300px;
   }
 }
@@ -556,7 +572,7 @@
   }
 
   .design-stamp-overlay {
-    border-width: 3px; /* Borde más grueso en móvil */
+    outline-width: 3px; /* Borde más grueso en móvil */
   }
 
   /* Área de previsualización más accesible en móvil */
