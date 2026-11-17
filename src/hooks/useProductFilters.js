@@ -136,7 +136,6 @@ export default function useProductFilters(categoryName, perPage = 12) {
   const setPage = useCallback(
     (value) => {
       updateParams({ page: value <= 1 ? null : value });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     [updateParams]
   );

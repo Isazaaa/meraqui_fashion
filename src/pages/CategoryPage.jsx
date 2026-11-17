@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaSlidersH } from 'react-icons/fa';
 import ProductCard from '../components/ProductCard';
@@ -21,6 +21,7 @@ const CategoryPage = () => {
     pageItems,
     page,
     totalPages,
+    perPage,
     isUnknownCategory,
     activeFilters,
     setSubcategory,
@@ -30,6 +31,15 @@ const CategoryPage = () => {
     setPage,
     clearFilters,
   } = useProductFilters(categoryName);
+
+  const gridRef = useRef(null);
+
+  // Change page, then bring the top of the grid into view (below the fixed navbar).
+  const handlePageChange = (value) => {
+    setPage(value);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    gridRef.current?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  };
 
   const hasActiveFilters = activeFilters.length > 0;
   const title = categoryName ? capitalize(categoryName) : 'Categoría';
@@ -90,7 +100,7 @@ const CategoryPage = () => {
       <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12">
         <FilterSidebar hasActiveFilters={hasActiveFilters} onClear={clearFilters} {...groupProps} />
 
-        <div>
+        <div ref={gridRef} className="scroll-mt-20 sm:scroll-mt-24">
           {results.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-24 text-center">
               <p className="text-base text-black-meraqui">No encontramos productos con estos filtros.</p>
@@ -119,7 +129,9 @@ const CategoryPage = () => {
 
           <Pagination
             totalPages={totalPages}
-            paginate={setPage}
+            totalItems={results.length}
+            perPage={perPage}
+            paginate={handlePageChange}
             currentPage={page}
           />
         </div>
