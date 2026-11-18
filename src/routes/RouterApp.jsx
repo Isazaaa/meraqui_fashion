@@ -8,11 +8,14 @@ import CustomizePage from '../pages/CustomizePage';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsAndConditions from '../pages/TermsAndConditions';
 import ShippingAndReturns from '../pages/ShippingAndReturns';
+import NotFoundPage from '../pages/NotFoundPage';
+import RouteErrorPage from '../pages/RouteErrorPage';
 
 export const routes = [
   {
     path: '/',
     element: <Layout />,
+    errorElement: <RouteErrorPage />,
     children: [
       {
         index: true,
@@ -47,6 +50,10 @@ export const routes = [
       {
         path: '/envios-devoluciones',
         element: <ShippingAndReturns />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },
