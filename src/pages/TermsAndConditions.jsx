@@ -1,8 +1,10 @@
 import React from 'react';
+import Seo from '../components/Seo';
 
 const TermsAndConditions = () => {
   return (
     <div className="container mx-auto px-5 md:px-10 lg:px-20 py-16 min-h-[calc(100vh-12rem)]">
+      <Seo title="Términos y condiciones" description="Condiciones de uso del sitio y de compra de Meraqui Fashion." />
       <h1 className="text-4xl md:text-5xl font-bold text-blue-serene mb-8 text-center">Términos y Condiciones</h1>
       
       <div className="bg-white-custom p-8 rounded-lg shadow-lg max-w-3xl mx-auto">

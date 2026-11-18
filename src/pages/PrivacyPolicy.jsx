@@ -1,8 +1,10 @@
 import React from 'react';
+import Seo from '../components/Seo';
 
 const PrivacyPolicy = () => {
   return (
     <div className="container mx-auto px-5 md:px-10 lg:px-20 py-16 min-h-[calc(100vh-12rem)]">
+      <Seo title="Políticas de privacidad" description="Conoce cómo Meraqui Fashion trata y protege tus datos personales." />
       <h1 className="text-4xl md:text-5xl font-bold text-blue-serene mb-8 text-center">Políticas de Privacidad</h1>
       
       <div className="bg-white-custom p-8 rounded-lg shadow-lg max-w-3xl mx-auto">

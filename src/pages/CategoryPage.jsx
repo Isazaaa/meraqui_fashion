@@ -8,7 +8,9 @@ import MobileFilterDrawer from '../components/filters/MobileFilterDrawer';
 import ActiveFilters from '../components/filters/ActiveFilters';
 import SortSelect from '../components/filters/SortSelect';
 import useProductFilters from '../hooks/useProductFilters';
-import { capitalize } from '../utils/productFilters';
+import Seo from '../components/Seo';
+import { CATEGORIES } from '../config/site';
+import { capitalize, hasKey } from '../utils/productFilters';
 
 const CategoryPage = () => {
   const { categoryName } = useParams();
@@ -42,7 +44,8 @@ const CategoryPage = () => {
   };
 
   const hasActiveFilters = activeFilters.length > 0;
-  const title = categoryName ? capitalize(categoryName) : 'Categoría';
+  const meta = hasKey(CATEGORIES, categoryName) ? CATEGORIES[categoryName] : null;
+  const title = meta?.label ?? (categoryName ? capitalize(categoryName) : 'Categoría');
 
   // Props shared by the desktop sidebar and the mobile drawer.
   const groupProps = {
@@ -56,6 +59,7 @@ const CategoryPage = () => {
   if (isUnknownCategory) {
     return (
       <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 pb-24 pt-32 text-center md:px-10">
+        <Seo title="Categoría no encontrada" description="La categoría que buscas no existe o ya no está disponible." noindex />
         <h1 className="text-2xl font-semibold tracking-tight text-black-meraqui md:text-3xl">Categoría no encontrada</h1>
         <p className="mt-2 text-sm text-gray-500">La categoría que buscas no existe o ya no está disponible.</p>
         <Link
@@ -70,6 +74,10 @@ const CategoryPage = () => {
 
   return (
     <div className="mx-auto max-w-[1440px] px-5 pb-20 pt-20 sm:pt-8 md:px-10 lg:px-16">
+      <Seo
+        title={title}
+        description={meta?.description ?? 'Descubre nuestra selección de prendas.'}
+      />
       <header className="pb-8 pt-4 md:pb-10">
         <h1 className="text-3xl font-semibold tracking-tight text-black-meraqui md:text-4xl">{title}</h1>
         <p className="mt-2 text-sm text-gray-500">Descubre nuestra selección de prendas.</p>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import Seo from '../components/Seo';
 
 const RouteErrorPage = () => {
   const error = useRouteError();
@@ -7,6 +8,7 @@ const RouteErrorPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-5 text-center">
+      <Seo title="Error" description="Ocurrió un problema inesperado al cargar esta página." noindex />
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-gray-500">
         {isNotFound ? 'Error 404' : 'Error'}
       </p>

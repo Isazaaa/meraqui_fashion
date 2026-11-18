@@ -2,6 +2,8 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import Seo from '../components/Seo';
+import { SITE_NAME } from '../config/site';
 import './ProductDetailAccordion.css';
 
 const ProductDetailPage = () => {
@@ -55,6 +57,7 @@ const ProductDetailPage = () => {
   if (!product) {
     return (
       <div className="text-center py-20 px-5 font-sans">
+        <Seo title="Producto no encontrado" description="El producto que buscas no existe o fue retirado." noindex />
         <h2 className="text-2xl font-bold text-gray-800">Producto no encontrado</h2>
         <p className="text-gray-600 mt-4">Parece que el producto que buscas no existe o fue retirado.</p>
       </div>
@@ -91,8 +94,44 @@ const ProductDetailPage = () => {
     ? product.duoOptions.find(opt => opt.name === selectedDuoOption)?.sizes || []
     : product.sizes || [];
 
+  const metaDescription = [
+    `${product.name}.`,
+    product.retailPrice ? `Precio: ${formatPrice(product.retailPrice)}.` : null,
+    product.materials ? `${product.materials.replace(/\.$/, '')}.` : null,
+    'Pídelo por WhatsApp con envíos a todo el país.',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  // Escape "<" so product text can never close the script tag.
+  const jsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    image: product.image,
+    description: metaDescription,
+    brand: { '@type': 'Brand', name: SITE_NAME },
+    ...(product.retailPrice && {
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'COP',
+        price: product.retailPrice,
+        availability: 'https://schema.org/InStock',
+      },
+    }),
+  }).replace(/</g, '\\u003c');
+
   return (
     <div className="max-w-[1200px] mx-auto my-12 px-5 font-sans">
+      <Seo
+        title={product.name}
+        description={metaDescription}
+        image={product.image}
+        path={`/producto/${product.id}`}
+        type="product"
+      >
+        <script type="application/ld+json">{jsonLd}</script>
+      </Seo>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="flex flex-col items-center">
           <div className="w-full rounded-xl overflow-hidden shadow-xl mb-4">

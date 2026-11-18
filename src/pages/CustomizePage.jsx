@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { garments, garmentImages } from "../data/garmentData";
 import useDesignTransform from "../hooks/useDesignTransform";
 import { exportDesignImage } from "../utils/exportDesign";
+import Seo from "../components/Seo";
 import "./CustomizePage.css";
 
 const FALLBACK_GARMENT_URL =
@@ -189,6 +190,10 @@ const CustomizePage = () => {
 
   return (
     <div className="design-page-container">
+      <Seo
+        title="Personaliza tu prenda"
+        description="Diseña tu prenda en línea: elige la prenda y el color, sube tu diseño y pídela con estampado o bordado personalizado."
+      />
       <div className="design-content-wrapper">
         <h1 className="design-main-title">Diseña Tu Prenda Perfecta</h1>
         <p className="design-subtitle-text">

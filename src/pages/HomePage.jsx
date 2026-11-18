@@ -1,5 +1,7 @@
 import React from 'react';
 import Hero from '../components/Hero';
+import Seo from '../components/Seo';
+import { DEFAULT_TITLE, DEFAULT_DESCRIPTION } from '../config/site';
 import { Link } from 'react-router-dom';
 import CategoriaMujerImg from '../assets/images/categoria-mujer.webp';
 import CategoriaHombreImg from '../assets/images/categoria-hombre.webp';
@@ -8,6 +10,7 @@ import CategoriaNinosImg from '../assets/images/categoria-ninos.webp';
 const HomePage = () => {
   return (
     <div className="homepage-container">
+      <Seo title={DEFAULT_TITLE} description={DEFAULT_DESCRIPTION} path="/" />
       <Hero />
       <section className="py-16 px-5 md:px-10 lg:px-20 text-center">
         <h2 className="text-4xl md:text-5xl mb-12 text-black-meraqui">Nuestras Colecciones</h2>
