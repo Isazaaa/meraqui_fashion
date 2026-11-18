@@ -7,9 +7,9 @@ const TermsAndConditions = () => {
       <Seo title="Términos y condiciones" description="Condiciones de uso del sitio y de compra de Meraqui Fashion." />
       <h1 className="text-4xl md:text-5xl font-bold text-blue-serene mb-8 text-center">Términos y Condiciones</h1>
       
-      <div className="bg-white-custom p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+      <div className="bg-white-custom p-8 rounded-lg shadow-lg max-w-3xl mx-auto leading-relaxed">
         <p className="mb-4 text-gray-700">
-          Bienvenido a **Meraqui Fashion**. Al acceder y utilizar nuestra tienda virtual, usted acepta cumplir con los siguientes términos y condiciones. Por favor, léalos detenidamente.
+          Bienvenido a <strong>Meraqui Fashion</strong>. Al acceder y utilizar nuestra tienda virtual, usted acepta cumplir con los siguientes términos y condiciones. Por favor, léalos detenidamente.
         </p>
 
         <h2 className="text-2xl font-bold text-black-meraqui mt-8 mb-4">1. Uso del Sitio Web</h2>
@@ -24,7 +24,7 @@ const TermsAndConditions = () => {
 
         <h2 className="text-2xl font-bold text-black-meraqui mt-8 mb-4">3. Pedidos y Pagos</h2>
         <p className="mb-4 text-gray-700">
-          Al realizar un pedido a través de nuestra tienda virtual, usted se compromete a proporcionar información de pago válida y precisa. Todos los pedidos están sujetos a disponibilidad y a nuestra confirmación. Nos reservamos el derecho de rechazar o cancelar cualquier pedido por razones como la imposibilidad de verificar la información de pago, problemas de stock o errores en la descripción/precio del producto.
+          Este sitio funciona como catálogo: los pedidos se realizan y confirman por WhatsApp, donde te indicaremos las formas de pago disponibles, los tiempos y los costos de tu pedido. Todos los pedidos están sujetos a disponibilidad y a nuestra confirmación. Nos reservamos el derecho de rechazar o cancelar cualquier pedido por razones como problemas de stock o errores en la descripción o el precio del producto.
         </p>
 
         <h2 className="text-2xl font-bold text-black-meraqui mt-8 mb-4">4. Propiedad Intelectual</h2>
@@ -53,7 +53,7 @@ const TermsAndConditions = () => {
         </p>
 
         <p className="text-sm text-gray-500 mt-8 text-center">
-          Última actualización: 04 de agosto de 2025
+          Última actualización: 18 de noviembre de 2026
         </p>
       </div>
     </div>
