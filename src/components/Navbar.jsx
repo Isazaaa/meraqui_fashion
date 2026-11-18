@@ -35,21 +35,21 @@ const Navbar = () => {
             <img src={LogoMf} alt="Meraqui Fashion Logo" className="h-8 w-auto" />
           </Link>
         </div>
-        <nav className="flex-1 flex items-center justify-end overflow-x-auto gap-2 pr-2">
-          <NavLink to="/customizePage" className="nav-category-link group">
-            <FaPaintBrush className="nav-category-icon" />
+        <nav aria-label="Categorías" className="flex-1 flex items-center justify-end overflow-x-auto gap-2 pr-2">
+          <NavLink to="/customizePage" aria-label="Personalizar prenda" className="nav-category-link group">
+            <FaPaintBrush aria-hidden="true" className="nav-category-icon" />
           </NavLink>
-          <NavLink to="/categoria/mujer" className="nav-category-link group">
-            <FaFemale className="nav-category-icon" />
+          <NavLink to="/categoria/mujer" aria-label="Categoría Mujer" className="nav-category-link group">
+            <FaFemale aria-hidden="true" className="nav-category-icon" />
           </NavLink>
-          <NavLink to="/categoria/hombre" className="nav-category-link group">
-            <FaMale className="nav-category-icon" />
+          <NavLink to="/categoria/hombre" aria-label="Categoría Hombre" className="nav-category-link group">
+            <FaMale aria-hidden="true" className="nav-category-icon" />
           </NavLink>
-          <NavLink to="/categoria/ninos" className="nav-category-link group">
-            <FaChild className="nav-category-icon" />
+          <NavLink to="/categoria/infantil" aria-label="Categoría Infantil" className="nav-category-link group">
+            <FaChild aria-hidden="true" className="nav-category-icon" />
           </NavLink>
-          <NavLink to="/categoria/duo" className="nav-category-link group">
-            <FaUserFriends className="nav-category-icon" />
+          <NavLink to="/categoria/duo" aria-label="Categoría Duo" className="nav-category-link group">
+            <FaUserFriends aria-hidden="true" className="nav-category-icon" />
           </NavLink>
         </nav>
       </header>
@@ -95,6 +95,8 @@ const Navbar = () => {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
+              aria-expanded={dropdownOpen}
+              aria-haspopup="true"
               className="nav-category-link flex items-center gap-2"
             >
               <span>Categorías</span>

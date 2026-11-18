@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import CategoryPage from '../pages/CategoryPage';
 import HomePage from '../pages/HomePage';
@@ -16,6 +17,11 @@ export const routes = [
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        // Legacy slug: keeps previously shared links working.
+        path: '/categoria/ninos',
+        element: <Navigate to="/categoria/infantil" replace />,
       },
       {
         path: '/categoria/:categoryName',

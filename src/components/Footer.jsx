@@ -11,7 +11,7 @@ const EMAIL = 'info@meraquifashion.com';
 const EXPLORE_LINKS = [
     { to: '/categoria/mujer', label: 'Mujer' },
     { to: '/categoria/hombre', label: 'Hombre' },
-    { to: '/categoria/ninos', label: 'Infantil' },
+    { to: '/categoria/infantil', label: 'Infantil' },
     { to: '/customizePage', label: 'Personalizar' },
 ];
 
