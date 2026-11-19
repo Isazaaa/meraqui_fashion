@@ -87,9 +87,18 @@ const Navbar = () => {
       }
     };
 
+    // The drawer is hidden from `sm` up; close it if the viewport grows past
+    // that breakpoint so the body scroll lock and focus trap are released.
+    const desktopQuery = window.matchMedia("(min-width: 640px)");
+    const handleBreakpoint = (event) => {
+      if (event.matches) setOpenKey(null);
+    };
+
     document.addEventListener("keydown", handleKeyDown);
+    desktopQuery.addEventListener("change", handleBreakpoint);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      desktopQuery.removeEventListener("change", handleBreakpoint);
       document.body.style.overflow = previousOverflow;
       toggle?.focus({ preventScroll: true });
     };
