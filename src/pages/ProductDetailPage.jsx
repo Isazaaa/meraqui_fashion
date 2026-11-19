@@ -261,13 +261,7 @@ const ProductDetailPage = () => {
           <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">También te podría interesar</h2>
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12">
             {recommendedProducts.map((recommendedProduct) => (
-              <Link 
-                to={`/producto/${recommendedProduct.id}`} 
-                key={recommendedProduct.id} 
-                className="block outline-none focus:ring-2 focus:ring-blue-serene focus:ring-offset-2 rounded-lg"
-              >
-                <ProductCard product={recommendedProduct} />
-              </Link>
+              <ProductCard key={recommendedProduct.id} product={recommendedProduct} />
             ))}
           </div>
         </div>

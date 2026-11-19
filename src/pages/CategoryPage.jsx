@@ -58,7 +58,7 @@ const CategoryPage = () => {
 
   if (isUnknownCategory) {
     return (
-      <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 pb-24 pt-32 text-center md:px-10">
+      <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 pb-24 pt-16 text-center md:px-10">
         <Seo title="Categoría no encontrada" description="La categoría que buscas no existe o ya no está disponible." noindex />
         <h1 className="text-2xl font-semibold tracking-tight text-black-meraqui md:text-3xl">Categoría no encontrada</h1>
         <p className="mt-2 text-sm text-gray-500">La categoría que buscas no existe o ya no está disponible.</p>
@@ -73,7 +73,7 @@ const CategoryPage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-[1440px] px-5 pb-20 pt-20 sm:pt-8 md:px-10 lg:px-16">
+    <div className="mx-auto max-w-[1440px] px-5 pb-20 pt-6 sm:pt-8 md:px-10 lg:px-16">
       <Seo
         title={title}
         description={meta?.description ?? 'Descubre nuestra selección de prendas.'}
@@ -108,7 +108,7 @@ const CategoryPage = () => {
       <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12">
         <FilterSidebar hasActiveFilters={hasActiveFilters} onClear={clearFilters} {...groupProps} />
 
-        <div ref={gridRef} className="scroll-mt-20 sm:scroll-mt-24">
+        <div ref={gridRef} className="scroll-mt-20">
           {results.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-24 text-center">
               <p className="text-base text-black-meraqui">No encontramos productos con estos filtros.</p>
@@ -124,13 +124,7 @@ const CategoryPage = () => {
           ) : (
             <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6 xl:grid-cols-4">
               {pageItems.map((product) => (
-                <Link
-                  key={product.id}
-                  to={`/producto/${product.id}`}
-                  className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-serene focus-visible:ring-offset-2"
-                >
-                  <ProductCard product={product} />
-                </Link>
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           )}

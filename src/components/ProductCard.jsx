@@ -1,56 +1,53 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+const priceFormatter = new Intl.NumberFormat("es-CO", {
+  style: "currency",
+  currency: "COP",
+  minimumFractionDigits: 0,
+});
 
 const ProductCard = ({ product }) => {
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
-
-  // Puedes ajustar este valor para controlar la altura de la imagen en las tarjetas.
-  // Cuanto mayor sea el número, más grande será la imagen verticalmente.
-  // h-80 es 320px, h-88 es 352px, h-96 es 384px.
-  const fixedImageHeightClass = "h-80"; // Aumentamos la altura de la imagen
+  const priceLabel = product.retailPrice ? priceFormatter.format(product.retailPrice) : null;
 
   return (
-    <div className="no-underline text-inherit block h-full">
-      {/* Reducimos el padding general de la tarjeta de p-2 a p-1 */}
-      <article className="flex flex-col h-full overflow-hidden group p-1">
-        {" "}
-        {/* p-1 para un margen visual más sutil */}
-        {/* Contenedor de imagen con altura fija y object-cover */}
-        <div
-          className={`w-full relative overflow-hidden bg-gray-100 flex justify-center items-center rounded-md ${fixedImageHeightClass}`}
-        >
+    <Link
+      to={`/producto/${product.id}`}
+      aria-label={priceLabel ? `${product.name}, ${priceLabel}` : product.name}
+      className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-serene focus-visible:ring-offset-2"
+    >
+      <article className="flex h-full flex-col">
+        <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100">
           {product.image ? (
             <img
               src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" // Usamos object-cover y object-center
+              alt=""
+              width="600"
+              height="800"
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover object-center motion-safe:transition-[transform,opacity] motion-safe:duration-500 motion-safe:ease-out group-hover:opacity-90 motion-safe:group-hover:scale-[1.02]"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-600 text-sm text-center">
-              No Image Available
+            <div className="absolute inset-0 flex items-center justify-center text-xs uppercase tracking-[0.14em] text-neutral-500">
+              Sin imagen
             </div>
           )}
         </div>
-        {/* Información centrada debajo de la imagen */}
-        <div className="py-2 px-1 text-center flex flex-col flex-grow">
-          {" "}
-          {/* Reducimos py y px aquí también */}
-          <h3 className="text-lg font-semibold text-gray-800 leading-tight mb-1">
+
+        <div className="flex flex-1 flex-col pt-3">
+          {product.subcategory && (
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-500">
+              {product.subcategory}
+            </p>
+          )}
+          <h3 className="mt-1 line-clamp-2 text-sm font-medium leading-snug text-black-meraqui">
             {product.name}
           </h3>
-          {product.retailPrice && (
-            <span className="text-base font-semibold text-blue-serene">
-              {formatPrice(product.retailPrice)}
-            </span>
-          )}
+          {priceLabel && <p className="mt-1 text-sm text-neutral-600">{priceLabel}</p>}
         </div>
       </article>
-    </div>
+    </Link>
   );
 };
 
