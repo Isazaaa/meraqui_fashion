@@ -7,7 +7,7 @@ const primaryButton =
 
 const NotFoundPage = () => {
   return (
-    <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 pb-24 pt-32 text-center sm:pt-16 md:px-10">
+    <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 pb-24 pt-16 text-center md:px-10">
       <Seo title="Página no encontrada" description="La página que buscas no existe o ya no está disponible." noindex />
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-gray-500">Error 404</p>
       <h1 className="mt-4 text-3xl font-semibold tracking-tight text-black-meraqui md:text-4xl">

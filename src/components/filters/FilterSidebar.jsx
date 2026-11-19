@@ -4,7 +4,7 @@ import FilterGroups from './FilterGroups';
 /** Sticky desktop sidebar (hidden below lg; the drawer takes over there). */
 const FilterSidebar = ({ hasActiveFilters, onClear, ...groupProps }) => (
   <aside aria-label="Filtros" className="hidden lg:block">
-    <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
+    <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
       <div className="mb-5 flex items-center justify-between">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">Filtrar</p>
         {hasActiveFilters && (
