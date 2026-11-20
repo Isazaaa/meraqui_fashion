@@ -9,9 +9,10 @@ const WHATSAPP_URL =
 
 const Layout = () => {
   const { pathname } = useLocation();
-  // Product pages have their own WhatsApp call to action, and the floating
-  // button would cover the size selector on mobile.
-  const showFloatingWhatsapp = !pathname.startsWith("/producto/");
+  // Product and customize pages have their own WhatsApp call to action, and the
+  // floating button would cover the size selector or design preview on mobile.
+  const showFloatingWhatsapp =
+    !pathname.startsWith("/producto/") && pathname !== "/customizePage";
 
   return (
     <>
