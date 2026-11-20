@@ -1,98 +1,118 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import Seo from '../components/Seo';
-import { SITE_NAME } from '../config/site';
-import './ProductDetailAccordion.css';
+import WhatsAppIcon from '../components/WhatsAppIcon';
+import { CATEGORIES, SITE_NAME } from '../config/site';
 
-const ProductDetailPage = () => {
-  const { productId } = useParams();
-  const product = products.find(p => p.id == productId);
+const priceFormatter = new Intl.NumberFormat('es-CO', {
+  style: 'currency',
+  currency: 'COP',
+  minimumFractionDigits: 0,
+});
+const formatPrice = (price) => priceFormatter.format(price);
+
+const WHATSAPP_NUMBER = '573205646710';
+const SINGLE_KEY = 'single';
+
+const focusRing =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-serene focus-visible:ring-offset-2';
+
+const ChevronIcon = (props) => (
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" {...props}>
+    <path d="m5 7.5 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+// Closest ids first, so the selection is stable between visits and renders.
+const getRecommended = (product) =>
+  products
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .sort((a, b) => Math.abs(a.id - product.id) - Math.abs(b.id - product.id) || a.id - b.id)
+    .slice(0, 4);
+
+const SizeGroup = ({ legend, name, sizes, value, onChange, invalid, describedBy }) => (
+  <fieldset className="min-w-0" aria-describedby={invalid ? describedBy : undefined}>
+    <legend className="text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-500">
+      {legend}
+      {value && <span className="ml-2 normal-case tracking-normal text-black-meraqui">{value}</span>}
+    </legend>
+    <div className="mt-3 flex flex-wrap gap-2">
+      {sizes.map((size) => (
+        <div key={size} className="relative">
+          <input
+            type="radio"
+            id={`${name}-${size}`}
+            name={name}
+            value={size}
+            checked={value === size}
+            onChange={() => onChange(size)}
+            className="peer sr-only"
+          />
+          <label
+            htmlFor={`${name}-${size}`}
+            className={`flex h-11 min-w-11 cursor-pointer items-center justify-center border px-3 text-sm text-black-meraqui transition-colors hover:border-black-meraqui peer-checked:border-black-meraqui peer-checked:bg-black-meraqui peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-blue-serene peer-focus-visible:ring-offset-2 ${
+              invalid && !value ? 'border-red-700' : 'border-neutral-300'
+            }`}
+          >
+            {size}
+          </label>
+        </div>
+      ))}
+    </div>
+  </fieldset>
+);
+
+const AccordionItem = ({ title, children }) => (
+  <details className="group border-b border-neutral-200">
+    <summary
+      className={`flex min-h-12 cursor-pointer list-none items-center justify-between py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-black-meraqui [&::-webkit-details-marker]:hidden ${focusRing}`}
+    >
+      {title}
+      <ChevronIcon className="h-4 w-4 text-neutral-500 motion-safe:transition-transform group-open:rotate-180" />
+    </summary>
+    <div className="pb-5 text-sm leading-6 text-neutral-600">{children}</div>
+  </details>
+);
+
+const ProductDetail = ({ product }) => {
+  const isDuo = Array.isArray(product.duoOptions) && product.duoOptions.length > 0;
+  const groups = isDuo
+    ? product.duoOptions.map((o) => ({ key: o.name, label: o.name, sizes: o.sizes || [] }))
+    : [{ key: SINGLE_KEY, label: 'Talla', sizes: product.sizes || [] }];
+
+  const [selectedSizes, setSelectedSizes] = useState(() =>
+    Object.fromEntries(groups.map((g) => [g.key, '']))
+  );
+  const [showError, setShowError] = useState(false);
+  const sizesRef = useRef(null);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [productId]);
+    window.scrollTo(0, 0);
+  }, []);
 
-  // MODIFICACIÓN 1: Usar un objeto para el estado de las tallas
-  // Esto permite almacenar múltiples tallas por producto (e.g., para dúos).
-  const [selectedSizes, setSelectedSizes] = useState({});
+  const allSizesSelected = groups.every((g) => g.sizes.length === 0 || selectedSizes[g.key] !== '');
+  const invalid = showError && !allSizesSelected;
 
-  // Nuevo estado para la opción seleccionada del dúo (e.g., 'Hombre', 'Mujer').
-  // Útil para saber qué conjunto de tallas mostrar/editar.
-  const [selectedDuoOption, setSelectedDuoOption] = useState('');
-
-  // Efecto para inicializar las tallas del dúo al cambiar de producto.
-  // Esto es crucial para que al entrar a un dúo, se inicialice correctamente.
-  useEffect(() => {
-    if (!product) return;
-    if (product.duoOptions && product.duoOptions.length > 0) {
-      const initialSizes = product.duoOptions.reduce((acc, option) => {
-        acc[option.name] = '';
-        return acc;
-      }, {});
-      setSelectedSizes(initialSizes);
-      setSelectedDuoOption(product.duoOptions[0].name); // Seleccionar la primera opción por defecto
-    } else {
-      setSelectedSizes({ single: '' }); // Para productos que no son dúo
-      setSelectedDuoOption('single');
-    }
-  }, [productId, product]);
-
-  const shuffleArray = (array) => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
-
-  const recommendedProducts = useMemo(() => {
-    return shuffleArray(
-      products.filter(p => p.category === product?.category && p.id !== product?.id)
-    ).slice(0, 4);
-  }, [product]);
-
-  if (!product) {
-    return (
-      <div className="text-center py-20 px-5 font-sans">
-        <Seo title="Producto no encontrado" description="El producto que buscas no existe o fue retirado." noindex />
-        <h2 className="text-2xl font-bold text-gray-800">Producto no encontrado</h2>
-        <p className="text-gray-600 mt-4">Parece que el producto que buscas no existe o fue retirado.</p>
-      </div>
-    );
-  }
-
-  const formatPrice = (price) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(price);
-
-  // MODIFICACIÓN 2: Actualizar la lógica de selección de talla
-  const handleSizeSelect = (size) => {
-    setSelectedSizes(prevSizes => ({
-      ...prevSizes,
-      [selectedDuoOption]: size
-    }));
-  };
-
-  // Lógica para el botón de WhatsApp
-  const productNameForWhatsApp = encodeURIComponent(product.name);
-  const isDuoProduct = product.duoOptions && product.duoOptions.length > 0;
-  const allSizesSelected = isDuoProduct
-    ? Object.values(selectedSizes).every(size => size !== '')
-    : selectedSizes.single !== '';
-
-  const sizesForWhatsApp = isDuoProduct
+  const sizesForWhatsApp = isDuo
     ? Object.entries(selectedSizes)
         .map(([optionName, size]) => `${optionName}: ${size}`)
         .join(', ')
-    : selectedSizes.single;
+    : selectedSizes[SINGLE_KEY];
 
-  const whatsappLink = `https://wa.me/573205646710?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20*${productNameForWhatsApp}*.%0A%0ATallas:%20${encodeURIComponent(sizesForWhatsApp)}.%0A%0APor%20favor,%20dame%20más%20información.`;
+  const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=¡Hola!%20Estoy%20interesado%20en%20el%20producto%20*${encodeURIComponent(product.name)}*.%0A%0ATallas:%20${encodeURIComponent(sizesForWhatsApp)}.%0A%0APor%20favor,%20dame%20más%20información.`;
 
-  // Si el producto es un dúo, obtenemos las tallas de la opción seleccionada.
-  const sizesToRender = isDuoProduct
-    ? product.duoOptions.find(opt => opt.name === selectedDuoOption)?.sizes || []
-    : product.sizes || [];
+  const handleSelect = (key) => (size) => setSelectedSizes((prev) => ({ ...prev, [key]: size }));
+
+  const handleBlockedOrder = () => {
+    setShowError(true);
+    sizesRef.current?.scrollIntoView({ block: 'center' });
+  };
+
+  const category = CATEGORIES[product.category];
+  const recommended = getRecommended(product);
+  const errorText = isDuo ? 'Selecciona una talla para cada prenda.' : 'Selecciona una talla para continuar.';
 
   const metaDescription = [
     `${product.name}.`,
@@ -121,8 +141,30 @@ const ProductDetailPage = () => {
     }),
   }).replace(/</g, '\\u003c');
 
+  const ctaClass = `flex h-12 w-full items-center justify-center gap-2 bg-black-meraqui text-xs font-medium uppercase tracking-[0.16em] text-white transition-colors hover:bg-neutral-800 ${focusRing}`;
+
+  const renderCta = (extraClass = '') =>
+    allSizesSelected ? (
+      <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className={`${ctaClass} ${extraClass}`}>
+        <WhatsAppIcon className="h-5 w-5" />
+        Pedir por WhatsApp
+        <span className="sr-only"> (se abre en una pestaña nueva)</span>
+      </a>
+    ) : (
+      <button type="button" onClick={handleBlockedOrder} className={`${ctaClass} ${extraClass}`}>
+        <WhatsAppIcon className="h-5 w-5" />
+        Pedir por WhatsApp
+      </button>
+    );
+
+  const tiers = [
+    product.retailPrice && { label: 'Detal', price: product.retailPrice },
+    product.wholesalePrice && { label: 'Por mayor (desde 6 unidades)', price: product.wholesalePrice },
+    product.specialFabricPrice && { label: 'Tela fría', price: product.specialFabricPrice },
+  ].filter(Boolean);
+
   return (
-    <div className="max-w-[1200px] mx-auto my-12 px-5 font-sans">
+    <div className="mx-auto max-w-[1440px] px-5 pt-6 md:px-10 lg:px-16">
       <Seo
         title={product.name}
         description={metaDescription}
@@ -132,142 +174,150 @@ const ProductDetailPage = () => {
       >
         <script type="application/ld+json">{jsonLd}</script>
       </Seo>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="flex flex-col items-center">
-          <div className="w-full rounded-xl overflow-hidden shadow-xl mb-4">
-            <img 
-              src={product.image} 
-              alt={product.name} 
-              className="w-full h-auto max-h-[600px] object-contain block bg-gray-100"
-            />
-          </div>
+
+      <nav aria-label="Ruta de navegación" className="text-xs text-neutral-500">
+        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <li>
+            <Link to="/" className={`inline-flex min-h-11 items-center md:min-h-6 hover:text-black-meraqui ${focusRing}`}>
+              Inicio
+            </Link>
+          </li>
+          {category && (
+            <>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link
+                  to={`/categoria/${product.category}`}
+                  className={`inline-flex min-h-11 items-center md:min-h-6 hover:text-black-meraqui ${focusRing}`}
+                >
+                  {category.label}
+                </Link>
+              </li>
+            </>
+          )}
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" className="max-w-[60vw] truncate text-black-meraqui">
+            {product.name}
+          </li>
+        </ol>
+      </nav>
+
+      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
+        <div className="aspect-[3/4] w-full overflow-hidden bg-neutral-100">
+          <img
+            src={product.image}
+            alt={product.name}
+            width="600"
+            height="800"
+            fetchPriority="high"
+            decoding="async"
+            className="h-full w-full object-cover object-center"
+          />
         </div>
 
-        <div className="flex flex-col p-4 md:p-0">
-          <h1 className="text-4xl md:text-5xl text-black-meraqui font-bold mb-3">{product.name}</h1>
-          {product.retailPrice && (
-            <p className="text-3xl font-semibold text-blue-serene mb-8">{formatPrice(product.retailPrice)}</p>
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          {product.subcategory && (
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-500">
+              {product.subcategory}
+            </p>
+          )}
+          <h1 className="mt-2 text-2xl font-medium leading-tight tracking-tight text-black-meraqui md:text-3xl">
+            {product.name.trim()}
+          </h1>
+          {product.retailPrice && <p className="mt-3 text-lg text-neutral-700">{formatPrice(product.retailPrice)}</p>}
+
+          {tiers.length > 1 && (
+            <dl className="mt-6 border-t border-neutral-200">
+              {tiers.map((tier) => (
+                <div key={tier.label} className="flex items-baseline justify-between border-b border-neutral-200 py-3 text-sm">
+                  <dt className="text-neutral-500">{tier.label}</dt>
+                  <dd className="text-black-meraqui">{formatPrice(tier.price)}</dd>
+                </div>
+              ))}
+            </dl>
           )}
 
-          {/* MODIFICACIÓN 3: Lógica para mostrar las opciones del dúo */}
-          {isDuoProduct && (
-            <div className="mb-4 p-4 bg-gray-50 rounded-lg shadow-sm">
-              <h2 className="font-semibold mb-4 text-lg text-gray-800 border-b border-gray-200 pb-2">
-                Selecciona la prenda
-              </h2>
-              <div className="flex flex-wrap gap-3">
-                {product.duoOptions.map(option => (
-                  <button
-                    key={option.name}
-                    className={`
-                      size-button border-2 font-medium py-2 px-4 rounded-full cursor-pointer 
-                      transition-all duration-400 ease-in-out-expo text-base
-                      ${selectedDuoOption === option.name 
-                        ? 'bg-blue-serene border-blue-serene text-white-custom shadow-lg'
-                        : 'bg-white-custom border-light-gray-meraqui text-blue-serene hover:bg-blue-200 focus:bg-blue-200 focus:outline-none'}
-                    `}
-                    onClick={() => setSelectedDuoOption(option.name)}
-                  >
-                    {option.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+          <div ref={sizesRef} className="mt-8 scroll-mt-28 space-y-6">
+            {groups.map((g) =>
+              g.sizes.length > 0 ? (
+                <SizeGroup
+                  key={g.key}
+                  legend={isDuo ? `Talla · ${g.label}` : 'Talla'}
+                  name={`size-${g.key}`}
+                  sizes={g.sizes}
+                  value={selectedSizes[g.key]}
+                  onChange={handleSelect(g.key)}
+                  invalid={invalid}
+                  describedBy="size-error"
+                />
+              ) : null
+            )}
+            <p id="size-error" role="status" aria-live="polite" className="min-h-5 text-sm text-red-700">
+              {invalid ? errorText : ''}
+            </p>
+          </div>
 
-          {/* MODIFICACIÓN 4: Lógica para las tallas, ahora usando sizesToRender */}
-          {sizesToRender.length > 0 && (
-            <div className="mb-8 p-4 bg-gray-50 rounded-lg shadow-sm">
-              <h2 className="font-semibold mb-4 text-lg text-gray-800 border-b border-gray-200 pb-2">
-                Selecciona tu Talla
-              </h2>
-              <div className="flex flex-wrap gap-3">
-                {sizesToRender.map(size => (
-                  <button
-                    key={size}
-                    aria-selected={
-                      (isDuoProduct && selectedSizes[selectedDuoOption] === size) ||
-                      (!isDuoProduct && selectedSizes.single === size)
-                    }
-                    className={`
-                      size-button border-2 font-medium py-2 px-4 rounded-full cursor-pointer 
-                      transition-all duration-400 ease-in-out-expo text-base
-                      ${((isDuoProduct && selectedSizes[selectedDuoOption] === size) || (!isDuoProduct && selectedSizes.single === size))
-                        ? 'bg-blue-serene border-blue-serene text-white-custom shadow-lg transform scale-110'
-                        : 'bg-white-custom border-light-gray-meraqui text-blue-serene hover:bg-blue-200 focus:bg-blue-200 focus:outline-none'}
-                    `}
-                    onClick={() => handleSizeSelect(size)}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-              {/* MODIFICACIÓN 5: Mensaje de talla seleccionada */}
-              {isDuoProduct && selectedSizes[selectedDuoOption] && (
-                <p className="text-lg text-gray-800 mt-4 font-semibold animate-bounce-once">
-                  Talla seleccionada para {selectedDuoOption}: <span className="text-blue-serene font-bold">{selectedSizes[selectedDuoOption]}</span>
-                </p>
-              )}
-              {!isDuoProduct && selectedSizes.single && (
-                <p className="text-lg text-gray-800 mt-4 font-semibold animate-bounce-once">
-                  Talla seleccionada: <span className="text-blue-serene font-bold">{selectedSizes.single}</span>
-                </p>
-              )}
-              {!allSizesSelected && (
-                <p className="text-red-500 text-sm mt-3">Por favor, selecciona {isDuoProduct ? 'las tallas de cada prenda' : 'una talla'} antes de contactarnos.</p>
-              )}
-            </div>
-          )}
+          <div className="mt-2 hidden lg:block">{renderCta()}</div>
 
-          {/* MODIFICACIÓN 6: Actualizar la condición del botón de WhatsApp */}
-          <button 
-            onClick={() => {
-              if (!allSizesSelected) {
-                alert('Por favor, selecciona las tallas antes de pedir por WhatsApp.');
-                return;
-              }
-              window.open(whatsappLink, '_blank');
-            }}
-            className={`
-              block w-full text-white-custom text-center py-4 rounded-lg no-underline text-xl font-semibold 
-              transition-all duration-400 ease-in-out-expo hover:scale-[1.01] shadow-lg
-              ${!allSizesSelected
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-[#25D366] hover:bg-[#1DAE54] cursor-pointer'}
-            `}
-            disabled={!allSizesSelected}
-          >
-            Pedir por WhatsApp
-          </button>
-
-          <div className="mt-8 font-sans">
-            <div className="py-4 border-t border-gray-200">
-              <h2 className="font-semibold text-lg text-gray-800">Precios Especiales y Materiales</h2>
-              <div className="accordion-content pt-4 leading-relaxed text-gray-700">
-                {product.materials && <p className="mb-2"><strong className="font-semibold text-gray-800">Materiales:</strong> {product.materials}</p>}
-                <ul className="list-disc list-inside p-0 my-2 text-gray-700">
-                  {product.wholesalePrice && <li className="mb-1"><strong className="font-semibold text-gray-800">Al por Mayor (desde 6 unidades):</strong> {formatPrice(product.wholesalePrice)}</li>}
-                  {product.specialFabricPrice && <li><strong className="font-semibold text-gray-800">Opción Tela Fría:</strong> {formatPrice(product.specialFabricPrice)}</li>}
-                </ul>
-                <p className="text-sm text-gray-600 mt-4">Contáctanos por WhatsApp para realizar tus compras.</p>
-              </div>
-            </div>
+          <div className="mt-10 border-t border-neutral-200">
+            {product.materials && <AccordionItem title="Materiales">{product.materials}</AccordionItem>}
+            <AccordionItem title="Envíos y devoluciones">
+              Enviamos a todo el país. Consulta tiempos, costos y condiciones en{' '}
+              <Link
+                to="/envios-devoluciones"
+                className={`text-black-meraqui underline underline-offset-4 hover:text-blue-serene ${focusRing}`}
+              >
+                Envíos y devoluciones
+              </Link>
+              .
+            </AccordionItem>
           </div>
         </div>
       </div>
 
-      {recommendedProducts.length > 0 && (
-        <div className="py-8 mt-12 border-t border-gray-200">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">También te podría interesar</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12">
-            {recommendedProducts.map((recommendedProduct) => (
-              <ProductCard key={recommendedProduct.id} product={recommendedProduct} />
+      {recommended.length > 0 && (
+        <section aria-labelledby="related-heading" className="mt-16 border-t border-neutral-200 pb-16 pt-10 md:mt-24">
+          <h2 id="related-heading" className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-500">
+            También te puede gustar
+          </h2>
+          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 md:gap-x-6 lg:grid-cols-4">
+            {recommended.map((p) => (
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
-        </div>
+        </section>
       )}
+
+      {/* In-flow sticky: pinned to the viewport bottom on mobile, but rests above the footer at the end of the page. */}
+      <div className="sticky bottom-0 -mx-5 flex items-center gap-4 border-t border-neutral-200 bg-white px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 md:-mx-10 md:px-10 lg:hidden">
+        {product.retailPrice && (
+          <p className="shrink-0 text-base font-medium text-black-meraqui">{formatPrice(product.retailPrice)}</p>
+        )}
+        {renderCta('flex-1')}
+      </div>
     </div>
   );
+};
+
+const ProductDetailPage = () => {
+  const { productId } = useParams();
+  const product = products.find((p) => String(p.id) === productId);
+
+  if (!product) {
+    return (
+      <div className="mx-auto max-w-xl px-5 py-24 text-center">
+        <Seo title="Producto no encontrado" description="El producto que buscas no existe o fue retirado." noindex />
+        <h1 className="text-2xl font-medium text-black-meraqui">Producto no encontrado</h1>
+        <p className="mt-4 text-sm text-neutral-600">Parece que el producto que buscas no existe o fue retirado.</p>
+        <Link to="/" className="mt-8 inline-block text-sm underline underline-offset-4">
+          Volver al inicio
+        </Link>
+      </div>
+    );
+  }
+
+  // Keyed by id so selection state resets when navigating between products.
+  return <ProductDetail key={product.id} product={product} />;
 };
 
 export default ProductDetailPage;
