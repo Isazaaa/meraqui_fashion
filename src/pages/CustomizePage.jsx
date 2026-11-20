@@ -211,12 +211,9 @@ const CustomizePage = () => {
   };
 
   const generateWhatsAppLink = () => {
-    const productName = encodeURIComponent(selectedGarment.name);
-    const color = encodeURIComponent(selectedColor.name);
-    const size = encodeURIComponent(selectedSize);
-    const gender = encodeURIComponent(selectedGender);
-    const location = encodeURIComponent(selectedLocation);
-    const message = `¡Hola! Quiero personalizar una ${productName} (${gender}) en color ${color}, talla ${size}, con un diseño ubicado en ${location}. (Si descargaste la imagen, por favor adjúntala aquí).`;
+    // Encode only once, on the full message; encoding each field too would show
+    // literal "%20" / "%C3%B1" sequences in the WhatsApp chat.
+    const message = `¡Hola! Quiero personalizar una ${selectedGarment.name} (${selectedGender}) en color ${selectedColor.name}, talla ${selectedSize}, con un diseño ubicado en ${selectedLocation}. (Si descargaste la imagen, por favor adjúntala aquí).`;
     return `https://wa.me/573205646710?text=${encodeURIComponent(message)}`;
   };
 
@@ -407,6 +404,7 @@ const CustomizePage = () => {
               className="peer sr-only"
               onChange={handleImageUpload}
               ref={fileInputRef}
+              tabIndex={hasDesign ? -1 : undefined}
               aria-describedby="upload-hint upload-error"
             />
 
@@ -416,9 +414,13 @@ const CustomizePage = () => {
                   {uploadedName}
                 </p>
                 <div className="flex shrink-0 items-center gap-3">
-                  <label htmlFor="file-upload" className={`cursor-pointer ${textButton}`}>
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className={textButton}
+                  >
                     Cambiar
-                  </label>
+                  </button>
                   <button type="button" onClick={handleRemoveDesign} className={textButton}>
                     Quitar
                   </button>
